@@ -1,0 +1,19 @@
+{
+  "name": "crm_skrama24-server",
+  "version": "1.0.0",
+  "description": "server for CRM",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akurlovich/CRM_SKrama24-server.git"
+  },
+  "author": "a.kurlovich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akurlovich/CRM_SKrama24-server/issues"
+  },
+  "homepage": "https://github.com/akurlovich/CRM_SKrama24-server#readme"
+}
