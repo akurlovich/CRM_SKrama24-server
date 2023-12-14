@@ -7,7 +7,7 @@ export default class UserDto {
   password: string;
   firstname: string;
   lastname: string;
-  positionID: Schema.Types.ObjectId;
+  position: string;
   avatar: string;
   isAdmin: boolean;
 
@@ -15,8 +15,9 @@ export default class UserDto {
     this.id = model._id;
     this.email = model.email;
     this.password = model.password;
+    this.firstname = model.firstname;
     this.lastname = model.lastname;
-    this.positionID = model.positionID;
+    this.position = model.position;
     this.avatar = model.avatar;
     this.isAdmin = model.isAdmin;
   }

@@ -19,10 +19,9 @@ const UserSchema: Schema = new Schema<IUser>({
     type: String,
     required: true,
   },
-  positionID: {
-    type: Schema.Types.ObjectId,
-    ref: 'Position',
-    default: '',
+  position: {
+    type: String,
+    required: true,
   },
   avatar: {
     type: String,
@@ -30,7 +29,7 @@ const UserSchema: Schema = new Schema<IUser>({
   },
   isAdmin: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   
 },

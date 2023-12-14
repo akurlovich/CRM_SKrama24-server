@@ -4,20 +4,20 @@ import { validationResult } from 'express-validator';
 import ApiError from "../exceptions/api-error";
 
 class UserController {
-  // async registration(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const errors = validationResult(req);
-  //     if (!errors.isEmpty()) {
-  //       return next(ApiError.BadRequest('Bad validation!', errors.array()))
-  //     }
-  //     const { email, password, profileImage } = req.body;
-  //     const userData = await userService.registration(email, password, profileImage);
-  //     res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
-  //     return res.json(userData)
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
+  async registration(req: Request, res: Response, next: NextFunction) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Bad validation!', errors.array()))
+      }
+      const { email, password, firstname, lastname, position } = req.body;
+      const userData = await userService.registration(email, password, firstname, lastname, position);
+      res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+      return res.json(userData)
+    } catch (error) {
+      next(error);
+    }
+  };
   // async login(req: Request, res: Response, next: NextFunction) {
   //   try {
   //     const { email, password } = req.body;
