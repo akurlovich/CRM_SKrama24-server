@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import dealTitleRouter from './dealTitleRouter';
+import dimensionRouter from './dimensionRouter';
 import positionRouter from './positionRouter';
 import userRouter from './userRouter';
 // import brandRouter from './brandRouter';
@@ -23,6 +25,8 @@ import userRouter from './userRouter';
 const router = Router();
 router.use('/', userRouter);
 router.use('/', positionRouter);
+router.use('/', dealTitleRouter);
+router.use('/', dimensionRouter);
 // router.use('/', productColorRouter);
 // router.use('/', productInfoRouter);
 // router.use('/', emailRouter);

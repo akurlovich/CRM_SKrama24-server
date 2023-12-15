@@ -19,6 +19,10 @@ const UserSchema: Schema = new Schema<IUser>({
     type: String,
     required: true,
   },
+  surname: {
+    type: String,
+    default: '',
+  },
   position: {
     type: String,
     required: true,
@@ -29,7 +33,7 @@ const UserSchema: Schema = new Schema<IUser>({
   },
   isAdmin: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   
 },
