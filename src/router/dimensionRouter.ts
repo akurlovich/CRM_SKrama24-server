@@ -4,6 +4,7 @@ import dimensionController from '../controllers/dimension-controller';
 const router = Router();
 router.post('/dimension', dimensionController.addDimension);
 router.get('/dimension/:id', dimensionController.getDimensionByID);
+router.get('/dimension', dimensionController.getLastDimension);
 router.get('/dimensions', dimensionController.getAllDimensions);
 
 export default router;

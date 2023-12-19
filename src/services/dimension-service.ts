@@ -14,6 +14,9 @@ class DimensionService {
   async getAllDimensions() {
     return await dimensionModel.find();
   };
+  async getLastDimension() {
+    return await dimensionModel.find({}).sort({createdAt: -1}).limit(1);
+  };
 };
 
 export default new DimensionService();

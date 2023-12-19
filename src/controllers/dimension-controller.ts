@@ -28,6 +28,15 @@ class DimensionController {
       next(error);
     }
   };
+
+  async getLastDimension(req: Request, res: Response, next: NextFunction) {
+    try {
+      const dimensions = await dimensionService.getLastDimension();
+      return res.json(dimensions);
+    } catch (error) {
+      next(error);
+    }
+  };
 };
 
 export default new DimensionController;
