@@ -14,6 +14,7 @@ const CompanySchema: Schema = new Schema<ICompany>({
   }],
   description: {
     type: String,
+    default: '',
   },
   contactID: {
     type: Schema.Types.ObjectId,
