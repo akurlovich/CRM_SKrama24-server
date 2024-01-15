@@ -2,8 +2,9 @@ import { Router } from 'express';
 import companyController from '../controllers/company-controller';
 
 const router = Router();
-router.post('/company', companyController.addCompany);
-router.get('/company/:id', companyController.getCompanyByID);
-router.get('/companys', companyController.getAllCompanys);
+router.post('/', companyController.addCompany);
+router.get('/:id', companyController.getCompanyByID);
+router.get('/', companyController.getAllCompanies);
+router.delete('/:id', companyController.deleteCompanyByID);
 
 export default router;

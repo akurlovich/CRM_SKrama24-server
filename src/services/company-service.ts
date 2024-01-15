@@ -4,6 +4,7 @@ import { ICompany } from "../types/ICompany";
 
 class CompanyService {
   async addCompany(company: ICompany) {
+    console.log('company server servise', company);
     return await companyModel.create(company);
   };
 
@@ -11,8 +12,12 @@ class CompanyService {
     return await companyModel.findById(id);
   };
 
-  async getAllCompanys() {
+  async getAllCompanies() {
     return await companyModel.find();
+  };
+
+  async deleteCompanyByID(id: string) {
+    return await companyModel.findByIdAndDelete(id);
   };
 };
 

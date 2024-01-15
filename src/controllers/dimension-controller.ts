@@ -40,7 +40,7 @@ class DimensionController {
 
   async deleteDimensionByID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
-      const dimension = await dimensionService.getDimensionByID(req.params.id);
+      const dimension = await dimensionService.deleteDimensionByID(req.params.id);
       return res.json(dimension);
     } catch (error) {
       next(error);

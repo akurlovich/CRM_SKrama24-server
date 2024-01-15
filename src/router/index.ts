@@ -32,14 +32,14 @@ import userRouter from './userRouter';
 // import commentConroller from '../controllers/comment-conroller';
 
 const router = Router();
-router.use('/', userRouter);
+router.use('/users', userRouter);
 router.use('/', positionRouter);
 router.use('/', dealTitleRouter);
-router.use('/', dimensionRouter);
+router.use('/dimensions', dimensionRouter);
 router.use('/', phoneRouter);
 router.use('/', emailRouter);
 router.use('/', contactRouter);
-router.use('/', companyRouter);
+router.use('/companies', companyRouter);
 router.use('/', commentRouter);
 router.use('/', dealRouter);
 router.use('/', orderRouter);

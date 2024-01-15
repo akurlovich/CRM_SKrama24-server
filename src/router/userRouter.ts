@@ -11,8 +11,8 @@ router.post('/registration',
 // router.post('/logout', userController.logout);
 // router.get('/refresh', userController.refresh);
 // router.get('/users', authMiddleware, userController.getUsers);
-router.get('/users', userController.getAllUsers);
-router.get('/user/:id', userController.getUserById);
+router.get('/', userController.getAllUsers);
+router.get('/:id', userController.getUserById);
 // router.put('/profileImage', userController.updateUserProfileImage);
 // router.put('/isBlocked', userController.updateUserIsBlocked);
 

@@ -17,9 +17,9 @@ const CompanySchema: Schema = new Schema<ICompany>({
     default: '',
   },
   contactID: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'Contact',
-    default: [],
+    default: '',
   },
   dealsID: [{
     type: Schema.Types.ObjectId,
