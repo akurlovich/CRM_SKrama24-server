@@ -22,6 +22,25 @@ export interface IContact extends Document {
   
 }
 
+export interface IContactRequest extends Document {
+  // companyID: Schema.Types.ObjectId,
+  address: {
+    main: string,
+    district: string,
+  },
+  phonesID: {
+    // companyID: string,
+    number: string,
+    description: string,
+  },
+  emailsID: {
+    // companyID: string,
+    email: string,
+    description: string,
+  }
+  
+}
+
 // export interface IContact extends Document {
 //   company: {
 //     companyID: string,

@@ -19,11 +19,11 @@ const ContactSchema: Schema = new Schema<IContact>({
   phonesID: [{
     type: Schema.Types.ObjectId,
     ref: 'Phone',
-  },],
+  }],
   emailsID: [{
     type: Schema.Types.ObjectId,
     ref: 'Email',
-  },],
+  }],
 },
 { timestamps: true },
 );

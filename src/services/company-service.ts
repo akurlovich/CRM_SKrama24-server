@@ -4,7 +4,7 @@ import { IContact } from "../types/IContact";
 
 class CompanyService {
   async addCompany(company: ICompany, contact: IContact) {
-    company.contactID = contact._id;
+    // company.contactID = contact._id;
     console.log('company server servise', company);
     // const newCompany = await companyModel.create(company);
     // return "newCompany";
