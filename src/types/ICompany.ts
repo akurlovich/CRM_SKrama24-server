@@ -20,6 +20,20 @@ export interface ICompany extends Document {
   commentsID: Array<Schema.Types.ObjectId>,
 }
 
+interface IQuery {
+  path: string,
+  select: string,
+}
+
+export interface ICompaniesQuery {
+  query: IQuery[],
+  sort: {
+    [key: string]: 'asc' | 'desc',
+  },
+  limit: number,
+}
+
+
 // export interface ICompany extends Document {
 //   title: string,
 //   users: [{

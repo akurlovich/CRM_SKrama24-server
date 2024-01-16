@@ -1,5 +1,5 @@
 import companyModel from "../models/company-model";
-import { ICompany } from "../types/ICompany";
+import { ICompaniesQuery, ICompany } from "../types/ICompany";
 import { IContact } from "../types/IContact";
 
 class CompanyService {
@@ -17,6 +17,10 @@ class CompanyService {
 
   async getAllCompanies() {
     return await companyModel.find();
+  };
+
+  async getAllCompaniesPopulateQuery(query: ICompaniesQuery) {
+    return await companyModel.find().populate(query.query).limit(query.limit).sort(query.sort);
   };
 
   async getAllCompaniesPopulate() {

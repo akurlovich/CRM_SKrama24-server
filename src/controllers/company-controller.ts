@@ -29,7 +29,20 @@ class CompanyController {
   async getAllCompanies(req: Request, res: Response, next: NextFunction) {
     try {
       const companies = await companyService.getAllCompanies();
-      console.log('companies', companies)
+      // console.log('companies', companies)
+      return res.json(companies);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  async getAllCompaniesPopulateQuery(req: Request, res: Response, next: NextFunction) {
+    try {
+      // const { query } = req.body;
+      // console.log('query', query);
+      // console.log('body', req.body);
+      const companies = await companyService.getAllCompaniesPopulateQuery(req.body);
+      // console.log('companies', companies)
       return res.json(companies);
     } catch (error) {
       next(error);
@@ -39,7 +52,7 @@ class CompanyController {
   async getAllCompaniesPopulate(req: Request, res: Response, next: NextFunction) {
     try {
       const companies = await companyService.getAllCompaniesPopulate();
-      console.log('companies', companies)
+      // console.log('companies', companies)
       return res.json(companies);
     } catch (error) {
       next(error);
