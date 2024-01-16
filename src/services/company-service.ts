@@ -20,7 +20,7 @@ class CompanyService {
   };
 
   async getAllCompaniesPopulate() {
-    return await companyModel.find().populate('usersID').populate('contactID');
+    return await companyModel.find().populate({path: 'usersID', select: 'lastname firstname'}).populate({path: 'contactID', select: 'address.district'});
   };
 
   async deleteCompanyByID(id: string) {
