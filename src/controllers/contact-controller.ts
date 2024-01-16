@@ -28,6 +28,53 @@ class ContactController {
       next(error);
     }
   };
+
+  async updateContact(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+      // {
+      //   "address": {
+      //   "main": "string",
+      //   "district": "string"
+      //   },
+      //   "phones": [{
+      //   "phonesID": "string",
+      //   "number": "string",
+      //   "description": "string"
+      //   }]
+      // }
+      const { company, address, phone, email } = req.body;
+
+      if (address) {
+        const contact = await contactService.updateContactAddress(req.params.id, address);
+        return res.json(contact);
+      };
+
+      if (company) {
+        const contact = await contactService.updateContactCompany(req.params.id, company);
+        return res.json(contact);
+      }
+      
+      // if (price) {
+      //   const product = await contactService.updateContact(req.params.id, price, 'price');
+      //   return res.json(product);
+      // }
+      // if (views) {
+      //   const product = await contactService.updateContact(req.params.id, views, 'views');
+      //   return res.json(product);
+      // }
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  async deleteContactByID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+      const contact = await contactService.deleteContactByID(req.params.id);
+      return res.json(contact);
+    } catch (error) {
+      next(error);
+    }
+  };
 };
 
 export default new ContactController;

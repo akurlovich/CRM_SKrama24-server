@@ -10,31 +10,26 @@ const CompanySchema: Schema = new Schema<ICompany>({
   usersID: [{
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true,
   }],
   description: {
     type: String,
     default: '',
   },
   contactID: {
-    type: String,
+    type: Schema.Types.ObjectId,
     ref: 'Contact',
-    default: '',
   },
   dealsID: [{
     type: Schema.Types.ObjectId,
     ref: 'Deal',
-    default: [],
   }],
   ordersID: [{
     type: Schema.Types.ObjectId,
     ref: 'Order',
-    default: [],
   }],
   commentsID: [{
     type: Schema.Types.ObjectId,
     ref: 'Comment',
-    default: [],
   }],
 },
 { timestamps: true },

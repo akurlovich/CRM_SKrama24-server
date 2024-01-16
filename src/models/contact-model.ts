@@ -5,26 +5,25 @@ const ContactSchema: Schema = new Schema<IContact>({
   companyID: {
     type: Schema.Types.ObjectId,
     ref: 'Company',
-    required: true,
   },
   address: {
-    type: String,
-    default: '',
+    main: {
+      type: String,
+      default: '',
+    },
+    district: {
+      type: String,
+      default: '',
+    }
   },
   phonesID: [{
     type: Schema.Types.ObjectId,
     ref: 'Phone',
-    default: [],
-  }],
+  },],
   emailsID: [{
     type: Schema.Types.ObjectId,
     ref: 'Email',
-    default: [],
-  }],
-  district: {
-    type: String,
-    default: '',
-  },
+  },],
 },
 { timestamps: true },
 );

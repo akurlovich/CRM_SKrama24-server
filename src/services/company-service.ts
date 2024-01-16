@@ -1,10 +1,13 @@
 import companyModel from "../models/company-model";
 import { ICompany } from "../types/ICompany";
-
+import { IContact } from "../types/IContact";
 
 class CompanyService {
-  async addCompany(company: ICompany) {
+  async addCompany(company: ICompany, contact: IContact) {
+    company.contactID = contact._id;
     console.log('company server servise', company);
+    // const newCompany = await companyModel.create(company);
+    // return "newCompany";
     return await companyModel.create(company);
   };
 
@@ -14,6 +17,10 @@ class CompanyService {
 
   async getAllCompanies() {
     return await companyModel.find();
+  };
+
+  async getAllCompaniesPopulate() {
+    return await companyModel.find().populate('usersID').populate('contactID');
   };
 
   async deleteCompanyByID(id: string) {

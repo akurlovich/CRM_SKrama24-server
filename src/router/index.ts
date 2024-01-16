@@ -38,7 +38,7 @@ router.use('/', dealTitleRouter);
 router.use('/dimensions', dimensionRouter);
 router.use('/', phoneRouter);
 router.use('/', emailRouter);
-router.use('/', contactRouter);
+router.use('/contacts', contactRouter);
 router.use('/companies', companyRouter);
 router.use('/', commentRouter);
 router.use('/', dealRouter);
