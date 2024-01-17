@@ -8,6 +8,7 @@ router.get('/:id/card', companyController.getCompanyByID);
 // router.get('/filter', companyController.getAllCompaniesPopulate);
 router.get('/', companyController.getAllCompanies);
 router.post('/filter', companyController.getAllCompaniesPopulateQuery);
+router.post('/item', companyController.getCompanyByIDQuery);
 router.delete('/:id', companyController.deleteCompanyByID);
 
 export default router;

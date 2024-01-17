@@ -93,6 +93,19 @@ class CompanyController {
     }
   };
 
+  async getCompanyByIDQuery(req: Request, res: Response, next: NextFunction) {
+    try {
+      // const { query } = req.body;
+      // console.log('query', query);
+      // console.log('body', req.body);
+      const company = await companyService.getCompanyByIDQuery(req.body);
+      // console.log('companies', companies)
+      return res.json(company);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   async getAllCompaniesPopulate(req: Request, res: Response, next: NextFunction) {
     try {
       const companies = await companyService.getAllCompaniesPopulate();

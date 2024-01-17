@@ -20,7 +20,13 @@ class CompanyService {
   };
 
   async getAllCompaniesPopulateQuery(query: ICompaniesQuery) {
-    return await companyModel.find().populate(query.query).limit(query.limit).sort(query.sort);
+    return await companyModel.find(query.find).populate(query.query).limit(query.limit).sort(query.sort);
+    // return await companyModel.find().populate(query.query).limit(query.limit).sort({'usersID[0].lastname': 'asc'});
+  };
+
+  async getCompanyByIDQuery(query: ICompaniesQuery) {
+    return await companyModel.findOne(query.find).populate(query.query).limit(query.limit).sort(query.sort);
+    // return await companyModel.find().populate(query.query).limit(query.limit).sort({'usersID[0].lastname': 'asc'});
   };
 
   async getAllCompaniesPopulate() {

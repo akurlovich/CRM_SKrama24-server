@@ -22,7 +22,10 @@ export interface ICompany extends Document {
 
 interface IQuery {
   path: string,
-  select: string,
+  select?: string,
+  populate?: {
+    path: string,
+  }
 }
 
 export interface ICompaniesQuery {
@@ -31,6 +34,9 @@ export interface ICompaniesQuery {
     [key: string]: 'asc' | 'desc',
   },
   limit: number,
+  find?: {
+    [key: string]: string
+  }
 }
 
 
