@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import contactService from "../services/contact-service";
+import phoneService from "../services/phone-service";
 
 class ContactController {
   async addContact(req: Request, res: Response, next: NextFunction) {
@@ -32,6 +33,8 @@ class ContactController {
   async deletePhoneFromContactByPhoneID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
       const contact = await contactService.deletePhoneFromContactByPhoneID(req.params.id);
+      await phoneService.deletePhoneByID(req.params.id);
+
       return res.json(contact);
     } catch (error) {
       next(error);
