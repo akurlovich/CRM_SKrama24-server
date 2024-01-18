@@ -20,6 +20,24 @@ class ContactController {
     }
   };
 
+  async getContactByPhoneID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+      const contact = await contactService.getContactByPhoneID(req.params.id);
+      return res.json(contact);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  async deletePhoneFromContactByPhoneID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+      const contact = await contactService.deletePhoneFromContactByPhoneID(req.params.id);
+      return res.json(contact);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   async getAllContacts(req: Request, res: Response, next: NextFunction) {
     try {
       const contacts = await contactService.getAllContacts();

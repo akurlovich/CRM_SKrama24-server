@@ -1,3 +1,4 @@
+import { Schema } from "mongoose";
 import contactModel from "../models/contact-model";
 import { IContact, IContactRequest } from "../types/IContact";
 import { IEmail } from "../types/IEmail";
@@ -10,6 +11,34 @@ class ContactService {
 
   async getContactByID(id: string) {
     return await contactModel.findById(id);
+  };
+
+  async getContactByPhoneID(id: string) {
+    //TODO ищет среди всех контактов id телефона
+    // return await contactModel.findOne({phonesID: { _id: id}});
+    const contact = await contactModel.findOne({phonesID: { _id: id}});
+    // console.log('1', contact.phonesID.filter(item => {
+    //   console.log('item', item.toString())
+    //   console.log('id', id)
+    //   // item !== id
+    // } ));
+    // contact.phonesID.filter(item => item.toString() != id);
+
+    // const index = contact.phonesID.findIndex(item => item.toString() == id)
+    // contact.phonesID.splice(index, 1)
+
+    return contact;
+  };
+
+  //TODO передать id телефона
+  async deletePhoneFromContactByPhoneID(id: string) {
+    const contact = await contactModel.findOne({phonesID: { _id: id}});
+
+    const index = contact.phonesID.findIndex(item => item.toString() == id)
+    contact.phonesID.splice(index, 1)
+    contact.save();
+
+    return contact;
   };
 
   async getAllContacts() {
