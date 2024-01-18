@@ -5,3 +5,8 @@ export interface IEmail extends Document {
   email: string,
   description: string,
 }
+
+export interface IEmailUpdate {
+  email: string,
+  description: string,
+}

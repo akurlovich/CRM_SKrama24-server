@@ -1,6 +1,5 @@
 import phoneModel from "../models/phone-model";
-import { IPhone } from "../types/IPhone";
-
+import { IPhone, IPhoneUpdate } from "../types/IPhone";
 
 class PhoneService {
   async addPhone(phone: IPhone) {
@@ -13,6 +12,14 @@ class PhoneService {
 
   async getAllPhones() {
     return await phoneModel.find();
+  };
+
+  async updatePhoneByID(id: string, phone: IPhoneUpdate) {
+    return await phoneModel.findByIdAndUpdate({_id: id}, phone);
+  };
+
+  async deletePhoneByID(id: string) {
+    return await phoneModel.findByIdAndDelete(id);
   };
 };
 

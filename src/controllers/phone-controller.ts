@@ -1,10 +1,13 @@
 import { NextFunction, Request, Response } from "express";
+import contactService from "../services/contact-service";
 import phoneService from "../services/phone-service";
 
 class PhoneController {
   async addPhone(req: Request, res: Response, next: NextFunction) {
     try {
-      const newPhone = await phoneService.addPhone(req.body);
+      const { contactID, phone } = req.body;
+      const newPhone = await phoneService.addPhone(phone);
+      await contactService.updateContactAddPhone(contactID, newPhone);
       return res.json(newPhone);
     } catch (error) {
       next(error);
@@ -24,6 +27,15 @@ class PhoneController {
     try {
       const phones = await phoneService.getAllPhones();
       return res.json(phones);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  async deletePhoneByID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+      const phone = await phoneService.deletePhoneByID(req.params.id);
+      return res.json(phone);
     } catch (error) {
       next(error);
     }

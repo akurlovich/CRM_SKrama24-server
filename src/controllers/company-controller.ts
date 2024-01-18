@@ -53,8 +53,8 @@ class CompanyController {
 
       const newPhone = await phoneService.addPhone(phone);
       const newEmail = await emailService.addEmail(email);
-      await contactService.updateContactPhone(newContact._id, newPhone);
-      await contactService.updateContactEmail(newContact._id, newEmail);
+      await contactService.updateContactAddPhone(newContact._id, newPhone);
+      await contactService.updateContactAddEmail(newContact._id, newEmail);
       return res.json(newCompany);
     } catch (error) {
       next(error);

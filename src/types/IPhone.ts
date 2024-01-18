@@ -5,3 +5,8 @@ export interface IPhone extends Document {
   number: string,
   description: string,
 }
+
+export interface IPhoneUpdate{
+  number: string,
+  description: string,
+}

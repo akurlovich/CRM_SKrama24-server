@@ -5,5 +5,6 @@ const router = Router();
 router.post('/', phoneController.addPhone);
 router.get('/:id', phoneController.getPhoneByID);
 router.get('/', phoneController.getAllPhones);
+router.delete('/:id', phoneController.deletePhoneByID);
 
 export default router;

@@ -29,11 +29,11 @@ class ContactService {
     return await contactModel.findByIdAndUpdate({_id: id}, {companyID: companyID}, {new: true});
   };
 
-  async updateContactPhone(id: string, phone: IPhone) {
+  async updateContactAddPhone(id: string, phone: IPhone) {
     return await contactModel.updateOne({_id: id}, { $push: {phonesID: phone}});
   };
 
-  async updateContactEmail(id: string, email: IEmail) {
+  async updateContactAddEmail(id: string, email: IEmail) {
     const contact = await contactModel.updateOne({_id: id}, { $push: {emailsID: email}});
     // console.log('first', contact)
     // contact.emailsID.push(email._id);
