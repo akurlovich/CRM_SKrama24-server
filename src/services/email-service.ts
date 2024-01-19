@@ -1,5 +1,5 @@
 import emailModel from "../models/email-model";
-import { IEmail } from "../types/IEmail";
+import { IEmail, IEmailUpdate } from "../types/IEmail";
 
 
 class EmailService {
@@ -13,6 +13,14 @@ class EmailService {
 
   async getAllEmails() {
     return await emailModel.find();
+  };
+
+  async updateEmailByID(id: string, email: IEmailUpdate) {
+    return await emailModel.findByIdAndUpdate({_id: id}, email);
+  };
+
+  async deleteEmailByID(id: string) {
+    return await emailModel.findByIdAndDelete(id);
   };
 };
 

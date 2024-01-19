@@ -9,5 +9,6 @@ router.get('/', contactController.getAllContacts);
 router.put('/:id', contactController.updateContact);
 router.delete('/:id', contactController.deleteContactByID);
 router.delete('/:id/phones', contactController.deletePhoneFromContactByPhoneID);
+router.delete('/:id/emails', contactController.deleteEmailFromContactByEmailID);
 
 export default router;

@@ -31,11 +31,25 @@ class ContactService {
   };
 
   //TODO передать id телефона
-  async deletePhoneFromContactByPhoneID(id: string) {
-    const contact = await contactModel.findOne({phonesID: { _id: id}});
+  async deletePhoneFromContactByPhoneID(phoneID: string) {
+    const contact = await contactModel.findOne({phonesID: { _id: phoneID}});
 
-    const index = contact.phonesID.findIndex(item => item.toString() == id)
+    const index = contact.phonesID.findIndex(item => item.toString() == phoneID)
     contact.phonesID.splice(index, 1)
+    contact.save();
+
+    return contact;
+  };
+
+  //TODO передать id email
+  async deleteEmailFromContactByEmailID(emailID: string) {
+    console.log("emailID", emailID)
+    const contact = await contactModel.findOne({emailsID: { _id: emailID}});
+
+    console.log("contact", contact)
+
+    const index = contact.emailsID.findIndex(item => item.toString() == emailID)
+    contact.emailsID.splice(index, 1)
     contact.save();
 
     return contact;
