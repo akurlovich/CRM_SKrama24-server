@@ -12,8 +12,9 @@ const DealSchema: Schema = new Schema<IDeal>({
     ref: 'User',
     required: true,
   },
-  dealTitle: {
-    type: String,
+  dealTitleID: {
+    type: Schema.Types.ObjectId,
+    ref: 'DealTitle',
     required: true,
   },
   description: {

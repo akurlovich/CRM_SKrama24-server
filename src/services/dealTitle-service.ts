@@ -3,8 +3,8 @@ import { IDealTitle } from "../types/IDealTitle";
 
 
 class DealTitleService {
-  async addDealTitle(dealTitle: IDealTitle) {
-    return await dealTitleModel.create(dealTitle);
+  async addDealTitle(title: string) {
+    return await dealTitleModel.create(title);
   };
 
   async getDealTitleByID(id: string) {

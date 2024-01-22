@@ -1,5 +1,5 @@
 import dealModel from "../models/deal-model";
-import { IDeal } from "../types/IDeal";
+import { IDeal, IDealUpdate } from "../types/IDeal";
 
 
 class DealService {
@@ -13,6 +13,14 @@ class DealService {
 
   async getAllDeals() {
     return await dealModel.find();
+  };
+
+  async updateDealByID(id: string, deal: IDealUpdate) {
+    return await dealModel.findByIdAndUpdate({_id: id}, deal);
+  };
+
+  async deleteDealByID(id: string) {
+    return await dealModel.findByIdAndDelete(id);
   };
 };
 
