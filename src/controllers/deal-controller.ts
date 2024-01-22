@@ -5,9 +5,8 @@ import dealService from "../services/deal-service";
 class DealController {
   async addDeal(req: Request, res: Response, next: NextFunction) {
     try {
-      const { companyID, deal } = req.body;
-      const newDeal = await dealService.addDeal(deal);
-      await companyService.updateCompanyAddDeal(companyID, deal)
+      const newDeal = await dealService.addDeal(req.body);
+      await companyService.updateCompanyAddDeal(newDeal)
       return res.json(newDeal);
     } catch (error) {
       next(error);

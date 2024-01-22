@@ -37,8 +37,8 @@ class CompanyService {
     return await companyModel.find().populate({path: 'usersID', select: 'lastname firstname'}).populate({path: 'contactID', select: 'address.district'});
   };
 
-  async updateCompanyAddDeal(companyID: string, deal: IDeal) {
-    const company = await companyModel.updateOne({_id: companyID}, { $push: {dealsID: deal}});
+  async updateCompanyAddDeal(deal: IDeal) {
+    const company = await companyModel.updateOne({_id: deal.companyID}, { $push: {dealsID: deal}});
     // console.log('first', contact)
     // contact.emailsID.push(email._id);
     // await contact.save;
