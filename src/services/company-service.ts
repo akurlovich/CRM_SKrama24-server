@@ -23,7 +23,7 @@ class CompanyService {
   async getAllCompaniesPopulateQuery(query: ICompaniesQuery) {
     return await companyModel.find(query.find).populate(query.query).limit(query.limit).sort(query.sort);
     // return await companyModel.find().populate({path: 'contactID', options: { sort: {'address.district': 'asc'}}});
-    // return await companyModel.find().populate({path: 'contactID', select: "address.district", options: { sort: {'district': 'asc'} }});
+    // return await companyModel.find().populate({path: 'contactID', populate: {path: 'address', select: "district", options: { sort: { "district": -1 } }}});
     // return await companyModel.find().populate({path: 'contactID', select: "address.district", options: { sort: { "contactID.address.district": -1 } }});
     
   };

@@ -57,6 +57,8 @@ class ContactService {
 
   async getAllContacts() {
     return await contactModel.find();
+    // return await contactModel.find().sort({'address.district': -1});
+    // return await contactModel.find({'address.district': /пинск/i})
   };
 
   // async updateContact(id: string, key: string, data: string) {
