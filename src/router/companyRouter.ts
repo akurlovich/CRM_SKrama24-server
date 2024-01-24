@@ -9,6 +9,7 @@ router.get('/:id/card', companyController.getCompanyByID);
 router.get('/', companyController.getAllCompanies);
 router.post('/filter', companyController.getAllCompaniesPopulateQuery);
 router.post('/item', companyController.getCompanyByIDQuery);
+router.put('/:id/description', companyController.updateCompanyDescription);
 router.delete('/:id', companyController.deleteCompanyByID);
 
 export default router;

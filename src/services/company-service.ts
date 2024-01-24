@@ -45,6 +45,14 @@ class CompanyService {
     return company;
   };
 
+  async updateCompanyDescription(companyID: string, {description}: {description: string}) {
+    const company = await companyModel.findByIdAndUpdate({_id: companyID}, {description});
+    // console.log('first', contact)
+    // contact.emailsID.push(email._id);
+    // await contact.save;
+    return company;
+  };
+
   //TODO передать id сделки
   async deleteDealFromCompanyByDealID(dealID: string) {
     const company = await companyModel.findOne({dealsID: { _id: dealID}});
