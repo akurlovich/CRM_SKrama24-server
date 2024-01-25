@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import commentService from "../services/comment-service";
+import companyService from "../services/company-service";
 
 class CommentController {
   async addComment(req: Request, res: Response, next: NextFunction) {
     try {
       const newComment = await commentService.addComment(req.body);
+      await companyService.updateCompanyAddComment(newComment);
       return res.json(newComment);
     } catch (error) {
       next(error);

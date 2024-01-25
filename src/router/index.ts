@@ -40,7 +40,7 @@ router.use('/phones', phoneRouter);
 router.use('/emails', emailRouter);
 router.use('/contacts', contactRouter);
 router.use('/companies', companyRouter);
-router.use('/', commentRouter);
+router.use('/comments', commentRouter);
 router.use('/deals', dealRouter);
 router.use('/', orderRouter);
 router.use('/', orderItemRouter);

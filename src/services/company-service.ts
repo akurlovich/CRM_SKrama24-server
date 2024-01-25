@@ -1,4 +1,5 @@
 import companyModel from "../models/company-model";
+import { IComment } from "../types/IComment";
 import { ICompaniesQuery, ICompany } from "../types/ICompany";
 import { IContact } from "../types/IContact";
 import { IDeal } from "../types/IDeal";
@@ -39,6 +40,14 @@ class CompanyService {
 
   async updateCompanyAddDeal(deal: IDeal) {
     const company = await companyModel.updateOne({_id: deal.companyID}, { $push: {dealsID: deal}});
+    // console.log('first', contact)
+    // contact.emailsID.push(email._id);
+    // await contact.save;
+    return company;
+  };
+
+  async updateCompanyAddComment(comment: IComment) {
+    const company = await companyModel.updateOne({_id: comment.companyID}, { $push: {commentsID: comment}});
     // console.log('first', contact)
     // contact.emailsID.push(email._id);
     // await contact.save;

@@ -7,14 +7,16 @@ const CommentSchema: Schema = new Schema<IComment>({
     ref: 'Company',
     required: true,
   },
-  usersID: {
+  userID: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
   description: {
     type: String,
-    required: true,
+  },
+  dealType: {
+    type: String,
   },
   date: {
     type: String,
