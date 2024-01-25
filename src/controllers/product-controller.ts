@@ -28,6 +28,15 @@ class ProductController {
       next(error);
     }
   };
+
+  async deleteProductByID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+      const product = await productService.deleteProductByID(req.params.id);
+      return res.json(product);
+    } catch (error) {
+      next(error);
+    }
+  };
 };
 
 export default new ProductController;

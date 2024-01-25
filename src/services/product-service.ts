@@ -14,6 +14,10 @@ class ProductService {
   async getAllProducts() {
     return await productModel.find();
   };
+
+  async deleteProductByID(id: string) {
+    return await productModel.findByIdAndDelete(id);
+  };
 };
 
 export default new ProductService();

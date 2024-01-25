@@ -44,7 +44,7 @@ router.use('/comments', commentRouter);
 router.use('/deals', dealRouter);
 router.use('/', orderRouter);
 router.use('/', orderItemRouter);
-router.use('/', productRouter);
+router.use('/products', productRouter);
 // router.use('/', productColorRouter);
 // router.use('/', productInfoRouter);
 // router.use('/', emailRouter);
