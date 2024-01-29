@@ -22,7 +22,7 @@ const OrderItemSchema: Schema = new Schema<IOrderItem>({
   },
   sum: {
     type: Number,
-    default: 1,
+    default: 0,
   },
 },
 { timestamps: true },

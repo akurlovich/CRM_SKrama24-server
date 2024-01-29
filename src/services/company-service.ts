@@ -3,6 +3,7 @@ import { IComment } from "../types/IComment";
 import { ICompaniesQuery, ICompany } from "../types/ICompany";
 import { IContact } from "../types/IContact";
 import { IDeal } from "../types/IDeal";
+import { IOrder } from "../types/IOrder";
 
 class CompanyService {
   async addCompany(company: ICompany, contact: IContact) {
@@ -48,6 +49,14 @@ class CompanyService {
 
   async updateCompanyAddComment(comment: IComment) {
     const company = await companyModel.updateOne({_id: comment.companyID}, { $push: {commentsID: comment}});
+    // console.log('first', contact)
+    // contact.emailsID.push(email._id);
+    // await contact.save;
+    return company;
+  };
+
+  async updateCompanyAddOrder(order: IOrder) {
+    const company = await companyModel.updateOne({_id: order.companyID}, { $push: {ordersID: order}});
     // console.log('first', contact)
     // contact.emailsID.push(email._id);
     // await contact.save;

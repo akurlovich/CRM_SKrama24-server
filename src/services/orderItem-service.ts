@@ -1,10 +1,10 @@
 import orderItemModel from "../models/orderItem-model";
-import { IOrderItem } from "../types/IOrderItem";
+import { IOrderItem, IOrderItemNewAdd } from "../types/IOrderItem";
 
 
 class OrderItemService {
-  async addOrderItem(orderItem: IOrderItem) {
-    return await orderItemModel.create(orderItem);
+  async addOrderItem(orderItem: IOrderItemNewAdd[]) {
+    return await orderItemModel.insertMany(orderItem);
   };
 
   async getOrderItemByID(id: string) {
@@ -13,6 +13,10 @@ class OrderItemService {
 
   async getAllOrderItems() {
     return await orderItemModel.find();
+  };
+
+  async deleteOrderItemByID(id: string) {
+    return await orderItemModel.findByIdAndDelete(id);
   };
 };
 

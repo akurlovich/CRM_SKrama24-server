@@ -1,10 +1,18 @@
 import orderModel from "../models/order-model";
-import { IOrder } from "../types/IOrder";
+import { IOrder, IOrderNew, IOrderNewWithCount } from "../types/IOrder";
 
 
 class OrderService {
-  async addOrder(order: IOrder) {
-    return await orderModel.create(order);
+  async addOrder(order: IOrderNew) {
+    const count = await orderModel.find().countDocuments();
+    console.log('count', count)
+    const newOrder: IOrderNewWithCount = {
+      orderNumber: count + 1,
+      companyID: order.companyID,
+      usersID: order.usersID,
+      totalSum: order.totalSum
+    }
+    return await orderModel.create(newOrder);
   };
 
   async getOrderByID(id: string) {
@@ -13,6 +21,10 @@ class OrderService {
 
   async getAllOrders() {
     return await orderModel.find();
+  };
+
+  async deleteOrderByID(id: string) {
+    return await orderModel.findByIdAndDelete(id);
   };
 };
 

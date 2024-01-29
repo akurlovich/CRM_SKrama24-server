@@ -2,8 +2,9 @@ import { Router } from 'express';
 import orderItemController from '../controllers/orderItem-controller';
 
 const router = Router();
-router.post('/orderItem', orderItemController.addOrderItem);
-router.get('/orderItem/:id', orderItemController.getOrderItemByID);
-router.get('/orderItems', orderItemController.getAllOrderItems);
+router.post('/', orderItemController.addOrderItem);
+router.get('/:id', orderItemController.getOrderItemByID);
+router.get('/', orderItemController.getAllOrderItems);
+router.delete('/:id', orderItemController.deleteOrderItemByID);
 
 export default router;

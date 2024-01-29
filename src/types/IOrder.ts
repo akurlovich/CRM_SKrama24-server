@@ -13,3 +13,15 @@ export interface IOrder extends Document {
 
 type StatusType = 'processing' | 'done' | 'cansel';
   
+export interface IOrderNew {
+  companyID: string,
+  usersID: string,
+  totalSum: number,
+}
+
+export interface IOrderNewWithCount {
+  orderNumber: number,
+  companyID: string,
+  usersID: string,
+  totalSum: number,
+}
