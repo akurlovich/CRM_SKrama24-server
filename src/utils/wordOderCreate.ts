@@ -128,6 +128,50 @@ export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
             })
           ],
       },
+      varSum: {
+        type: PatchType.PARAGRAPH,
+        children: [
+          new TextRun({
+            text: common.vatSum,
+            bold: true,
+            size: 24,
+            font: font,
+          })
+        ],
+      },
+      totalSum: {
+        type: PatchType.PARAGRAPH,
+        children: [
+          new TextRun({
+            text: common.totalSum,
+            bold: true,
+            size: 24,
+            font: font,
+          })
+        ],
+      },
+      varSumWords: {
+        type: PatchType.PARAGRAPH,
+        children: [
+          new TextRun({
+            text: 'три тысячи пятьс семьдся бел.руб.',
+            bold: true,
+            size: 24,
+            font: font,
+          })
+        ],
+      },
+      totalSumWords: {
+        type: PatchType.PARAGRAPH,
+        children: [
+          new TextRun({
+            text: 'одна тысячи пятьс семьдся бел.руб.',
+            bold: true,
+            size: 24,
+            font: font,
+          })
+        ],
+      },
       // paragraph_replace: {
       //     type: PatchType.DOCUMENT,
       //     children: [
@@ -503,8 +547,8 @@ export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
       },
     },
   }).then((doc) => {
-    console.log(path.resolve(__dirname, '../..', 'static', '.jpeg'))
-    fs.writeFileSync(path.resolve(__dirname, '../..', 'static', `11MyDoc-11111.docx`), doc);
+    // console.log(path.resolve(__dirname, '../..', 'static', '.jpeg'))
+    fs.writeFileSync(path.resolve(__dirname, '../..', 'static', `${data[0].orderID}.docx`), doc);
     // fs.writeFileSync(__dirname + path.sep + `${data[0].orderID}MyDoc-11111.docx`, doc);
   });
 

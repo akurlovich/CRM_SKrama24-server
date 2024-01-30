@@ -18,4 +18,6 @@ export interface ICommonData {
   sum: string,
   vatSum: string,
   totalSum: string,
+  vatSumWords: string,
+  totalSumWords: string,
 }

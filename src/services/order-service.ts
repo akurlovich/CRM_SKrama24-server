@@ -5,14 +5,17 @@ import { IOrder, IOrderNew, IOrderNewWithCount } from "../types/IOrder";
 class OrderService {
   async addOrder(order: IOrderNew) {
     const count = await orderModel.find().countDocuments();
-    console.log('count', count)
     const newOrder: IOrderNewWithCount = {
       orderNumber: count + 1,
       companyID: order.companyID,
       usersID: order.usersID,
       totalSum: order.totalSum
     }
-    return await orderModel.create(newOrder);
+    const orderNew = await orderModel.create(newOrder);
+    return {
+      order: orderNew,
+      count: count,
+    }
   };
 
   async getOrderByID(id: string) {
