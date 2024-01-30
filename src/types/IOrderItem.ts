@@ -13,6 +13,10 @@ export interface IOrderItemNew {
   price: number,
   count: number,
   sum: number,
+  productTitle: string,
+  productDimension: string,
+  vatSum: number,
+  totalSum: number
 }
 
 export interface IOrderItemNewAdd {

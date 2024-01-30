@@ -1,7 +1,7 @@
 import config from './common/config';
 import app from './app';
 
-import { IWordOrderData, wordOderCreate } from './utils/wordOderCreate';
+import { wordOderCreate } from './utils/wordOderCreate';
 
 app.listen(config.PORT, () =>
   console.log(`App is running on ${config.API_URL}${config.PORT}`)

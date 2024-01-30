@@ -5,28 +5,50 @@ import orderService from "../services/order-service";
 import orderItemService from "../services/orderItem-service";
 import { IOrderNew } from "../types/IOrder";
 import { IOrderItem, IOrderItemNew, IOrderItemNewAdd } from "../types/IOrderItem";
+import { IWordOrderData } from "../types/IWordOrderData";
+import { wordOderCreate } from "../utils/wordOderCreate";
 
 class OrderController {
   async addOrder(req: Request, res: Response, next: NextFunction) {
     try {
       const { order, orderItems }: {order: IOrderNew, orderItems: IOrderItemNew[]} = req.body;
-      const newOrder = await orderService.addOrder(order);
-      const newOrderItemsArr: IOrderItemNewAdd[] = [] as IOrderItemNewAdd[];
+      // const newOrder = await orderService.addOrder(order);
+      // const newOrderItemsArr: IOrderItemNewAdd[] = [] as IOrderItemNewAdd[];
 
-      for (let item of orderItems) {
-        const data: IOrderItemNewAdd = {
-          orderID: newOrder._id,
-          //@ts-ignore
-          productID: item.productID as Schema.Types.ObjectId,
-          price: item.price,
-          count: item.count,
-          sum: item.sum,
+      // for (let item of orderItems) {
+      //   const data: IOrderItemNewAdd = {
+      //     orderID: newOrder._id,
+      //     //@ts-ignore
+      //     productID: item.productID as Schema.Types.ObjectId,
+      //     price: item.price,
+      //     count: item.count,
+      //     sum: item.totalSum,
+      //   }
+      //   newOrderItemsArr.push(data)
+      // }
+      // await orderItemService.addOrderItem(newOrderItemsArr);
+      // await companyService.updateCompanyAddOrder(newOrder);
+  //!---  создание счета
+      const checkArray: IWordOrderData[] = [] as IWordOrderData[];
+      for (let i = 0; i < orderItems.length; i++) {
+        const newCheck: IWordOrderData = {
+  //TODO заменить на orderID, и подумать когда несколько счетов в одной order
+          orderID: order.companyID,
+          item: i + 1,
+          title: orderItems[i].productTitle,
+          dimension: orderItems[i].productDimension,
+          count: orderItems[i].count,
+          price: +orderItems[i].price.toFixed(2),
+          sum: +orderItems[i].sum.toFixed(2),
+          vatRate: 20,
+          vatSum: +orderItems[i].vatSum.toFixed(2),
+          totalSum: +orderItems[i].totalSum.toFixed(2),
         }
-        newOrderItemsArr.push(data)
+        checkArray.push(newCheck)
       }
-      await orderItemService.addOrderItem(newOrderItemsArr);
-      await companyService.updateCompanyAddOrder(newOrder);
-      return res.json(newOrder);
+      wordOderCreate(checkArray)
+
+      return res.json('newOrder');
     } catch (error) {
       next(error);
     }
