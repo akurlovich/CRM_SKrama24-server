@@ -56,6 +56,7 @@ class OrderController {
       const totalSum = checkArray.reduce((s, cur) => {
         return s + cur.totalSum
       }, 0)
+      
       const baseData: ICommonData = {
         companyTitle: companyTitle.title,
         // orderNumber: newOrder.orderNumber,
