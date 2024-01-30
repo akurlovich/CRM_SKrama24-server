@@ -15,9 +15,9 @@ import {
     VerticalAlign,
     WidthType
 } from "docx";
-import { IWordOrderData } from "../types/IWordOrderData";
+import { ICommonData, IWordOrderData } from "../types/IWordOrderData";
 
-export const wordOderCreate = (data: IWordOrderData[]) => {
+export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
   const font = "Times New Roman";
   const generateRows = (prices: IWordOrderData[]): TableRow[] =>
     prices.map(({ item, title, dimension, count, price, sum, vatRate, vatSum, totalSum}) =>
@@ -99,7 +99,7 @@ export const wordOderCreate = (data: IWordOrderData[]) => {
           type: PatchType.PARAGRAPH,
           children: [
             new TextRun({
-              text: '1234',
+              text: common.orderNumber,
               bold: true,
               size: 36,
               font: font,
@@ -110,7 +110,7 @@ export const wordOderCreate = (data: IWordOrderData[]) => {
           type: PatchType.PARAGRAPH,
           children: [
             new TextRun({
-              text: Date.now().toString(),
+              text: common.orderDate,
               bold: true,
               size: 36,
               font: font,
@@ -121,7 +121,7 @@ export const wordOderCreate = (data: IWordOrderData[]) => {
           type: PatchType.PARAGRAPH,
           children: [
             new TextRun({
-              text: 'ОАО Пастовичи',
+              text: common.companyTitle,
               // bold: true,
               size: 28,
               font: font,
@@ -444,7 +444,7 @@ export const wordOderCreate = (data: IWordOrderData[]) => {
                         heading: HeadingLevel.HEADING_2,
                         children: [
                           new TextRun({
-                              text: "126484.25",
+                              text: common.sum,
                               bold: true,
                               size: 20,
                               font,
@@ -465,7 +465,7 @@ export const wordOderCreate = (data: IWordOrderData[]) => {
                               heading: HeadingLevel.HEADING_2,
                               children: [
                                   new TextRun({
-                                      text: "456789.23",
+                                      text: common.vatSum,
                                       bold: true,
                                       size: 20,
                                       font,
@@ -483,7 +483,7 @@ export const wordOderCreate = (data: IWordOrderData[]) => {
                               heading: HeadingLevel.HEADING_2,
                               children: [
                                   new TextRun({
-                                      text: "423658.11",
+                                      text: common.totalSum,
                                       bold: true,
                                       size: 20,
                                       font,

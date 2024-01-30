@@ -5,13 +5,14 @@ import orderService from "../services/order-service";
 import orderItemService from "../services/orderItem-service";
 import { IOrderNew } from "../types/IOrder";
 import { IOrderItem, IOrderItemNew, IOrderItemNewAdd } from "../types/IOrderItem";
-import { IWordOrderData } from "../types/IWordOrderData";
+import { ICommonData, IWordOrderData } from "../types/IWordOrderData";
 import { wordOderCreate } from "../utils/wordOderCreate";
 
 class OrderController {
   async addOrder(req: Request, res: Response, next: NextFunction) {
     try {
       const { order, orderItems }: {order: IOrderNew, orderItems: IOrderItemNew[]} = req.body;
+      const companyTitle = await companyService.getCompanyByID(order.companyID)
       // const newOrder = await orderService.addOrder(order);
       // const newOrderItemsArr: IOrderItemNewAdd[] = [] as IOrderItemNewAdd[];
 
@@ -46,7 +47,25 @@ class OrderController {
         }
         checkArray.push(newCheck)
       }
-      wordOderCreate(checkArray)
+      const sum = checkArray.reduce((s, cur) => {
+        return s + cur.sum
+      }, 0)
+      const vatSum = checkArray.reduce((s, cur) => {
+        return s + cur.vatSum
+      }, 0)
+      const totalSum = checkArray.reduce((s, cur) => {
+        return s + cur.totalSum
+      }, 0)
+      const baseData: ICommonData = {
+        companyTitle: companyTitle.title,
+        // orderNumber: newOrder.orderNumber,
+        orderNumber: "123",
+        orderDate: "21 января 2024",
+        sum: sum.toFixed(2),
+        vatSum: vatSum.toFixed(2),
+        totalSum: totalSum.toFixed(2),
+      }
+      wordOderCreate(checkArray, baseData)
 
       return res.json('newOrder');
     } catch (error) {

@@ -10,3 +10,12 @@ export interface IWordOrderData {
   vatSum: number;
   totalSum: number;
 }
+
+export interface ICommonData {
+  orderNumber: string,
+  orderDate: string,
+  companyTitle: string,
+  sum: string,
+  vatSum: string,
+  totalSum: string,
+}
