@@ -1,7 +1,6 @@
 import config from './common/config';
 import app from './app';
-
-import { wordOderCreate } from './utils/wordOderCreate';
+import { num2str } from './utils/num2str';
 
 app.listen(config.PORT, () =>
   console.log(`App is running on ${config.API_URL}${config.PORT}`)
@@ -34,3 +33,5 @@ app.listen(config.PORT, () =>
 // ];
 
 // wordOderCreate(DATA);
+
+console.log(num2str("125,25"))
