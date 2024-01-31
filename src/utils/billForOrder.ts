@@ -27,7 +27,8 @@ export const billForOrder = (orderItems: IOrderItemNew[], orderID: string, compa
   const totalSum = orderItems.reduce((s, cur) => { return s + cur.totalSum }, 0);
 
   const today = new Date(); 
-  const months = [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ];
+  const months = [ 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+  'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря' ];
   const date = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()}`;
 
   const vatSumWords: string = num2str(vatSum.toFixed(2));
