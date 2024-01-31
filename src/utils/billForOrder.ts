@@ -1,5 +1,6 @@
 import { IOrderItemNew } from "../types/IOrderItem";
 import { ICommonData, IWordOrderData } from "../types/IWordOrderData";
+import { num2str } from "./num2str";
 import { wordOderCreate } from "./wordOderCreate";
 
 export const billForOrder = (orderItems: IOrderItemNew[], orderID: string, companyTitle: string, orderNumber: string) => {
@@ -11,34 +12,37 @@ export const billForOrder = (orderItems: IOrderItemNew[], orderID: string, compa
         item: i + 1,
         title: orderItems[i].productTitle,
         dimension: orderItems[i].productDimension,
-        count: orderItems[i].count,
-        price: +orderItems[i].price.toFixed(2),
-        sum: +orderItems[i].sum.toFixed(2),
+        count: orderItems[i].count.toString().replace('.', ','),
+        price: orderItems[i].price.toFixed(2).replace('.', ','),
+        sum: orderItems[i].sum.toFixed(2).replace('.', ','),
         vatRate: 20,
-        vatSum: +orderItems[i].vatSum.toFixed(2),
-        totalSum: +orderItems[i].totalSum.toFixed(2),
+        vatSum: orderItems[i].vatSum.toFixed(2).replace('.', ','),
+        totalSum: orderItems[i].totalSum.toFixed(2).replace('.', ','),
       }
       checkArray.push(newCheck)
     };
 
-  const sum = checkArray.reduce((s, cur) => { return s + cur.sum }, 0);
-  const vatSum = checkArray.reduce((s, cur) => { return s + cur.vatSum }, 0);
-  const totalSum = checkArray.reduce((s, cur) => { return s + cur.totalSum }, 0);
+  const sum = orderItems.reduce((s, cur) => { return s + cur.sum }, 0);
+  const vatSum = orderItems.reduce((s, cur) => { return s + cur.vatSum }, 0);
+  const totalSum = orderItems.reduce((s, cur) => { return s + cur.totalSum }, 0);
 
   const today = new Date(); 
   const months = [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ];
   const date = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()}`;
+
+  const vatSumWords: string = num2str(vatSum.toFixed(2));
+  const totalSumWords: string = num2str(totalSum.toFixed(2));
   
   const baseData: ICommonData = {
     companyTitle: companyTitle,
     // orderNumber: newOrder.orderNumber,
     orderNumber: orderNumber,
     orderDate: date,
-    sum: sum.toFixed(2),
-    vatSum: vatSum.toFixed(2),
-    totalSum: totalSum.toFixed(2),
-    vatSumWords: '',
-    totalSumWords: '',
+    sum: sum.toFixed(2).replace('.', ','),
+    vatSum: vatSum.toFixed(2).replace('.', ','),
+    totalSum: totalSum.toFixed(2).replace('.', ','),
+    vatSumWords: vatSumWords.replace('.', ','),
+    totalSumWords: totalSumWords.replace('.', ','),
   }
   wordOderCreate(checkArray, baseData)
 }

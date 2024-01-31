@@ -34,4 +34,8 @@ app.listen(config.PORT, () =>
 
 // wordOderCreate(DATA);
 
-console.log(num2str("125,25"))
+// console.log(num2str("125.25"))
+// console.log(num2str("19025.05"))
+// console.log(num2str("105.00"))
+// console.log(num2str("8000,00"))
+// console.log(num2str("125,25"))

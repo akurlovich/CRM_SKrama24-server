@@ -1,13 +1,12 @@
-// @ts-nocheck
-var money;
-var price;
-var rub, kop;
+
+let price: string;
+let rub, kop;
 let litera 
 let sotny 
 let desatky 
 let edinicy 
 let minus ;
-var k = 0, i, j;
+let k = 0, i, j;
 let N = ["", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять",
   "", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать",
   "", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто",
@@ -15,16 +14,16 @@ let N = ["", "один", "два", "три", "четыре", "пять", "шес
   "тысяч", "тысяча", "тысячи", "тысячи", "тысячи", "тысяч", "тысяч", "тысяч", "тысяч", "тысяч",
   "миллионов", "миллион", "миллиона", "миллиона", "миллиона", "миллионов", "миллионов", "миллионов", "миллионов", "миллионов",
   "миллиардов", "миллиард", "миллиарда", "миллиарда", "миллиарда", "миллиардов", "миллиардов", "миллиардов", "миллиардов", "миллиардов"];
-var M = new Array(10);
+let M = new Array(10);
 for (j = 0; j < 10; ++j)
   M[j] = new Array(N.length);
 for (i = 0; i < N.length; i++)
   for (j = 0; j < 10; j++)
     M[j][i] = N[k++]
-var R = new Array("рублей", "рубль", "рубля", "рубля", "рубля", "рублей", "рублей", "рублей", "рублей", "рублей");
-var K = new Array("копеек", "копейка", "копейки", "копейки", "копейки", "копеек", "копеек", "копеек", "копеек", "копеек");
+let R = new Array("рублей", "рубль", "рубля", "рубля", "рубля", "рублей", "рублей", "рублей", "рублей", "рублей");
+let K = new Array("копеек", "копейка", "копейки", "копейки", "копейки", "копеек", "копеек", "копеек", "копеек", "копеек");
 
-export function num2str(money) {
+export function num2str(money: string) {
   rub = "", kop = "";
   money = money.replace(",", ".");
 
@@ -33,7 +32,7 @@ export function num2str(money) {
     minus = "минус "
   }
   else minus = "";
-  money = Math.round(money * 100) / 100 + "";
+  money = Math.round(+money * 100) / 100 + "";
   if (money.indexOf(".") != -1) {
     rub = money.substr(0, money.indexOf("."));
     kop = money.substr(money.indexOf(".") + 1);
@@ -46,16 +45,16 @@ export function num2str(money) {
   let res;
   ko != "" ? res = ru + " " + ko : res = ru;
   ru == "Ноль " + R[0] && ko != "" ? res = ko : 0;
-  kop == 0 ? res += " ноль " + K[0] : 0;
+
+  // kop == 0 ? res += " ноль " + K[0] : 0;
 
 
   const result = (minus + res).substr(0, 1).toUpperCase() + (minus + res).substr(1);
 
-  return result
-
+  return result;
 
 }
-function propis(price, D) {
+function propis(price: string, D: string[]) {
   litera = "";
   for (i = 0; i < price.length; i += 3) {
     sotny = desatky = edinicy = "";
@@ -79,7 +78,7 @@ function propis(price, D) {
   if (litera == " " + R[0]) return "ноль" + litera;
   else return litera.substr(1);
 }
-function n(start, len) {
+function n(start: number, len: number) {
   if (start > price.length) return 0;
   else return Number(price.substr(price.length - start, len));
 }

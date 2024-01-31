@@ -96,37 +96,37 @@ export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
   patchDocument(fs.readFileSync(__dirname + path.sep + '../' + `assets` + path.sep + `template.docx`), {
     patches: {
       orderID: {
-          type: PatchType.PARAGRAPH,
-          children: [
-            new TextRun({
-              text: common.orderNumber,
-              bold: true,
-              size: 36,
-              font: font,
-            })
-          ],
+        type: PatchType.PARAGRAPH,
+        children: [
+          new TextRun({
+            text: common.orderNumber,
+            bold: true,
+            size: 36,
+            font: font,
+          })
+        ],
       },
       orderDate: {
-          type: PatchType.PARAGRAPH,
-          children: [
-            new TextRun({
-              text: common.orderDate,
-              bold: true,
-              size: 36,
-              font: font,
-            })
-          ],
+        type: PatchType.PARAGRAPH,
+        children: [
+          new TextRun({
+            text: common.orderDate,
+            bold: true,
+            size: 36,
+            font: font,
+          })
+        ],
       },
       customerName: {
-          type: PatchType.PARAGRAPH,
-          children: [
-            new TextRun({
-              text: common.companyTitle,
-              // bold: true,
-              size: 28,
-              font: font,
-            })
-          ],
+        type: PatchType.PARAGRAPH,
+        children: [
+          new TextRun({
+            text: common.companyTitle,
+            // bold: true,
+            size: 28,
+            font: font,
+          })
+        ],
       },
       varSum: {
         type: PatchType.PARAGRAPH,
@@ -154,7 +154,7 @@ export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
         type: PatchType.PARAGRAPH,
         children: [
           new TextRun({
-            text: 'три тысячи пятьс семьдся бел.руб.',
+            text: common.vatSumWords,
             bold: true,
             size: 24,
             font: font,
@@ -165,7 +165,7 @@ export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
         type: PatchType.PARAGRAPH,
         children: [
           new TextRun({
-            text: 'одна тысячи пятьс семьдся бел.руб.',
+            text: common.totalSumWords,
             bold: true,
             size: 24,
             font: font,
@@ -472,7 +472,7 @@ export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
                           new TextRun({
                             text: "ИТОГО:",
                             bold: true,
-                            size: 20,
+                            size: 24,
                             font,
                           }),
                         ],
@@ -490,7 +490,7 @@ export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
                           new TextRun({
                               text: common.sum,
                               bold: true,
-                              size: 20,
+                              size: 24,
                               font,
                           }),
                         ],
@@ -511,7 +511,7 @@ export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
                                   new TextRun({
                                       text: common.vatSum,
                                       bold: true,
-                                      size: 20,
+                                      size: 24,
                                       font,
                                   }),
                               ],
@@ -529,7 +529,7 @@ export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
                                   new TextRun({
                                       text: common.totalSum,
                                       bold: true,
-                                      size: 20,
+                                      size: 24,
                                       font,
                                   }),
                               ],

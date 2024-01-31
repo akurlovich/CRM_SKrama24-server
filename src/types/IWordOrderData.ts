@@ -3,12 +3,12 @@ export interface IWordOrderData {
   item: number;
   title: string;
   dimension: string;
-  count: number;
-  price: number;
-  sum: number;
+  count: string;
+  price: string;
+  sum: string;
   vatRate: number;
-  vatSum: number;
-  totalSum: number;
+  vatSum: string;
+  totalSum: string;
 }
 
 export interface ICommonData {
