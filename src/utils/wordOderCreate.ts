@@ -24,68 +24,145 @@ export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
       new TableRow({
       children: [
         new TableCell({
-            children: [new Paragraph(item.toString())],
+            children: [
+              // new Paragraph(item.toString())
+              new Paragraph({
+                children: [
+                  new TextRun({
+                      text: item.toString(),
+                      size: 20,
+                      font,
+                  }),
+                ],
+              })
+            ],
             verticalAlign: VerticalAlign.CENTER,
             textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
         }),
         new TableCell({
-            children: [new Paragraph(title)],
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                      text: title,
+                      size: 20,
+                      font,
+                  }),
+                ],
+              })
+            ],
             verticalAlign: VerticalAlign.CENTER,
             textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
         }),
         new TableCell({
-          children: [new Paragraph({
-            text: dimension,
-            alignment: AlignmentType.CENTER
-          })],
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                    text: dimension,
+                    size: 20,
+                    font,
+                }),
+              ],
+              alignment: AlignmentType.CENTER
+            })
+          ],
           verticalAlign: VerticalAlign.CENTER,
           textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
         }),
         new TableCell({
-          children: [new Paragraph({
-            text: count.toString(),
-            alignment: AlignmentType.CENTER
-          })],
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                    text: count.toString(),
+                    size: 20,
+                    font,
+                }),
+              ],
+              alignment: AlignmentType.CENTER
+            })
+          ],
           verticalAlign: VerticalAlign.CENTER,
           textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
         }),
         new TableCell({
-          children: [new Paragraph({
-            text: price.toString(),
-            alignment: AlignmentType.CENTER
-          })],
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                    text: price.toString(),
+                    size: 20,
+                    font,
+                }),
+              ],
+              alignment: AlignmentType.CENTER
+            })
+          ],
           verticalAlign: VerticalAlign.CENTER,
           textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
         }),
         new TableCell({
-          children: [new Paragraph({
-            text: sum.toString(),
-            alignment: AlignmentType.CENTER
-          })],
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                    text: sum.toString(),
+                    size: 20,
+                    font,
+                }),
+              ],
+              alignment: AlignmentType.CENTER
+            })
+          ],
           verticalAlign: VerticalAlign.CENTER,
           textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
         }),
         new TableCell({
-          children: [new Paragraph({
-            text: vatRate.toString(),
-            alignment: AlignmentType.CENTER
-          })],
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                    text: vatRate.toString(),
+                    size: 20,
+                    font,
+                }),
+              ],
+              alignment: AlignmentType.CENTER
+            })
+          ],
           verticalAlign: VerticalAlign.CENTER,
           textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
         }),
         new TableCell({
-          children: [new Paragraph({
-            text: vatSum.toString(),
-            alignment: AlignmentType.CENTER
-          })],
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                    text: vatSum.toString(),
+                    size: 20,
+                    font,
+                }),
+              ],
+              alignment: AlignmentType.CENTER
+            })
+          ],
           verticalAlign: VerticalAlign.CENTER,
           textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
         }),
         new TableCell({
-          children: [new Paragraph({
-            text: totalSum.toString(),
-            alignment: AlignmentType.CENTER
-          })],
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                    text: totalSum.toString(),
+                    size: 20,
+                    font,
+                }),
+              ],
+              alignment: AlignmentType.CENTER
+            })
+          ],
           verticalAlign: VerticalAlign.CENTER,
           textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
         }),
