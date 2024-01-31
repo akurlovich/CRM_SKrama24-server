@@ -4,7 +4,7 @@ import orderItemService from "../services/orderItem-service";
 class OrderItemController {
   async addOrderItem(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log('orderItems', req.body)
+      // console.log('orderItems', req.body)
       const newOrderItem = await orderItemService.addOrderItem(req.body);
       return res.json(newOrderItem);
     } catch (error) {

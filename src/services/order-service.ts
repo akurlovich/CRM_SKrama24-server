@@ -1,5 +1,6 @@
 import orderModel from "../models/order-model";
 import { IOrder, IOrderNew, IOrderNewWithCount } from "../types/IOrder";
+import { IOrderItem } from "../types/IOrderItem";
 
 
 class OrderService {
@@ -29,6 +30,10 @@ class OrderService {
 
   async getAllOrders() {
     return await orderModel.find();
+  };
+
+  async updateOrderItemsByOrderID(id: string, items: IOrderItem[]) {
+    return await orderModel.findOneAndUpdate({_id: id}, { $push: { orderItemID: items }}, { returnOriginal: false });
   };
 
   async deleteOrderByID(id: string) {

@@ -28,9 +28,13 @@ class OrderController {
         }
         newOrderItemsArr.push(data)
       }
-      await orderItemService.addOrderItem(newOrderItemsArr);
+      const newOrderItems = await orderItemService.addOrderItem(newOrderItemsArr);
+
+      // console.log(newOrderItems)
+      
+      // await orderService.updateOrderItemsByOrderID(newOrder.order._id, newOrderItems)
+
       await companyService.updateCompanyAddOrder(newOrder.order);
-  //!---  создание счета
       billForOrder(orderItems, newOrder.order._id, companyTitle.title, (newOrder.count + 1).toString())
 
       return res.json(newOrder.order);

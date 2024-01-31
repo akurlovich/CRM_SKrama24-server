@@ -4,7 +4,8 @@ import { IOrderItem, IOrderItemNewAdd } from "../types/IOrderItem";
 
 class OrderItemService {
   async addOrderItem(orderItem: IOrderItemNewAdd[]) {
-    return await orderItemModel.insertMany(orderItem);
+    const items = await orderItemModel.insertMany(orderItem);
+    return items
   };
 
   async getOrderItemByID(id: string) {
