@@ -10,10 +10,15 @@ class OrderService {
       companyID: order.companyID,
       usersID: order.usersID,
       totalSum: order.totalSum
-    }
+    };
     const orderNew = await orderModel.create(newOrder);
+    const newFileName: string = orderNew._id + (count + 1) + '.docx';
+    // await orderModel.updateOne({_id: orderNew._id}, { $push: { fileName: fileName}});
+    // const orderWithFFileName = await orderModel.findOne({_id: orderNew._id});
+    const orderWithFFileName = await orderModel.findOneAndUpdate({_id: orderNew._id}, { $push: { fileName: newFileName }}, { returnOriginal: false });
+
     return {
-      order: orderNew,
+      order: orderWithFFileName,
       count: count,
     }
   };

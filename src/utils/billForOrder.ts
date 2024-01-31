@@ -8,7 +8,7 @@ export const billForOrder = (orderItems: IOrderItemNew[], orderID: string, compa
     for (let i = 0; i < orderItems.length; i++) {
       const newCheck: IWordOrderData = {
 //TODO заменить на orderID, и подумать когда несколько счетов в одной order
-        orderID: orderID,
+        orderID: orderID + orderNumber,
         item: i + 1,
         title: orderItems[i].productTitle,
         dimension: orderItems[i].productDimension,
