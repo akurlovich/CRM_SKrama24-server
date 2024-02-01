@@ -17,7 +17,6 @@ class OrderItemService {
   };
 
   async deleteOrderItemByID(id: string) {
-    console.log(id)
     return await orderItemModel.findByIdAndDelete(id);
     // return await orderItemModel.deleteMany({});
   };
