@@ -13,7 +13,7 @@ class OrderService {
       totalSum: order.totalSum
     };
     const orderNew = await orderModel.create(newOrder);
-    const newFileName: string = orderNew._id + (count + 1) + '.docx';
+    const newFileName: string = 'Счёт_СКРАМ-Материалы_' + (count + 1) + '.docx';
     // await orderModel.updateOne({_id: orderNew._id}, { $push: { fileName: fileName}});
     // const orderWithFFileName = await orderModel.findOne({_id: orderNew._id});
     const orderWithFileName = await orderModel.findOneAndUpdate({_id: orderNew._id}, { $push: { fileName: newFileName }}, { returnOriginal: false });
@@ -21,6 +21,7 @@ class OrderService {
     return {
       order: orderWithFileName,
       count: count,
+      fileName: newFileName,
     }
   };
 

@@ -17,7 +17,7 @@ import {
 } from "docx";
 import { ICommonData, IWordOrderData } from "../types/IWordOrderData";
 
-export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
+export const wordOderCreate = (data: IWordOrderData[], common: ICommonData, filename: string) => {
   const font = "Times New Roman";
   const generateRows = (prices: IWordOrderData[]): TableRow[] =>
     prices.map(({ item, title, dimension, count, price, sum, vatRate, vatSum, totalSum}) =>
@@ -625,7 +625,7 @@ export const wordOderCreate = (data: IWordOrderData[], common: ICommonData) => {
     },
   }).then((doc) => {
     // console.log(path.resolve(__dirname, '../..', 'static', '.jpeg'))
-    fs.writeFileSync(path.resolve(__dirname, '../..', 'static', `${data[0].orderID}.docx`), doc);
+    fs.writeFileSync(path.resolve(__dirname, '../..', 'static', `${filename}`), doc);
     // fs.writeFileSync(__dirname + path.sep + `${data[0].orderID}MyDoc-11111.docx`, doc);
   });
 

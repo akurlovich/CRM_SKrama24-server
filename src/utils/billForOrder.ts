@@ -3,7 +3,7 @@ import { ICommonData, IWordOrderData } from "../types/IWordOrderData";
 import { num2str } from "./num2str";
 import { wordOderCreate } from "./wordOderCreate";
 
-export const billForOrder = (orderItems: IOrderItemNew[], orderID: string, companyTitle: string, orderNumber: string) => {
+export const billForOrder = (orderItems: IOrderItemNew[], orderID: string, companyTitle: string, orderNumber: string, filename: string) => {
   const checkArray: IWordOrderData[] = [] as IWordOrderData[];
     for (let i = 0; i < orderItems.length; i++) {
       const newCheck: IWordOrderData = {
@@ -45,5 +45,5 @@ export const billForOrder = (orderItems: IOrderItemNew[], orderID: string, compa
     vatSumWords: vatSumWords.replace('.', ','),
     totalSumWords: totalSumWords.replace('.', ','),
   }
-  wordOderCreate(checkArray, baseData)
+  wordOderCreate(checkArray, baseData, filename)
 }
