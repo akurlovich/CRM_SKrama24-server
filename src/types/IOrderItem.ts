@@ -20,9 +20,11 @@ export interface IOrderItemNew {
 }
 
 export interface IOrderItemNewAdd {
-  orderID: Schema.Types.ObjectId,
+  orderID: string,
   productID: string,
   price: number,
   count: number,
   sum: number,
 }
+
+

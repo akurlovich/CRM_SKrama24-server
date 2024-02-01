@@ -25,3 +25,8 @@ export interface IOrderNewWithCount {
   usersID: string,
   totalSum: number,
 }
+
+export interface IOrderUpdateOrderItems {
+  orderID: string,
+  totalSum: number,
+}
