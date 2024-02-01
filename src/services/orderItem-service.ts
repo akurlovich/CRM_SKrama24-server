@@ -18,6 +18,7 @@ class OrderItemService {
 
   async deleteOrderItemByID(id: string) {
     return await orderItemModel.findByIdAndDelete(id);
+    // return await orderItemModel.deleteMany({});
   };
 };
 

@@ -31,8 +31,8 @@ class OrderController {
       const newOrderItems = await orderItemService.addOrderItem(newOrderItemsArr);
 
       // console.log(newOrderItems)
-      
-      // await orderService.updateOrderItemsByOrderID(newOrder.order._id, newOrderItems)
+      //@ts-ignore
+      await orderService.updateOrderItemsByOrderID(newOrder.order._id, newOrderItems)
 
       await companyService.updateCompanyAddOrder(newOrder.order);
       billForOrder(orderItems, newOrder.order._id, companyTitle.title, (newOrder.count + 1).toString())
