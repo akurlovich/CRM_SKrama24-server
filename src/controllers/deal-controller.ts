@@ -31,6 +31,15 @@ class DealController {
     }
   };
 
+  async getDealsWithQuery(req: Request, res: Response, next: NextFunction) {
+    try {
+      const deals = await dealService.getDealsWithQuery(req.body);
+      return res.json(deals);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   async updateDealByID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
       const deal = await dealService.updateDealByID(req.params.id, req.body);
