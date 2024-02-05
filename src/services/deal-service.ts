@@ -12,7 +12,16 @@ class DealService {
   };
 
   async getAllDeals() {
-    return await dealModel.find();
+    return await dealModel.find().populate([{
+      path: "companyID", 
+    },
+    {
+      path: "dealTitleID", 
+    },
+    {
+      path: "userID", 
+    }
+  ]);
   };
 
   async updateDealByID(id: string, deal: IDealUpdate) {
