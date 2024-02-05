@@ -21,6 +21,26 @@ const DealSchema: Schema = new Schema<IDeal>({
     type: String,
     default: '',
   },
+  dayEnd: {
+    type: String,
+    required: true,
+  },
+  monthEnd: {
+    type: String,
+    required: true,
+  },
+  yearEnd: {
+    type: String,
+    required: true,
+  },
+  minuteEnd: {
+    type: String,
+    required: true,
+  },
+  hourEnd: {
+    type: String,
+    required: true,
+  },
   dateEnd: {
     type: String,
     required: true,
