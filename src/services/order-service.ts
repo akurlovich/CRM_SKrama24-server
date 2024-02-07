@@ -33,8 +33,21 @@ class OrderService {
     return await orderModel.findById(id);
   };
 
-  async getAllOrders() {
-    // return await orderModel.find();
+  async getAllOrders(req: any) {
+    let { userid } = req.query;
+    if (userid) {
+      return await orderModel.find({ usersID: userid}).populate([
+        {
+          path: "companyID", 
+        },
+        {
+          path: "orderItemID", 
+        },
+        {
+          path: "usersID", 
+        }
+      ]).sort({createdAt: -1});
+    }
     return await orderModel.find().populate([
       {
         path: "companyID", 
