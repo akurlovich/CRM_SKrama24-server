@@ -24,6 +24,7 @@ class DealService {
         path: "userID", 
       }
     ]);
+    // return await dealModel.find({ monthEnd: { $lt: '03'}, dayEnd: { $lt: '14'}, })
   };
 
   async getDealsWithQuery(query: ICompaniesQuery) {

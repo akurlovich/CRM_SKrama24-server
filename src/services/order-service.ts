@@ -34,8 +34,18 @@ class OrderService {
   };
 
   async getAllOrders() {
-    return await orderModel.find();
-    // return await orderModel.find().sort({createdAt: 1}).limit(5);
+    // return await orderModel.find();
+    return await orderModel.find().populate([
+      {
+        path: "companyID", 
+      },
+      {
+        path: "orderItemID", 
+      },
+      {
+        path: "usersID", 
+      }
+    ]).sort({createdAt: -1});
   };
 
   async updateAddOrderItemsByOrderID(orderID: string, items: IOrderItem[], fileNameNew: string) {

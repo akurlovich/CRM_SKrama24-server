@@ -99,7 +99,7 @@ class CompanyController {
       // console.log('query', query);
       // console.log('body', req.body);
       const company = await companyService.getCompanyByIDQuery(req.body);
-      // console.log('companies', companies)
+      // console.log('company', company)
       return res.json(company);
     } catch (error) {
       next(error);

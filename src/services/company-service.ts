@@ -31,6 +31,8 @@ class CompanyService {
   };
 
   async getCompanyByIDQuery(query: ICompaniesQuery) {
+    // return await companyModel.findOne({ _id: '65a627a2aa381e0a7e61c8bb' })
+    // return await companyModel.findOne(query.find).populate(query.query)
     return await companyModel.findOne(query.find).populate(query.query).limit(query.limit).sort(query.sort);
     // return await companyModel.find().populate(query.query).limit(query.limit).sort({'usersID[0].lastname': 'asc'});
   };
