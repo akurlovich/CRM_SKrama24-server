@@ -1,6 +1,6 @@
 import dealModel from "../models/deal-model";
 import { ICompaniesQuery } from "../types/ICompany";
-import { IDeal, IDealUpdate } from "../types/IDeal";
+import { IDeal, IDealsQuery, IDealUpdate } from "../types/IDeal";
 
 
 class DealService {
@@ -13,6 +13,7 @@ class DealService {
   };
 
   async getAllDeals() {
+    // let { userid, monthlte, daylt, yearlte } = req.query;
     return await dealModel.find().populate([
       {
         path: "companyID", 
@@ -24,11 +25,36 @@ class DealService {
         path: "userID", 
       }
     ]);
-    // return await dealModel.find({ monthEnd: { $lt: '03'}, dayEnd: { $lt: '14'}, })
+    // return await dealModel.find({ userID: userid, monthEnd: { $lte: '03'}, dayEnd: { $lt: '14'}, yearEnd: { $lte: '2024' }}).populate([
+    //     {
+    //       path: "companyID", 
+    //     },
+    //     {
+    //       path: "dealTitleID", 
+    //     },
+    //     {
+    //       path: "userID", 
+    //     }
+    //   ]);
+  };
+
+  async getAllDealsByUserQuery(query: IDealsQuery) {
+    console.log('userquery', query)
+    return await dealModel.find(query.find).populate([
+        {
+          path: "companyID", 
+        },
+        {
+          path: "dealTitleID", 
+        },
+        {
+          path: "userID", 
+        }
+      ]).limit(query.limit).sort(query.sort);
   };
 
   async getDealsWithQuery(query: ICompaniesQuery) {
-    console.log(query)
+    console.log('filter', query)
     return await dealModel.find(query.find).populate(query.query).limit(query.limit).sort(query.sort);
     // return await companyModel.find().populate(query.query).limit(query.limit).sort({'usersID[0].lastname': 'asc'});
   };

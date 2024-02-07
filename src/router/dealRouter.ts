@@ -6,6 +6,7 @@ router.post('/', dealController.addDeal);
 router.get('/:id', dealController.getDealByID);
 router.get('/', dealController.getAllDeals);
 router.post('/filter', dealController.getDealsWithQuery);
+router.post('/userquery', dealController.getAllDealsByUserQuery);
 router.put('/:id', dealController.updateDealByID);
 router.delete('/:id', dealController.deleteDealFromCompanyByDealID);
 

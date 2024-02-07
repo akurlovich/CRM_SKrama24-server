@@ -31,6 +31,15 @@ class DealController {
     }
   };
 
+  async getAllDealsByUserQuery(req: Request, res: Response, next: NextFunction) {
+    try {
+      const deals = await dealService.getAllDealsByUserQuery(req.body);
+      return res.json(deals);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   async getDealsWithQuery(req: Request, res: Response, next: NextFunction) {
     try {
       const deals = await dealService.getDealsWithQuery(req.body);
