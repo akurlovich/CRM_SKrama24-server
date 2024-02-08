@@ -43,10 +43,10 @@ class ContactService {
 
   //TODO передать id email
   async deleteEmailFromContactByEmailID(emailID: string) {
-    console.log("emailID", emailID)
+    // console.log("emailID", emailID)
     const contact = await contactModel.findOne({emailsID: { _id: emailID}});
 
-    console.log("contact", contact)
+    // console.log("contact", contact)
 
     const index = contact.emailsID.findIndex(item => item.toString() == emailID)
     contact.emailsID.splice(index, 1)

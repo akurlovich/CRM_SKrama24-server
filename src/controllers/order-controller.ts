@@ -12,7 +12,7 @@ import { wordOderCreate } from "../utils/wordOderCreate";
 class OrderController {
   async addOrder(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log("new", req.body)
+      // console.log("new", req.body)
       const { order, orderItems }: {order: IOrderNew, orderItems: IOrderItemNew[]} = req.body;
       const companyTitle = await companyService.getCompanyByID(order.companyID);
       const newOrder = await orderService.addOrder(order);
@@ -31,7 +31,7 @@ class OrderController {
       }
       const newOrderItems = await orderItemService.addOrderItem(newOrderItemsArr);
 
-      console.log('newOrderItems', newOrderItems)
+      // console.log('newOrderItems', newOrderItems)
       //@ts-ignore
       const orderWithOrderItems = await orderService.updateAddOrderItemsByOrderID(newOrder.order._id, newOrderItems)
 

@@ -39,7 +39,7 @@ class DealService {
   };
 
   async getAllDealsByUserQuery(query: IDealsQuery) {
-    console.log('userquery', query)
+    // console.log('userquery', query)
     return await dealModel.find(query.find).populate(query.query).limit(query.limit).sort(query.sort);
   };
 

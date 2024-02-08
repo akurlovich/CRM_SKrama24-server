@@ -13,7 +13,7 @@ class CompanyController {
   async addCompany(req: Request, res: Response, next: NextFunction) {
     try {
       const { company, contact }: {company: ICompany, contact: IContactRequest} = req.body;
-      console.log('company server controller', req.body);
+      // console.log('company server controller', req.body);
 
        //@ts-ignore
       const redyContact: IContactRequest = {

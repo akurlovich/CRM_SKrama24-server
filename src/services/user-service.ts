@@ -31,10 +31,13 @@ class UserService {
 
   async login(email: string, password: string) {
     const user = await UserModel.findOne({email});
-    if (!user) {
+    // console.log('email', email, 'user', user)
+    if (user === null) {
+      // console.log('user null')
       throw ApiError.BadRequest(`User with ${email} not found!`, [''])
     }
     const isPassword = await bcrypt.compare(password, user.password);
+    // console.log('pas', isPassword)
     if (!isPassword) {
       throw ApiError.BadRequest(`User password not valid!`, [''])
     }
