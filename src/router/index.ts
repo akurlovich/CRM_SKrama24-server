@@ -48,13 +48,13 @@ router.use('/orders', orderRouter);
 router.use('/orderitems', orderItemRouter);
 router.use('/products', productRouter);
 
-router.post('/registration',
-  body('email').isEmail(),
-  body('password').isLength({min: 6, max: 32}),  
-  userController.registration);
-router.post('/login', userController.login);
-router.post('/logout', userController.logout);
-router.get('/refresh', userController.refresh);
+// router.post('/registration',
+//   body('email').isEmail(),
+//   body('password').isLength({min: 6, max: 32}),  
+//   userController.registration);
+// router.post('/login', userController.login);
+// router.post('/logout', userController.logout);
+// router.get('/refresh', userController.refresh);
 // router.get('/users', authMiddleware, userController.getUsers);
 // router.get('/users', userController.getUsers);
 // router.get('/users/:id', userController.getUserById);
