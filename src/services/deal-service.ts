@@ -40,21 +40,11 @@ class DealService {
 
   async getAllDealsByUserQuery(query: IDealsQuery) {
     console.log('userquery', query)
-    return await dealModel.find(query.find).populate([
-        {
-          path: "companyID", 
-        },
-        {
-          path: "dealTitleID", 
-        },
-        {
-          path: "userID", 
-        }
-      ]).limit(query.limit).sort(query.sort);
+    return await dealModel.find(query.find).populate(query.query).limit(query.limit).sort(query.sort);
   };
 
   async getDealsWithQuery(query: ICompaniesQuery) {
-    console.log('filter', query)
+    // console.log('filter', query)
     return await dealModel.find(query.find).populate(query.query).limit(query.limit).sort(query.sort);
     // return await companyModel.find().populate(query.query).limit(query.limit).sort({'usersID[0].lastname': 'asc'});
   };

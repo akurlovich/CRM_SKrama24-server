@@ -1,6 +1,6 @@
 import {  NextFunction, Request, Response } from "express";
 import ApiError from "../exceptions/api-error";
-import tokenService from "../service/token-service";
+import tokenService from "../services/token-service";
 
 export default function(req: Request, res: Response, next: NextFunction) {
   try {

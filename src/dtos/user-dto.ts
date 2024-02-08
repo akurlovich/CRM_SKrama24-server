@@ -4,7 +4,6 @@ import { IUser } from "../types/IUser";
 export default class UserDto {
   id: string;
   email: string;
-  password: string;
   firstname: string;
   lastname: string;
   position: string;
@@ -14,7 +13,6 @@ export default class UserDto {
   constructor(model: IUser) {
     this.id = model._id;
     this.email = model.email;
-    this.password = model.password;
     this.firstname = model.firstname;
     this.lastname = model.lastname;
     this.position = model.position;

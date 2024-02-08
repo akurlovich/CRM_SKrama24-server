@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import { body } from 'express-validator';
+import userController from '../controllers/user-controller';
 import commentRouter from './commentRouter';
 import companyRouter from './companyRouter';
 import contactRouter from './contactRouter';
@@ -45,18 +47,15 @@ router.use('/deals', dealRouter);
 router.use('/orders', orderRouter);
 router.use('/orderitems', orderItemRouter);
 router.use('/products', productRouter);
-// router.use('/', productColorRouter);
-// router.use('/', productInfoRouter);
-// router.use('/', emailRouter);
 
-// router.post('/registration',
-//   body('email').isEmail(),
-//   body('password').isLength({min: 6, max: 32}),  
-//   userController.registration);
-// router.post('/login', userController.login);
-// router.post('/logout', userController.logout);
-// router.get('/refresh', userController.refresh);
-// // router.get('/users', authMiddleware, userController.getUsers);
+router.post('/registration',
+  body('email').isEmail(),
+  body('password').isLength({min: 6, max: 32}),  
+  userController.registration);
+router.post('/login', userController.login);
+router.post('/logout', userController.logout);
+router.get('/refresh', userController.refresh);
+// router.get('/users', authMiddleware, userController.getUsers);
 // router.get('/users', userController.getUsers);
 // router.get('/users/:id', userController.getUserById);
 // router.put('/users/profileImage', userController.updateUserProfileImage);

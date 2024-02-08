@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 // import expressWS from 'express-ws';
 import fileUpload from 'express-fileupload';
 import router from './router/index';
-// import errorMiddleware from './middlewares/error-middleware';
+import errorMiddleware from './middlewares/error-middleware';
 import config from './common/config';
 
 // interface IMSGProps {
@@ -29,7 +29,7 @@ app.use(cors({
   origin: [config.CLIENT_URL, 'http://skrama24.by', 'http://localhost:3000', 'http://crm.skrama24.by']
 }));
 app.use('/api/v1', router);
-
+app.use(errorMiddleware);
 
 
 mongoose
