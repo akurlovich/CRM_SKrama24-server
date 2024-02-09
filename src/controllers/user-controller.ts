@@ -10,8 +10,9 @@ class UserController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Bad validation!', errors.array()))
       }
-      const { email, password, firstname, lastname, position } = req.body;
-      const userData = await userService.registration(email, password, firstname, lastname, position);
+      // console.log(req.body)
+      const { email, password, firstname, lastname, position, isAdmin } = req.body;
+      const userData = await userService.registration(email, password, firstname, lastname, position, isAdmin);
       res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
       return res.json(userData)
     } catch (error) {
@@ -66,6 +67,15 @@ class UserController {
   async getUserById(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
       const user = await userService.getUserByID(req.params.id);
+      return res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  async deleteUserByID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+      const user = await userService.deleteUserByID(req.params.id);
       return res.json(user);
     } catch (error) {
       next(error);

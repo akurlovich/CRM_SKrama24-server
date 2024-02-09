@@ -1,11 +1,14 @@
 import orderModel from "../models/order-model";
 import { IOrder, IOrderNew, IOrderNewWithCount, IOrderUpdateOrderItems } from "../types/IOrder";
 import { IOrderItem } from "../types/IOrderItem";
+import orderItemService from "./orderItem-service";
 
 
 class OrderService {
   async addOrder(order: IOrderNew) {
-    const count = await orderModel.find().countDocuments();
+    const lastOrder = await orderModel.find().sort({ createdAt: -1 }).limit(1)
+    // console.log(lastOrder[0].orderNumber)
+    const count = lastOrder[0].orderNumber;
     const newOrder: IOrderNewWithCount = {
       orderNumber: count + 1,
       companyID: order.companyID,
@@ -74,6 +77,10 @@ class OrderService {
   };
 
   async deleteOrderByID(id: string) {
+    const order = await orderModel.findById(id);
+    if (order) {
+      await orderItemService.deleteAllOrderOrderItems(order.orderItemID)
+    }
     return await orderModel.findByIdAndDelete(id);
     // return await orderModel.deleteMany({});
   };

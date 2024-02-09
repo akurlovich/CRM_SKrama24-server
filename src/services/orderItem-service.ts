@@ -1,3 +1,4 @@
+import { ObjectId } from "mongoose";
 import orderItemModel from "../models/orderItem-model";
 import { IOrderItem, IOrderItemNewAdd } from "../types/IOrderItem";
 
@@ -18,6 +19,11 @@ class OrderItemService {
 
   async deleteOrderItemByID(id: string) {
     return await orderItemModel.findByIdAndDelete(id);
+    // return await orderItemModel.deleteMany({});
+  };
+
+  async deleteAllOrderOrderItems(ids: ObjectId[]) {
+    return await orderItemModel.deleteMany({_id: ids});
     // return await orderItemModel.deleteMany({});
   };
 };

@@ -8,6 +8,9 @@ import { IContactRequest } from "../types/IContact";
 import { IPhone } from "../types/IPhone";
 import { IEmail } from "../types/IEmail";
 import emailService from "../services/email-service";
+import dealService from "../services/deal-service";
+import orderService from "../services/order-service";
+import commentService from "../services/comment-service";
 
 class CompanyController {
   async addCompany(req: Request, res: Response, next: NextFunction) {
@@ -128,8 +131,17 @@ class CompanyController {
 
   async deleteCompanyByID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
-      const company = await companyService.deleteCompanyByID(req.params.id);
-      return res.json(company);
+      const company = await companyService.getCompanyByID(req.params.id); 
+      await contactService.deleteContactByID(company.contactID.toString())
+      await dealService.deleteAllCompanyDeals(company.dealsID)
+      for (let item of company.ordersID) {
+        await orderService.deleteOrderByID(item.toString())
+      }
+      await commentService.deleteAllCompanyComments(company.commentsID)
+
+      // console.log(company)
+      const companyDelete = await companyService.deleteCompanyByID(req.params.id);
+      return res.json(companyDelete);
     } catch (error) {
       next(error);
     }

@@ -29,7 +29,7 @@ app.use(cors({
   origin: [config.CLIENT_URL, 'http://skrama24.by', 'http://localhost:3000', 'http://crm.skrama24.by']
 }));
 app.use('/api/v1', router);
-app.use(errorMiddleware);
+// app.use(errorMiddleware);
 
 
 mongoose

@@ -11,14 +11,14 @@ import config from '../common/config';
 // import jwt from 'jsonwebtoken';
 
 class UserService {
-  async registration(email: string, password: string, firstname: string, lastname: string, position: string) {
+  async registration(email: string, password: string, firstname: string, lastname: string, position: string, isAdmin: boolean) {
     const applicant = await UserModel.findOne({email});
     if (applicant) {
       throw ApiError.BadRequest(`User with ${email} already exists!`, [''])
     }
     const hashPassword = await bcrypt.hash(password, config.SALT);
     // const position = await roleModel.findOne({value: DEFAULT_USER_ROLE});
-    const user = await UserModel.create({email, password: hashPassword, firstname, lastname, position});
+    const user = await UserModel.create({email, password: hashPassword, firstname, lastname, position, isAdmin});
     const userDto = new UserDto(user);
     const tokens = tokenService.generateToken({...userDto});
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
@@ -88,6 +88,10 @@ class UserService {
       throw ApiError.BadRequest('User not found!', [''])
     }
     return new UserDto(user);
+  };
+
+  async deleteUserByID(id: string) {
+    return await UserModel.findByIdAndDelete(id);
   };
 
   // async updateUserProfileImage(id: string, profileImage: string) {

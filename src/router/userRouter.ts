@@ -13,6 +13,7 @@ router.get('/refresh', userController.refresh);
 // router.get('/users', authMiddleware, userController.getUsers);
 router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getUserById);
+router.delete('/:id', userController.deleteUserByID);
 // router.put('/profileImage', userController.updateUserProfileImage);
 // router.put('/isBlocked', userController.updateUserIsBlocked);
 

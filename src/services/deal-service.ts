@@ -1,3 +1,4 @@
+import { ObjectId } from "mongoose";
 import dealModel from "../models/deal-model";
 import { ICompaniesQuery } from "../types/ICompany";
 import { IDeal, IDealsQuery, IDealUpdate } from "../types/IDeal";
@@ -55,6 +56,10 @@ class DealService {
 
   async deleteDealByID(id: string) {
     return await dealModel.findByIdAndDelete(id);
+  };
+
+  async deleteAllCompanyDeals(ids: ObjectId[]) {
+    return await dealModel.deleteMany({_id: ids});
   };
 };
 
