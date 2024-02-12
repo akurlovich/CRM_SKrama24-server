@@ -4,7 +4,7 @@ import companyService from "../services/company-service";
 import contactService from "../services/contact-service";
 import phoneService from "../services/phone-service";
 import { ICompany } from "../types/ICompany";
-import { IContactRequest } from "../types/IContact";
+import { IContactRequest, IContactAddressRequest } from "../types/IContact";
 import { IPhone } from "../types/IPhone";
 import { IEmail } from "../types/IEmail";
 import emailService from "../services/email-service";
@@ -18,46 +18,43 @@ class CompanyController {
       const { company, contact }: {company: ICompany, contact: IContactRequest} = req.body;
       // console.log('company server controller', req.body);
 
-       //@ts-ignore
-      const redyContact: IContactRequest = {
+      const redyContact: IContactAddressRequest = {
         address: {
           main: contact.address.main,
           district: contact.address.district,
         },
-        // phonesID: {
-        //   // companyID: string,
-        //   number: contact.phonesID.number,
-        //   description: contact.phonesID.description,
-        // },
-        // emailsID: {
-        //   // companyID: string,
-        //   email: contact.emailsID.email,
-        //   description: contact.emailsID.description,
-        // }
       }
       const newContact = await contactService.addContact(redyContact);
       // console.log('newContact', newContact);
       company.contactID = newContact._id;
 
-      const newCompany = await companyService.addCompany(company, newContact);
+      const newCompany = await companyService.addCompany(company);
       await contactService.updateContactCompanyID(newContact._id, newCompany._id);
-      //@ts-ignore
-      const phone: IPhone = {
-        companyID: newCompany._id,
-        number: contact.phonesID.number,
-        description: contact.phonesID.description,
-      };
-      //@ts-ignore
-      const email: IEmail = {
-        companyID: newCompany._id,
-        email: contact.emailsID.email,
-        description: contact.emailsID.description,
-      };
 
-      const newPhone = await phoneService.addPhone(phone);
-      const newEmail = await emailService.addEmail(email);
-      await contactService.updateContactAddPhone(newContact._id, newPhone);
-      await contactService.updateContactAddEmail(newContact._id, newEmail);
+      if (contact.phonesID.number) {
+        //@ts-ignore
+        const phone: IPhone = {
+          companyID: newCompany._id,
+          number: contact.phonesID.number,
+          description: contact.phonesID.description,
+        };
+        const newPhone = await phoneService.addPhone(phone);
+        await contactService.updateContactAddPhone(newContact._id, newPhone);
+      }
+
+      if (contact.emailsID.email) {
+        //@ts-ignore
+        const email: IEmail = {
+          companyID: newCompany._id,
+          email: contact.emailsID.email,
+          description: contact.emailsID.description,
+        };
+  
+        const newEmail = await emailService.addEmail(email);
+        await contactService.updateContactAddEmail(newContact._id, newEmail);
+
+      }
+
       return res.json(newCompany);
     } catch (error) {
       next(error);

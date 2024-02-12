@@ -6,6 +6,7 @@ import phoneService from "../services/phone-service";
 class ContactController {
   async addContact(req: Request, res: Response, next: NextFunction) {
     try {
+      // console.log('contact controller', req.body)
       const newContact = await contactService.addContact(req.body);
       return res.json(newContact);
     } catch (error) {

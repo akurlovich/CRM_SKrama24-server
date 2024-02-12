@@ -22,7 +22,7 @@ export interface IContact extends Document {
   
 }
 
-export interface IContactRequest extends Document {
+export interface IContactRequest {
   // companyID: Schema.Types.ObjectId,
   address: {
     main: string,
@@ -38,6 +38,15 @@ export interface IContactRequest extends Document {
     email: string,
     description: string,
   }
+  
+}
+
+export interface IContactAddressRequest {
+  // companyID: Schema.Types.ObjectId,
+  address: {
+    main: string,
+    district: string,
+  },
   
 }
 

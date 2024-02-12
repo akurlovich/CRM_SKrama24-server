@@ -1,12 +1,14 @@
 import { Schema } from "mongoose";
 import contactModel from "../models/contact-model";
-import { IContact, IContactRequest } from "../types/IContact";
+import { IContact, IContactAddressRequest, IContactRequest } from "../types/IContact";
 import { IEmail } from "../types/IEmail";
 import { IPhone } from "../types/IPhone";
 
 class ContactService {
-  async addContact(contact: IContactRequest) {
-    return await contactModel.create(contact);
+  async addContact(contact: IContactAddressRequest) {
+    // console.log('servise contact туц', contact)
+    const newContact = await contactModel.create(contact);
+    return newContact;
   };
 
   async getContactByID(id: string) {

@@ -6,9 +6,9 @@ import { IDeal } from "../types/IDeal";
 import { IOrder } from "../types/IOrder";
 
 class CompanyService {
-  async addCompany(company: ICompany, contact: IContact) {
+  async addCompany(company: ICompany) {
     // company.contactID = contact._id;
-    console.log('company server servise', company);
+    // console.log('company server servise', company);
     // const newCompany = await companyModel.create(company);
     // return "newCompany";
     return await companyModel.create(company);
