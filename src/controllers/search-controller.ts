@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from "express";
+import companyService from "../services/company-service";
 import searchService from "../services/search-service";
+import { ICompanyPopulate } from "../types/ICompany";
+import { ISearchResult } from "../types/ISearchResult";
 
 class SearchController {
  
@@ -7,12 +10,72 @@ class SearchController {
     try {
       const { search } = req.query;
       // console.log("search", search)
+//@ts-ignore
+      const resultCompany: ICompanyPopulate[] = await searchService.getSearchCompanies(search.toString());
+      // console.log("search", resultCompany)
+      // const resultPhones = await searchService.getSearchCompanyPhones(search.toString());
+      // const resultEmails = await searchService.getSearchCompanyEmails(search.toString());
 
-      // const products = await productService.getAllProducts();
-      // const result = await searchService.getSearchCompanies(req);
-      const result = await searchService.getSearchCompanyPhones(req);
-      console.log("result", result)
-      // const result = await searchService.getSearchCompanyEmails(req);
+      const result: ISearchResult[] = [] as ISearchResult[];
+
+      if (resultCompany.length) {
+        for (let item of resultCompany) {
+          const sendItem: ISearchResult = {
+            companyID: item._id,
+            companyTitle: item.title,
+            userFirstName: item.usersID[0] ? item.usersID[0].firstname : '',
+            userLastName: item.usersID[0] ? item.usersID[0].lastname : '',
+            phoneNumber: item.contactID.phonesID[0] ? item.contactID.phonesID[0].number : '',
+            phoneDescription: item.contactID.phonesID[0] ? item.contactID.phonesID[0].description : '',
+            emailEmail: item.contactID.emailsID[0] ? item.contactID.emailsID[0].email : '',
+            emailDescription: item.contactID.emailsID[0] ? item.contactID.emailsID[0].description : '',
+          }
+          result.push(sendItem)
+        }
+        return res.json(result);
+      } else {
+        const resultPhones = await searchService.getSearchCompanyPhones(search.toString());
+        if (resultPhones.length) {
+          for (let item of resultPhones) {
+            //@ts-ignore
+            const company: ICompanyPopulate = await searchService.getCompanyByIDForSearch(item.companyID.toString())
+            const sendItem: ISearchResult = {
+              companyID: item._id,
+              companyTitle: company.title,
+              userFirstName: company.usersID[0] ? company.usersID[0].firstname : '',
+              userLastName: company.usersID[0] ? company.usersID[0].lastname : '',
+              phoneNumber: item.number,
+              phoneDescription: item.description ? item.description : '',
+              emailEmail: '',
+              emailDescription: '',
+            }
+            result.push(sendItem)
+          }
+          return res.json(result);
+        } else {
+          const resultEmails = await searchService.getSearchCompanyEmails(search.toString());
+          if (resultEmails.length) {
+            for (let item of resultEmails) {
+              //@ts-ignore
+              const company: ICompanyPopulate = await searchService.getCompanyByIDForSearch(item.companyID.toString())
+              const sendItem: ISearchResult = {
+                companyID: item._id,
+                companyTitle: company.title,
+                userFirstName: company.usersID[0] ? company.usersID[0].firstname : '',
+                userLastName: company.usersID[0] ? company.usersID[0].lastname : '',
+                phoneNumber: '',
+                phoneDescription: '',
+                emailEmail: item.email,
+                emailDescription: item.description ? item.description : '',
+              }
+              result.push(sendItem)
+            }
+            return res.json(result);
+          } 
+        }
+      } 
+
+
       return res.json(result);
     } catch (error) {
       next(error);

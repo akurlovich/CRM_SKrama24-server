@@ -1,4 +1,11 @@
 import { Document, Schema } from "mongoose";
+import { IComment } from "./IComment";
+import { IContact } from "./IContact";
+import { IDeal } from "./IDeal";
+import { IEmail } from "./IEmail";
+import { IOrder } from "./IOrder";
+import { IPhone } from "./IPhone";
+import { IUser } from "./IUser";
 
 // export interface ICompany extends Document {
 //   title: string,
@@ -37,6 +44,28 @@ export interface ICompaniesQuery {
   find?: {
     [key: string]: string
   }
+}
+
+export interface ICompanyPopulate {
+  _id: string,
+  title: string,
+  usersID: IUser[],
+  description: string,
+  contactID: IContactPopulate,
+  // dealsID: IDeal[],
+  // ordersID: IOrder[],
+  // commentsID: IComment[],
+}
+
+interface IContactPopulate {
+  _id: string,
+  companyID: string,
+  address: {
+    main: string,
+    district: string,
+  },
+  phonesID: IPhone[],
+  emailsID: IEmail[],
 }
 
 
