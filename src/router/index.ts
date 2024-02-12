@@ -13,25 +13,8 @@ import orderRouter from './orderRouter';
 import phoneRouter from './phoneRouter';
 import positionRouter from './positionRouter';
 import productRouter from './productRouter';
+import searchRouter from './searchRouter';
 import userRouter from './userRouter';
-// import brandRouter from './brandRouter';
-// import productRouter from './productRouter';
-// import roleRouter from './positionRouter';
-// import typeRouter from './typeRouter';
-// import productColorRouter from './productColorRouter';
-// import productInfoRouter from './productInfoRouter';
-// import emailRouter from './emailRouter';
-
-// import userController from '../controllers/user-controller';
-// import { body } from 'express-validator';
-// import authMiddleware from '../middlewares/auth-middleware';
-// import bookController from '../controllers/book-controller';
-// import genreController from '../controllers/genre-controller';
-// import roleController from '../controllers/role-controller';
-// import productController from '../controllers/product-controller';
-// import bookedController from '../controllers/booked-controller';
-// import issuedController from '../controllers/issued-controller';
-// import commentConroller from '../controllers/comment-conroller';
 
 const router = Router();
 router.use('/users', userRouter);
@@ -47,6 +30,7 @@ router.use('/deals', dealRouter);
 router.use('/orders', orderRouter);
 router.use('/orderitems', orderItemRouter);
 router.use('/products', productRouter);
+router.use('/search', searchRouter);
 
 // router.post('/registration',
 //   body('email').isEmail(),
