@@ -79,7 +79,6 @@ var UserController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
-                        console.log(req.body);
                         _a = req.body, email = _a.email, password = _a.password;
                         return [4 /*yield*/, user_service_1.default.login(email, password)];
                     case 1:
@@ -126,11 +125,13 @@ var UserController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
+                        console.log('refreshToken', req.cookies);
                         refreshToken = req.cookies.refreshToken;
                         return [4 /*yield*/, user_service_1.default.refresh(refreshToken)];
                     case 1:
                         userData = _a.sent();
                         res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+                        console.log('userData', userData);
                         return [2 /*return*/, res.json(userData)];
                     case 2:
                         error_4 = _a.sent();

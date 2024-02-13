@@ -1,14 +1,14 @@
 import {  NextFunction, Request, Response } from "express";
 import userService from "../services/user-service";
 import { validationResult } from 'express-validator';
-// import ApiError from "../exceptions/api-error";
+import ApiError from "../exceptions/api-error";
 
 class UserController {
   async registration(req: Request, res: Response, next: NextFunction) {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        // return next(ApiError.BadRequest('Bad validation!', errors.array()))
+        return next(ApiError.BadRequest('Bad validation!', errors.array()))
       }
       // console.log(req.body)
       const { email, password, firstname, lastname, position, isAdmin } = req.body;
