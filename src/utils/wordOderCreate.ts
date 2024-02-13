@@ -625,7 +625,7 @@ export const wordOderCreate = (data: IWordOrderData[], common: ICommonData, file
       },
     },
   }).then((doc) => {
-    // console.log(path.resolve(__dirname, '../..', 'static', '.jpeg'))
+    console.log(path.resolve(__dirname, '../..', 'static', '.jpeg'))
     fs.writeFileSync(path.resolve(__dirname, '../..', 'static', `${filename}`), doc);
     // fs.writeFileSync(__dirname + path.sep + `${data[0].orderID}MyDoc-11111.docx`, doc);
   });
