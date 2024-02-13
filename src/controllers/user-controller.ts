@@ -22,7 +22,7 @@ class UserController {
 
   async login(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.body)
+      // console.log(req.body)
       const { email, password } = req.body;
       const userData = await userService.login(email, password);
       res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
@@ -47,8 +47,10 @@ class UserController {
   async refresh(req: Request, res: Response, next: NextFunction) {
     try {
       const { refreshToken } = req.cookies;
+      console.log('refreshToken', refreshToken)
       const userData = await userService.refresh(refreshToken);
       res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+      console.log('userData', userData)
       return res.json(userData)
     } catch (error) {
       next(error);
