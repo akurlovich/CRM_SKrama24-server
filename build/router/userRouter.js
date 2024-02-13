@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var express_validator_1 = require("express-validator");
+var user_controller_1 = __importDefault(require("../controllers/user-controller"));
+var router = (0, express_1.Router)();
+router.post('/registration', (0, express_validator_1.body)('email').isEmail(), (0, express_validator_1.body)('password').isLength({ min: 6, max: 32 }), user_controller_1.default.registration);
+router.post('/login', user_controller_1.default.login);
+router.post('/logout', user_controller_1.default.logout);
+router.get('/refresh', user_controller_1.default.refresh);
+// router.get('/users', authMiddleware, userController.getUsers);
+router.get('/', user_controller_1.default.getAllUsers);
+router.get('/:id', user_controller_1.default.getUserById);
+router.delete('/:id', user_controller_1.default.deleteUserByID);
+// router.put('/profileImage', userController.updateUserProfileImage);
+// router.put('/isBlocked', userController.updateUserIsBlocked);
+exports.default = router;
