@@ -8,7 +8,8 @@ dotenv.config({
 
 export default {
   PORT: process.env['PORT'] || 4040,
-  API_URL: process.env['API_URL'] || 'http://localhost:',
+  // API_URL: process.env['API_URL'] || 'http://localhost:',
+  API_URL: process.env['API_URL'] || 'http://194.62.19.34:',
   NODE_ENV: process.env['NODE_ENV'],
   CLIENT_URL: process.env['CLIENT_URL'] || 'http://localhost:3030',
   // CLIENT_URL: process.env['CLIENT_URL'] || 'https://skrama24.by',
