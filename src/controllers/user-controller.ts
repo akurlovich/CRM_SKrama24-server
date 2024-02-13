@@ -1,14 +1,14 @@
 import {  NextFunction, Request, Response } from "express";
 import userService from "../services/user-service";
 import { validationResult } from 'express-validator';
-import ApiError from "../exceptions/api-error";
+// import ApiError from "../exceptions/api-error";
 
 class UserController {
   async registration(req: Request, res: Response, next: NextFunction) {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return next(ApiError.BadRequest('Bad validation!', errors.array()))
+        // return next(ApiError.BadRequest('Bad validation!', errors.array()))
       }
       // console.log(req.body)
       const { email, password, firstname, lastname, position, isAdmin } = req.body;
@@ -47,11 +47,11 @@ class UserController {
   async refresh(req: Request, res: Response, next: NextFunction) {
     try {
       console.log('refreshToken', req.cookies)
-      // const { refreshToken } = req.cookies;
-      // const userData = await userService.refresh(refreshToken);
-      // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
-      // console.log('userData', userData)
-      return res.json('userData')
+      const { refreshToken } = req.cookies;
+      const userData = await userService.refresh(refreshToken);
+      res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+      console.log('userData', userData)
+      return res.json(userData)
     } catch (error) {
       next(error);
     }
