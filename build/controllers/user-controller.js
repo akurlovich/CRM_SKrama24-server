@@ -125,7 +125,7 @@ var UserController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        console.log('refreshToken', req.cookies);
+                        console.log('refreshToken', req);
                         refreshToken = req.cookies.refreshToken;
                         return [4 /*yield*/, user_service_1.default.refresh(refreshToken)];
                     case 1:
