@@ -26,7 +26,7 @@ app.use(fileUpload({}));
 app.use(cookieParser());
 app.use(cors({
   credentials: true,
-  origin: [config.CLIENT_URL, 'http://skrama24.by', 'http://localhost:3030', 'http://crm.skrama24.by']
+  origin: [config.CLIENT_URL, 'http://skrama24.by', 'http://localhost:3030', 'http://crm.skrama24.by', 'http://192.168.100.80:3030']
 }));
 app.use('/api/v1', router);
 // app.use(errorMiddleware);
