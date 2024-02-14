@@ -207,6 +207,23 @@ var UserService = /** @class */ (function () {
         });
     };
     ;
+    UserService.prototype.updateIsAdmin = function (id, isAdmin) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, user_model_1.default.findByIdAndUpdate({ _id: id }, isAdmin, { new: true })];
+                    case 1:
+                        user = _a.sent();
+                        if (!user) {
+                            throw api_error_1.default.BadRequest('User not found!', ['']);
+                        }
+                        return [2 /*return*/, new user_dto_1.default(user)];
+                }
+            });
+        });
+    };
+    ;
     return UserService;
 }());
 exports.default = new UserService();
