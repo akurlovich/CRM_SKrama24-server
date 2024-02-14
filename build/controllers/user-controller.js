@@ -130,7 +130,8 @@ var UserController = /** @class */ (function () {
                     console.log('refreshToken', req.cookies);
                     console.log('cookie body', cookie);
                     console.log('headers body', req.headers);
-                    data = jsonwebtoken_1.default.verify(refreshToken, config_1.default.JWT_REFRESH_SECRET_KEY);
+                    console.log('headers authorization body', req.headers.authorization);
+                    data = jsonwebtoken_1.default.verify(req.headers.authorization, config_1.default.JWT_REFRESH_SECRET_KEY);
                     console.log('validate', data);
                     // const userData = await userService.refresh(refreshToken);
                     // console.log('refreshToken', refreshToken)

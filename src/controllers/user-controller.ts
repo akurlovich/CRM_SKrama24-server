@@ -56,7 +56,7 @@ class UserController {
       console.log('headers body', req.headers)
       console.log('headers authorization body', req.headers.authorization)
 
-      const data = jwt.verify(refreshToken, config.JWT_REFRESH_SECRET_KEY) as UserDto;
+      const data = jwt.verify(req.headers.authorization, config.JWT_REFRESH_SECRET_KEY) as UserDto;
       console.log('validate', data)
 
       // const userData = await userService.refresh(refreshToken);
