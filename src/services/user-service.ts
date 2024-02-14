@@ -96,6 +96,14 @@ class UserService {
     return await UserModel.findByIdAndDelete(id);
   };
 
+  async updateIsAdmin(id: string, isAdmin: any) {
+    const user = await UserModel.findByIdAndUpdate({_id: id}, isAdmin, {new: true});
+    if (!user) {
+      throw ApiError.BadRequest('User not found!', [''])
+    }
+    return new UserDto(user);
+  };
+
   // async updateUserProfileImage(id: string, profileImage: string) {
   //   const user = await UserModel.findByIdAndUpdate({_id: id}, {profileImage: profileImage}, {new: true});
   //   if (!user) {

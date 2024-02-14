@@ -15,6 +15,7 @@ router.post('/refresh', userController.refresh);
 router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getUserById);
 router.delete('/:id', userController.deleteUserByID);
+router.put('/:id', userController.updateIsAdmin);
 // router.put('/profileImage', userController.updateUserProfileImage);
 // router.put('/isBlocked', userController.updateUserIsBlocked);
 

@@ -108,6 +108,16 @@ class UserController {
     }
   };
 
+  async updateIsAdmin(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+  //? в req.body должно придти {isAdmin: true}
+      const user = await userService.updateIsAdmin(req.params.id, req.body);
+      return res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   // async updateUserProfileImage(req: Request, res: Response, next: NextFunction) {
   //   try {
   //     const { id, profileImage } = req.body;
