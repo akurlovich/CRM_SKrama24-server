@@ -51,9 +51,10 @@ class UserController {
     try {
       const { refreshToken } = req.cookies;
       const { cookie } = req.body;
-      console.log('refreshToken', req.cookies)
+      console.log('refreshToken', req.cookies) 
       console.log('cookie body', cookie)
       console.log('headers body', req.headers)
+      console.log('headers authorization body', req.headers.authorization)
 
       const data = jwt.verify(refreshToken, config.JWT_REFRESH_SECRET_KEY) as UserDto;
       console.log('validate', data)
