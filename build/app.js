@@ -26,7 +26,7 @@ app.use(express_1.default.static('static'));
 app.use((0, express_fileupload_1.default)({}));
 app.use((0, cookie_parser_1.default)());
 app.use((0, cors_1.default)({
-    origin: [config_1.default.CLIENT_URL, 'http://skrama24.by', 'http://localhost:3030', 'http://crm.skrama24.by', 'http://192.168.100.80:3030'],
+    origin: [config_1.default.CLIENT_URL, 'http://skrama24.by', 'http://localhost:3030', 'http://crm.skrama24.by', 'http://192.168.100.80:3030', 'http://194.62.19.34:3030'],
     credentials: true,
 }));
 app.use('/api/v1', index_1.default);
