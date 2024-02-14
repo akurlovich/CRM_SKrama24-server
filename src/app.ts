@@ -31,7 +31,6 @@ app.use(cors({
 app.use('/api/v1', router);
 // app.use(errorMiddleware);
 
-
 mongoose
   .connect(config.DB_CONNECT, {})
   .then(() => console.log('Connected to DB'))

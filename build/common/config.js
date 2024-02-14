@@ -6,9 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var dotenv_1 = __importDefault(require("dotenv"));
 var path_1 = __importDefault(require("path"));
 var __dirname = path_1.default.resolve();
-dotenv_1.default.config({
-    path: path_1.default.join(__dirname, '../../.env')
-});
+// dotenv.config({
+//   path: path.join(__dirname, '../../.env')
+// });
+dotenv_1.default.config();
+// console.log('path', path.join(__dirname, '.env'))
+// console.log('env', process.env['DB_CONNECT'])
 exports.default = {
     PORT: process.env['PORT'] || 4040,
     // API_URL: process.env['API_URL'] || 'http://localhost:',
@@ -21,7 +24,7 @@ exports.default = {
     JWT_REFRESH_SECRET_KEY: process.env['JWT_REFRESH_SECRET_KEY'] || 'refresh-secret-key',
     // AUTH_MODE: process.env['AUTH_MODE'] === 'true',
     // DB_CONNECT: process.env['DB_CONNECT'] || 'mongodb://194.62.19.34:27017/crm24',
-    DB_CONNECT: process.env['DB_CONNECT'] || 'mongodb://admin:skrama2020@194.62.19.34:27017/crm24',
+    DB_CONNECT: process.env['DB_CONNECT'] || '',
     // SMTP_HOST: process.env['SMTP_HOST'] || 'smtp.gmail.com',
     // SMTP_PORT: process.env['SMTP_POPT'] || 587,
     // SMTP_USER: process.env['SMTP_USER'] || 'qa.a.kurlovich@gmail.com',

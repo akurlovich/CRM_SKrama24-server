@@ -2,9 +2,14 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 const __dirname = path.resolve();
-dotenv.config({
-  path: path.join(__dirname, '../../.env')
-});
+// dotenv.config({
+//   path: path.join(__dirname, '../../.env')
+// });
+
+dotenv.config();
+
+// console.log('path', path.join(__dirname, '.env'))
+// console.log('env', process.env['DB_CONNECT'])
 
 export default {
   PORT: process.env['PORT'] || 4040,
@@ -18,7 +23,7 @@ export default {
   JWT_REFRESH_SECRET_KEY: process.env['JWT_REFRESH_SECRET_KEY'] || 'refresh-secret-key',
   // AUTH_MODE: process.env['AUTH_MODE'] === 'true',
   // DB_CONNECT: process.env['DB_CONNECT'] || 'mongodb://194.62.19.34:27017/crm24',
-  DB_CONNECT: process.env['DB_CONNECT'] || 'mongodb://admin:skrama2020@194.62.19.34:27017/crm24',
+  DB_CONNECT: process.env['DB_CONNECT'] || '',
   // SMTP_HOST: process.env['SMTP_HOST'] || 'smtp.gmail.com',
   // SMTP_PORT: process.env['SMTP_POPT'] || 587,
   // SMTP_USER: process.env['SMTP_USER'] || 'qa.a.kurlovich@gmail.com',
