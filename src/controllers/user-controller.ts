@@ -2,6 +2,9 @@ import {  NextFunction, Request, Response } from "express";
 import userService from "../services/user-service";
 import { validationResult } from 'express-validator';
 import ApiError from "../exceptions/api-error";
+import UserDto from "../dtos/user-dto";
+import config from "../common/config";
+import jwt from 'jsonwebtoken';
 
 class UserController {
   async registration(req: Request, res: Response, next: NextFunction) {
@@ -22,7 +25,7 @@ class UserController {
 
   async login(req: Request, res: Response, next: NextFunction) {
     try {
-      // console.log(req.body)
+      // console.log(req)
       const { email, password } = req.body;
       const userData = await userService.login(email, password);
       res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
@@ -46,12 +49,22 @@ class UserController {
 
   async refresh(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log('refreshToken', req)
       const { refreshToken } = req.cookies;
-      const userData = await userService.refresh(refreshToken);
-      res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
-      console.log('userData', userData)
-      return res.json(userData)
+      const { cookie } = req.body;
+      console.log('refreshToken', req.cookies)
+      console.log('cookie body', cookie)
+      console.log('headers body', req.headers)
+
+      const data = jwt.verify(refreshToken, config.JWT_REFRESH_SECRET_KEY) as UserDto;
+      console.log('validate', data)
+
+      // const userData = await userService.refresh(refreshToken);
+      // console.log('refreshToken', refreshToken)
+
+      // const userData = await userService.refresh(cookie);
+      // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+      // console.log('userData', userData)
+      return res.json('userData')
     } catch (error) {
       next(error);
     }

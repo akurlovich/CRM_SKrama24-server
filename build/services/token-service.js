@@ -57,6 +57,7 @@ var TokenService = /** @class */ (function () {
     TokenService.prototype.validateAccessToken = function (token) {
         try {
             var data = jsonwebtoken_1.default.verify(token, config_1.default.JWT_ACCESS_SECRET_KEY);
+            // console.log('validate', data)
             return data;
         }
         catch (error) {
@@ -66,10 +67,13 @@ var TokenService = /** @class */ (function () {
     ;
     TokenService.prototype.validateRefreshToken = function (token) {
         try {
+            // console.log('token', token)
             var data = jsonwebtoken_1.default.verify(token, config_1.default.JWT_REFRESH_SECRET_KEY);
+            // console.log('validate', data)
             return data;
         }
         catch (error) {
+            console.log('error');
             return null;
         }
     };

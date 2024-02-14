@@ -140,10 +140,12 @@ var UserService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        // console.log('refreshToken2', refreshToken)
                         if (!refreshToken) {
                             throw api_error_1.default.UnauthorizedError();
                         }
                         userData = token_service_1.default.validateRefreshToken(refreshToken);
+                        console.log('userData', userData);
                         return [4 /*yield*/, token_service_1.default.findToken(refreshToken)];
                     case 1:
                         tokenFromDB = _a.sent();

@@ -15,6 +15,7 @@ class TokenService {
   validateAccessToken(token: string) {
     try {
       const data = jwt.verify(token, config.JWT_ACCESS_SECRET_KEY) as UserDto;
+      // console.log('validate', data)
       return data;
     } catch (error) {
       return null;
@@ -22,9 +23,12 @@ class TokenService {
   };
   validateRefreshToken(token: string) {
     try {
+      // console.log('token', token)
       const data = jwt.verify(token, config.JWT_REFRESH_SECRET_KEY) as UserDto;
+      // console.log('validate', data)
       return data;
     } catch (error) {
+      console.log('error')
       return null;
     }
   };

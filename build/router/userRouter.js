@@ -11,6 +11,7 @@ router.post('/registration', (0, express_validator_1.body)('email').isEmail(), (
 router.post('/login', user_controller_1.default.login);
 router.post('/logout', user_controller_1.default.logout);
 router.get('/refresh', user_controller_1.default.refresh);
+router.post('/refresh', user_controller_1.default.refresh);
 // router.get('/users', authMiddleware, userController.getUsers);
 router.get('/', user_controller_1.default.getAllUsers);
 router.get('/:id', user_controller_1.default.getUserById);
