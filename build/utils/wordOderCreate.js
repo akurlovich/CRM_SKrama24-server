@@ -647,7 +647,7 @@ var wordOderCreate = function (data, common, filename) {
             },
         },
     }).then(function (doc) {
-        console.log(path_1.default.resolve(__dirname, '../..', 'static', '.jpeg'));
+        // console.log(path.resolve(__dirname, '../..', 'static', '.jpeg'))
         fs.writeFileSync(path_1.default.resolve(__dirname, '../..', 'static', "".concat(filename)), doc);
         // fs.writeFileSync(__dirname + path.sep + `${data[0].orderID}MyDoc-11111.docx`, doc);
     });

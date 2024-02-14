@@ -42,8 +42,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var user_service_1 = __importDefault(require("../services/user-service"));
 var express_validator_1 = require("express-validator");
 var api_error_1 = __importDefault(require("../exceptions/api-error"));
-var config_1 = __importDefault(require("../common/config"));
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var UserController = /** @class */ (function () {
     function UserController() {
     }
@@ -85,8 +83,8 @@ var UserController = /** @class */ (function () {
                         return [4 /*yield*/, user_service_1.default.login(email, password)];
                     case 1:
                         userData = _b.sent();
-                        // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
-                        res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+                        res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+                        // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000})
                         return [2 /*return*/, res.json(userData)];
                     case 2:
                         error_2 = _b.sent();
@@ -123,35 +121,41 @@ var UserController = /** @class */ (function () {
     ;
     UserController.prototype.refresh = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var refreshToken, cookie, data;
+            var refreshToken, userData, error_4;
             return __generator(this, function (_a) {
-                try {
-                    refreshToken = req.cookies.refreshToken;
-                    cookie = req.body.cookie;
-                    console.log('refreshToken', req.cookies);
-                    console.log('cookie body', cookie);
-                    console.log('headers body', req.headers);
-                    console.log('headers authorization body', req.headers.authorization);
-                    data = jsonwebtoken_1.default.verify(req.headers.authorization, config_1.default.JWT_REFRESH_SECRET_KEY);
-                    console.log('validate', data);
-                    // const userData = await userService.refresh(refreshToken);
-                    // console.log('refreshToken', refreshToken)
-                    // const userData = await userService.refresh(cookie);
-                    // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
-                    // console.log('userData', userData)
-                    return [2 /*return*/, res.json('userData')];
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 5, , 6]);
+                        refreshToken = req.cookies.refreshToken;
+                        userData = void 0;
+                        if (!refreshToken) return [3 /*break*/, 2];
+                        return [4 /*yield*/, user_service_1.default.refresh(refreshToken)];
+                    case 1:
+                        userData = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, user_service_1.default.refresh(req.headers.authorization)];
+                    case 3:
+                        userData = _a.sent();
+                        _a.label = 4;
+                    case 4:
+                        // console.log('refreshToken', refreshToken)
+                        // const userData = await userService.refresh(refreshToken);
+                        res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+                        // console.log('userData', userData)
+                        return [2 /*return*/, res.json(userData)];
+                    case 5:
+                        error_4 = _a.sent();
+                        next(error_4);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
-                catch (error) {
-                    next(error);
-                }
-                return [2 /*return*/];
             });
         });
     };
     ;
     UserController.prototype.getAllUsers = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var users, error_4;
+            var users, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -160,27 +164,6 @@ var UserController = /** @class */ (function () {
                     case 1:
                         users = _a.sent();
                         return [2 /*return*/, res.json(users)];
-                    case 2:
-                        error_4 = _a.sent();
-                        next(error_4);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ;
-    UserController.prototype.getUserById = function (req, res, next) {
-        return __awaiter(this, void 0, void 0, function () {
-            var user, error_5;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, user_service_1.default.getUserByID(req.params.id)];
-                    case 1:
-                        user = _a.sent();
-                        return [2 /*return*/, res.json(user)];
                     case 2:
                         error_5 = _a.sent();
                         next(error_5);
@@ -191,9 +174,30 @@ var UserController = /** @class */ (function () {
         });
     };
     ;
-    UserController.prototype.deleteUserByID = function (req, res, next) {
+    UserController.prototype.getUserById = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
             var user, error_6;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, user_service_1.default.getUserByID(req.params.id)];
+                    case 1:
+                        user = _a.sent();
+                        return [2 /*return*/, res.json(user)];
+                    case 2:
+                        error_6 = _a.sent();
+                        next(error_6);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ;
+    UserController.prototype.deleteUserByID = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user, error_7;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -203,8 +207,8 @@ var UserController = /** @class */ (function () {
                         user = _a.sent();
                         return [2 /*return*/, res.json(user)];
                     case 2:
-                        error_6 = _a.sent();
-                        next(error_6);
+                        error_7 = _a.sent();
+                        next(error_7);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }

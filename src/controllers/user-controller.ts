@@ -28,8 +28,8 @@ class UserController {
       // console.log(req)
       const { email, password } = req.body;
       const userData = await userService.login(email, password);
-      // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
-      res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000})
+      res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+      // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000})
       return res.json(userData)
     } catch (error) {
       next(error);
@@ -51,22 +51,31 @@ class UserController {
   async refresh(req: Request, res: Response, next: NextFunction) {
     try {
       const { refreshToken } = req.cookies;
-      const { cookie } = req.body;
-      console.log('refreshToken', req.cookies) 
-      console.log('cookie body', cookie)
-      console.log('headers body', req.headers)
-      console.log('headers authorization body', req.headers.authorization)
+      // console.log('refreshToken', refreshToken) 
+      // console.log('req.headers.authorization', req.headers.authorization) 
+      // const { cookie } = req.body;
+      // console.log('refreshToken', req.cookies) 
+      // console.log('cookie body', cookie)
+      // console.log('headers body', req.headers)
+      // console.log('headers authorization body', req.headers.authorization)
 
-      const data = jwt.verify(req.headers.authorization, config.JWT_REFRESH_SECRET_KEY) as UserDto;
-      console.log('validate', data)
+      // const data = jwt.verify(req.headers.authorization, config.JWT_REFRESH_SECRET_KEY) as UserDto;
+      // console.log('validate', data)
 
-      // const userData = await userService.refresh(refreshToken);
+      let userData;
+
+      if (refreshToken) {
+         userData = await userService.refresh(refreshToken);
+      } else {
+        userData = await userService.refresh(req.headers.authorization);
+      }
+
       // console.log('refreshToken', refreshToken)
 
-      // const userData = await userService.refresh(cookie);
-      // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+      // const userData = await userService.refresh(refreshToken);
+      res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
       // console.log('userData', userData)
-      return res.json('userData')
+      return res.json(userData)
     } catch (error) {
       next(error);
     }

@@ -145,7 +145,6 @@ var UserService = /** @class */ (function () {
                             throw api_error_1.default.UnauthorizedError();
                         }
                         userData = token_service_1.default.validateRefreshToken(refreshToken);
-                        console.log('userData', userData);
                         return [4 /*yield*/, token_service_1.default.findToken(refreshToken)];
                     case 1:
                         tokenFromDB = _a.sent();
