@@ -85,7 +85,8 @@ var UserController = /** @class */ (function () {
                         return [4 /*yield*/, user_service_1.default.login(email, password)];
                     case 1:
                         userData = _b.sent();
-                        res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+                        // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+                        res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000 });
                         return [2 /*return*/, res.json(userData)];
                     case 2:
                         error_2 = _b.sent();
