@@ -41,6 +41,15 @@ class PhoneController {
     }
   };
 
+  async updatePhoneIsActive(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+      const phone = await phoneService.updatePhoneByID(req.params.id, req.body);
+      return res.json(phone);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   async deletePhoneByID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
       const phone = await phoneService.deletePhoneByID(req.params.id);

@@ -132,9 +132,30 @@ var EmailController = /** @class */ (function () {
         });
     };
     ;
-    EmailController.prototype.deleteEmailByID = function (req, res, next) {
+    EmailController.prototype.updateEmailIsActive = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
             var email, error_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, email_service_1.default.updateEmailIsActive(req.params.id, req.body)];
+                    case 1:
+                        email = _a.sent();
+                        return [2 /*return*/, res.json(email)];
+                    case 2:
+                        error_5 = _a.sent();
+                        next(error_5);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ;
+    EmailController.prototype.deleteEmailByID = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var email, error_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -144,8 +165,8 @@ var EmailController = /** @class */ (function () {
                         email = _a.sent();
                         return [2 /*return*/, res.json(email)];
                     case 2:
-                        error_5 = _a.sent();
-                        next(error_5);
+                        error_6 = _a.sent();
+                        next(error_6);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }

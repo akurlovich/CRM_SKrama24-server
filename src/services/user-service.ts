@@ -97,7 +97,7 @@ class UserService {
   };
 
   async updateIsAdmin(id: string, isAdmin: any) {
-    const user = await UserModel.findByIdAndUpdate({_id: id}, isAdmin, {new: true});
+    const user = await UserModel.findByIdAndUpdate({_id: id}, isAdmin);
     if (!user) {
       throw ApiError.BadRequest('User not found!', [''])
     }

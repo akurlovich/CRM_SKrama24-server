@@ -19,6 +19,10 @@ class EmailService {
     return await emailModel.findByIdAndUpdate({_id: id}, email);
   };
 
+  async updateEmailIsActive(id: string, isActive: any) {
+    return await emailModel.findByIdAndUpdate({_id: id}, isActive);
+  };
+
   async deleteEmailByID(id: string) {
     return await emailModel.findByIdAndDelete(id);
   };

@@ -87,6 +87,17 @@ var EmailService = /** @class */ (function () {
         });
     };
     ;
+    EmailService.prototype.updateEmailIsActive = function (id, isActive) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, email_model_1.default.findByIdAndUpdate({ _id: id }, isActive)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ;
     EmailService.prototype.deleteEmailByID = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {

@@ -15,6 +15,10 @@ const EmailSchema: Schema = new Schema<IEmail>({
     type: String,
     default: '',
   },
+  isActive: {
+    type: Boolean,
+    default: false,
+  },
 },
 { timestamps: true },
 );

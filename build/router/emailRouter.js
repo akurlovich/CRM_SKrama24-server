@@ -10,5 +10,6 @@ router.post('/', email_controller_1.default.addEmail);
 router.get('/:id', email_controller_1.default.getEmailByID);
 router.get('/', email_controller_1.default.getAllEmails);
 router.put('/:id', email_controller_1.default.updateEmailByID);
+router.put('/:id/active', email_controller_1.default.updateEmailIsActive);
 router.delete('/:id', email_controller_1.default.deleteEmailByID);
 exports.default = router;

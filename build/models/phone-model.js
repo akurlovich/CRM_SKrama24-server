@@ -15,5 +15,9 @@ var PhoneSchema = new mongoose_1.Schema({
         type: String,
         default: '',
     },
+    isActive: {
+        type: Boolean,
+        default: false,
+    },
 }, { timestamps: true });
 exports.default = (0, mongoose_1.model)('Phone', PhoneSchema);

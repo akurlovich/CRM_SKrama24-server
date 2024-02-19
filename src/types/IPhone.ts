@@ -4,6 +4,7 @@ export interface IPhone extends Document {
   companyID: Schema.Types.ObjectId,
   number: string,
   description: string,
+  isActive: boolean,
 }
 
 export interface IPhoneUpdate{

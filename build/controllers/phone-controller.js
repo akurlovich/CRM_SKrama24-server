@@ -132,9 +132,30 @@ var PhoneController = /** @class */ (function () {
         });
     };
     ;
-    PhoneController.prototype.deletePhoneByID = function (req, res, next) {
+    PhoneController.prototype.updatePhoneIsActive = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
             var phone, error_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, phone_service_1.default.updatePhoneByID(req.params.id, req.body)];
+                    case 1:
+                        phone = _a.sent();
+                        return [2 /*return*/, res.json(phone)];
+                    case 2:
+                        error_5 = _a.sent();
+                        next(error_5);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ;
+    PhoneController.prototype.deletePhoneByID = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var phone, error_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -144,8 +165,8 @@ var PhoneController = /** @class */ (function () {
                         phone = _a.sent();
                         return [2 /*return*/, res.json(phone)];
                     case 2:
-                        error_5 = _a.sent();
-                        next(error_5);
+                        error_6 = _a.sent();
+                        next(error_6);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }

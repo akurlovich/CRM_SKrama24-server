@@ -15,6 +15,10 @@ const PhoneSchema: Schema = new Schema<IPhone>({
     type: String,
     default: '',
   },
+  isActive: {
+    type: Boolean,
+    default: false,
+  },
 },
 { timestamps: true },
 );

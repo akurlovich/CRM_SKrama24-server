@@ -10,5 +10,6 @@ router.post('/', phone_controller_1.default.addPhone);
 router.get('/:id', phone_controller_1.default.getPhoneByID);
 router.get('/', phone_controller_1.default.getAllPhones);
 router.put('/:id', phone_controller_1.default.updatePhoneByID);
+router.put('/:id/active', phone_controller_1.default.updatePhoneIsActive);
 router.delete('/:id', phone_controller_1.default.deletePhoneByID);
 exports.default = router;

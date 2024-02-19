@@ -18,6 +18,10 @@ class PhoneService {
     return await phoneModel.findByIdAndUpdate({_id: id}, phone);
   };
 
+  async updatePhoneIsActive(id: string, isActive: any) {
+    return await phoneModel.findByIdAndUpdate({_id: id}, isActive);
+  };
+
   async deletePhoneByID(id: string) {
     return await phoneModel.findByIdAndDelete(id);
   };

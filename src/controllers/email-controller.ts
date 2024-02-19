@@ -41,6 +41,15 @@ class EmailController {
     }
   };
 
+  async updateEmailIsActive(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+      const email = await emailService.updateEmailIsActive(req.params.id, req.body);
+      return res.json(email);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   async deleteEmailByID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
       const email = await emailService.deleteEmailByID(req.params.id);

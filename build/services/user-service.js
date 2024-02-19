@@ -212,7 +212,7 @@ var UserService = /** @class */ (function () {
             var user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, user_model_1.default.findByIdAndUpdate({ _id: id }, isAdmin, { new: true })];
+                    case 0: return [4 /*yield*/, user_model_1.default.findByIdAndUpdate({ _id: id }, isAdmin)];
                     case 1:
                         user = _a.sent();
                         if (!user) {
