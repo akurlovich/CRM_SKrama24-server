@@ -14,7 +14,7 @@ class UserService {
   async registration(email: string, password: string, firstname: string, lastname: string, position: string, isAdmin: boolean) {
     const applicant = await UserModel.findOne({email});
     if (applicant) {
-      throw ApiError.BadRequest(`User with ${email} already exists!`, [''])
+      throw ApiError.BadRequest(`Пользователь с почтой ${email} уже существует!`, [''])
     }
     const hashPassword = await bcrypt.hash(password, config.SALT);
     // const position = await roleModel.findOne({value: DEFAULT_USER_ROLE});
@@ -34,12 +34,12 @@ class UserService {
     // console.log('email', email, 'user', user)
     if (user === null) {
       // console.log('user null')
-      throw ApiError.BadRequest(`User with ${email} not found!`, [''])
+      throw ApiError.BadRequest(`Пользователь с почтой ${email} не найден!`, [''])
     }
     const isPassword = await bcrypt.compare(password, user.password);
     // console.log('pas', isPassword)
     if (!isPassword) {
-      throw ApiError.BadRequest(`User password not valid!`, [''])
+      throw ApiError.BadRequest(`Неверный пароль!`, [''])
     }
     const userDto = new UserDto(user);
     const tokens = tokenService.generateToken({...userDto});
