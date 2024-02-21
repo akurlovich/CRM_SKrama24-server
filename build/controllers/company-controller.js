@@ -243,9 +243,31 @@ var CompanyController = /** @class */ (function () {
         });
     };
     ;
+    CompanyController.prototype.updateCompanyUsers = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var company, error_8;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, company_service_1.default.updateCompanyUsers(req.params.id, req.body)];
+                    case 1:
+                        company = _a.sent();
+                        // console.log('companies', companies)
+                        return [2 /*return*/, res.json(company)];
+                    case 2:
+                        error_8 = _a.sent();
+                        next(error_8);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ;
     CompanyController.prototype.deleteCompanyByID = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var company, _i, _a, item, companyDelete, error_8;
+            var company, _i, _a, item, companyDelete, error_9;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -281,8 +303,8 @@ var CompanyController = /** @class */ (function () {
                         companyDelete = _b.sent();
                         return [2 /*return*/, res.json(companyDelete)];
                     case 10:
-                        error_8 = _b.sent();
-                        next(error_8);
+                        error_9 = _b.sent();
+                        next(error_9);
                         return [3 /*break*/, 11];
                     case 11: return [2 /*return*/];
                 }

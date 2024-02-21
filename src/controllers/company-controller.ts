@@ -126,6 +126,16 @@ class CompanyController {
     }
   };
 
+  async updateCompanyUsers(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+      const company = await companyService.updateCompanyUsers(req.params.id, req.body);
+      // console.log('companies', companies)
+      return res.json(company);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   async deleteCompanyByID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
       const company = await companyService.getCompanyByID(req.params.id); 

@@ -186,6 +186,26 @@ var CompanyService = /** @class */ (function () {
         });
     };
     ;
+    CompanyService.prototype.updateCompanyUsers = function (companyID, usersID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var company;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, company_model_1.default.findByIdAndUpdate({ _id: companyID }, { $set: { usersID: [] } }, { new: true })];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, company_model_1.default.findByIdAndUpdate({ _id: companyID }, { $push: { usersID: usersID } })];
+                    case 2:
+                        company = _a.sent();
+                        // console.log('first', contact)
+                        // contact.emailsID.push(email._id);
+                        // await contact.save;
+                        return [2 /*return*/, company];
+                }
+            });
+        });
+    };
+    ;
     //TODO передать id сделки
     CompanyService.prototype.deleteDealFromCompanyByDealID = function (dealID) {
         return __awaiter(this, void 0, void 0, function () {
