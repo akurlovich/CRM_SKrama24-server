@@ -83,10 +83,24 @@ var CompanyService = /** @class */ (function () {
     ;
     CompanyService.prototype.getAllCompaniesPopulateQuery = function (query) {
         return __awaiter(this, void 0, void 0, function () {
+            var count, companies;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, company_model_1.default.find(query.find).populate(query.query).limit(query.limit).sort(query.sort)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 0: return [4 /*yield*/, company_model_1.default.countDocuments(query.find)];
+                    case 1:
+                        count = _a.sent();
+                        return [4 /*yield*/, company_model_1.default.find(query.find).populate(query.query).sort(query.sort).skip((query.page * query.limit) - query.limit).limit(query.limit)];
+                    case 2:
+                        companies = _a.sent();
+                        // return await companyModel.find(query.find).populate(query.query).sort(query.sort).skip((query.page * query.limit) - query.limit).limit(query.limit);
+                        return [2 /*return*/, {
+                                count: count,
+                                companies: companies,
+                            }
+                            // return await companyModel.find().populate({path: 'contactID', options: { sort: {'address.district': 'asc'}}});
+                            // return await companyModel.find().populate({path: 'contactID', populate: {path: 'address', select: "district", options: { sort: { "district": -1 } }}});
+                            // return await companyModel.find().populate({path: 'contactID', select: "address.district", options: { sort: { "contactID.address.district": -1 } }});
+                        ];
                 }
             });
         });
@@ -175,6 +189,24 @@ var CompanyService = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, company_model_1.default.findByIdAndUpdate({ _id: companyID }, { description: description })];
+                    case 1:
+                        company = _b.sent();
+                        // console.log('first', contact)
+                        // contact.emailsID.push(email._id);
+                        // await contact.save;
+                        return [2 /*return*/, company];
+                }
+            });
+        });
+    };
+    ;
+    CompanyService.prototype.updateCompanyTitle = function (companyID, _a) {
+        var title = _a.title;
+        return __awaiter(this, void 0, void 0, function () {
+            var company;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, company_model_1.default.findByIdAndUpdate({ _id: companyID }, { title: title })];
                     case 1:
                         company = _b.sent();
                         // console.log('first', contact)

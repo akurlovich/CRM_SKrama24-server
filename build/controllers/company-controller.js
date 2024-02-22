@@ -157,16 +157,16 @@ var CompanyController = /** @class */ (function () {
     ;
     CompanyController.prototype.getAllCompaniesPopulateQuery = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var companies, error_4;
+            var companiesData, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, company_service_1.default.getAllCompaniesPopulateQuery(req.body)];
                     case 1:
-                        companies = _a.sent();
+                        companiesData = _a.sent();
                         // console.log('companies', companies)
-                        return [2 /*return*/, res.json(companies)];
+                        return [2 /*return*/, res.json(companiesData)];
                     case 2:
                         error_4 = _a.sent();
                         next(error_4);
@@ -243,14 +243,14 @@ var CompanyController = /** @class */ (function () {
         });
     };
     ;
-    CompanyController.prototype.updateCompanyUsers = function (req, res, next) {
+    CompanyController.prototype.updateCompanyTitle = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
             var company, error_8;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, company_service_1.default.updateCompanyUsers(req.params.id, req.body)];
+                        return [4 /*yield*/, company_service_1.default.updateCompanyTitle(req.params.id, req.body)];
                     case 1:
                         company = _a.sent();
                         // console.log('companies', companies)
@@ -265,9 +265,31 @@ var CompanyController = /** @class */ (function () {
         });
     };
     ;
+    CompanyController.prototype.updateCompanyUsers = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var company, error_9;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, company_service_1.default.updateCompanyUsers(req.params.id, req.body)];
+                    case 1:
+                        company = _a.sent();
+                        // console.log('companies', companies)
+                        return [2 /*return*/, res.json(company)];
+                    case 2:
+                        error_9 = _a.sent();
+                        next(error_9);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ;
     CompanyController.prototype.deleteCompanyByID = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var company, _i, _a, item, companyDelete, error_9;
+            var company, _i, _a, item, companyDelete, error_10;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -303,8 +325,8 @@ var CompanyController = /** @class */ (function () {
                         companyDelete = _b.sent();
                         return [2 /*return*/, res.json(companyDelete)];
                     case 10:
-                        error_9 = _b.sent();
-                        next(error_9);
+                        error_10 = _b.sent();
+                        next(error_10);
                         return [3 /*break*/, 11];
                     case 11: return [2 /*return*/];
                 }

@@ -14,6 +14,7 @@ router.get('/', company_controller_1.default.getAllCompanies);
 router.post('/filter', company_controller_1.default.getAllCompaniesPopulateQuery);
 router.post('/item', company_controller_1.default.getCompanyByIDQuery);
 router.put('/:id/description', company_controller_1.default.updateCompanyDescription);
+router.put('/:id/title', company_controller_1.default.updateCompanyTitle);
 router.put('/:id/users', company_controller_1.default.updateCompanyUsers);
 router.delete('/:id', company_controller_1.default.deleteCompanyByID);
 exports.default = router;

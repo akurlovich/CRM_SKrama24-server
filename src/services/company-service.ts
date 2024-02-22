@@ -23,7 +23,15 @@ class CompanyService {
   };
 
   async getAllCompaniesPopulateQuery(query: ICompaniesQuery) {
-    return await companyModel.find(query.find).populate(query.query).limit(query.limit).sort(query.sort);
+    // console.log(query)
+    const count = await companyModel.countDocuments(query.find)
+    const companies = await companyModel.find(query.find).populate(query.query).sort(query.sort).skip((query.page * query.limit) - query.limit).limit(query.limit);
+    
+    // return await companyModel.find(query.find).populate(query.query).sort(query.sort).skip((query.page * query.limit) - query.limit).limit(query.limit);
+    return {
+      count,
+      companies,
+    }
     // return await companyModel.find().populate({path: 'contactID', options: { sort: {'address.district': 'asc'}}});
     // return await companyModel.find().populate({path: 'contactID', populate: {path: 'address', select: "district", options: { sort: { "district": -1 } }}});
     // return await companyModel.find().populate({path: 'contactID', select: "address.district", options: { sort: { "contactID.address.district": -1 } }});
@@ -67,6 +75,14 @@ class CompanyService {
 
   async updateCompanyDescription(companyID: string, {description}: {description: string}) {
     const company = await companyModel.findByIdAndUpdate({_id: companyID}, {description});
+    // console.log('first', contact)
+    // contact.emailsID.push(email._id);
+    // await contact.save;
+    return company;
+  };
+
+  async updateCompanyTitle(companyID: string, {title}: {title: string}) {
+    const company = await companyModel.findByIdAndUpdate({_id: companyID}, {title});
     // console.log('first', contact)
     // contact.emailsID.push(email._id);
     // await contact.save;

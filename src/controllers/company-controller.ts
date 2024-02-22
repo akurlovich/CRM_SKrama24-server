@@ -85,9 +85,9 @@ class CompanyController {
       // const { query } = req.body;
       // console.log('query', query);
       // console.log('body', req.body);
-      const companies = await companyService.getAllCompaniesPopulateQuery(req.body);
+      const companiesData = await companyService.getAllCompaniesPopulateQuery(req.body);
       // console.log('companies', companies)
-      return res.json(companies);
+      return res.json(companiesData);
     } catch (error) {
       next(error);
     }
@@ -118,7 +118,19 @@ class CompanyController {
 
   async updateCompanyDescription(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
+      // console.log(req.body)
       const company = await companyService.updateCompanyDescription(req.params.id, req.body);
+      // console.log('companies', companies)
+      return res.json(company);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  async updateCompanyTitle(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+      // console.log(req.body)
+      const company = await companyService.updateCompanyTitle(req.params.id, req.body);
       // console.log('companies', companies)
       return res.json(company);
     } catch (error) {

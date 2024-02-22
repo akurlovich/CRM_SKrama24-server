@@ -29,7 +29,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use('/api/v1', router);
-app.use(errorMiddleware);
+// app.use(errorMiddleware);
 
 mongoose
   .connect(config.DB_CONNECT, {})

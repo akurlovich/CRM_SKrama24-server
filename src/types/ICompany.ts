@@ -41,6 +41,7 @@ export interface ICompaniesQuery {
     [key: string]: 'asc' | 'desc',
   },
   limit: number,
+  page: number,
   find?: {
     [key: string]: string
   }
