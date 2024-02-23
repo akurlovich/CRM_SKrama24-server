@@ -82,6 +82,27 @@ class SearchController {
     }
   };
 
+  async getSearchResultUserCompanies(req: Request, res: Response, next: NextFunction) {
+    try {
+      // console.log(req.query)
+      const { search } = req.query;
+      const companies = await searchService.getSearchResultUserCompanies(search.toString());
+      return res.json(companies);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  async getSearchResultDistrictCompanies(req: Request, res: Response, next: NextFunction) {
+    try {
+      // console.log(req.query)
+      const { search } = req.query;
+      const companiesData = await searchService.getSearchResultDistrictCompanies(search.toString());
+      return res.json(companiesData);
+    } catch (error) {
+      next(error);
+    }
+  };
  
 };
 

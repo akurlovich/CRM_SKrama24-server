@@ -131,6 +131,99 @@ var SearchService = /** @class */ (function () {
         });
     };
     ;
+    SearchService.prototype.getSearchResultUserCompanies = function (userID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var count, companies;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!userID) return [3 /*break*/, 3];
+                        return [4 /*yield*/, company_model_1.default.countDocuments({ usersID: userID })];
+                    case 1:
+                        count = _a.sent();
+                        return [4 /*yield*/, company_model_1.default.find({ usersID: userID }).populate([
+                                {
+                                    path: 'contactID',
+                                    // match: { "address.district": { $regex: search, $options: "i" } }
+                                    // match: { "address.district": /пинск/i } 
+                                },
+                                {
+                                    path: "usersID",
+                                    // select: "lastname firstname"
+                                },
+                                {
+                                    path: "commentsID",
+                                    populate: { path: 'userID' }
+                                },
+                                {
+                                    path: "dealsID",
+                                    // populate: { path: 'dealTitleID' }
+                                },
+                            ])];
+                    case 2:
+                        companies = _a.sent();
+                        return [2 /*return*/, {
+                                count: count,
+                                companies: companies,
+                            }
+                            // return await productModel.find().where({title: search})
+                        ];
+                    case 3: return [2 /*return*/, null];
+                }
+            });
+        });
+    };
+    ;
+    SearchService.prototype.getSearchResultDistrictCompanies = function (search) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!search) return [3 /*break*/, 2];
+                        return [4 /*yield*/, company_model_1.default.find()
+                                .populate([
+                                {
+                                    path: 'contactID',
+                                    match: { "address.district": { $regex: search, $options: "i" } }
+                                    // match: { "address.district": /пинск/i } 
+                                },
+                                {
+                                    path: "usersID",
+                                    // select: "lastname firstname"
+                                },
+                                {
+                                    path: "commentsID",
+                                    populate: { path: 'userID' }
+                                },
+                                {
+                                    path: "dealsID",
+                                    // populate: { path: 'dealTitleID' }
+                                },
+                            ])
+                                .exec().then(function (companies) {
+                                return companies.filter(function (company) { return company.contactID != null; });
+                            })];
+                    case 1: 
+                    // return await companyModel.find().populate({
+                    //   path: 'contactID', 
+                    //   // match: { "address.district": { $regex: search, $options: "i" } } });
+                    //   match: { "address.district": /пинск/i } 
+                    //   }).exec().then((companies) => {
+                    //     return companies.filter(company => company.contactID != null);
+                    //   }) 
+                    // return await companyModel.find({email: { $regex: search, $options: "i" }}).limit(5);
+                    // return await companyModel.find().populate({
+                    //   path: 'contactID', 
+                    //   populate: {
+                    //     path: 'address', 
+                    //     match: { district: { $regex: search, $options: "i" } } }});
+                    return [2 /*return*/, _a.sent()];
+                    case 2: return [2 /*return*/, null];
+                }
+            });
+        });
+    };
+    ;
     return SearchService;
 }());
 ;

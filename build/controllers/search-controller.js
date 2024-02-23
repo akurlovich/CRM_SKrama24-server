@@ -138,6 +138,50 @@ var SearchController = /** @class */ (function () {
         });
     };
     ;
+    SearchController.prototype.getSearchResultUserCompanies = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var search, companies, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        search = req.query.search;
+                        return [4 /*yield*/, search_service_1.default.getSearchResultUserCompanies(search.toString())];
+                    case 1:
+                        companies = _a.sent();
+                        return [2 /*return*/, res.json(companies)];
+                    case 2:
+                        error_2 = _a.sent();
+                        next(error_2);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ;
+    SearchController.prototype.getSearchResultDistrictCompanies = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var search, companiesData, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        search = req.query.search;
+                        return [4 /*yield*/, search_service_1.default.getSearchResultDistrictCompanies(search.toString())];
+                    case 1:
+                        companiesData = _a.sent();
+                        return [2 /*return*/, res.json(companiesData)];
+                    case 2:
+                        error_3 = _a.sent();
+                        next(error_3);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ;
     return SearchController;
 }());
 ;

@@ -97,7 +97,93 @@ class SearchService {
         path: "usersID", 
         select: "lastname firstname"
       },
-    ]).limit(5);;
+    ]).limit(5);
+  };
+
+  async getSearchResultUserCompanies(userID: string) {
+    if (userID) {
+      const count = await companyModel.countDocuments({usersID: userID});
+      const companies = await companyModel.find({usersID: userID}).populate(
+        [
+          {
+            path: 'contactID', 
+            // match: { "address.district": { $regex: search, $options: "i" } }
+            // match: { "address.district": /пинск/i } 
+          },
+          {
+            path: "usersID", 
+            // select: "lastname firstname"
+          },
+          {
+            path: "commentsID", 
+            populate: { path: 'userID' }
+          },
+          {
+            path: "dealsID", 
+            // populate: { path: 'dealTitleID' }
+          },
+
+        ]
+      )
+      return {
+        count,
+        companies,
+      }
+      // return await productModel.find().where({title: search})
+    }
+    return null;
+  };
+
+  async getSearchResultDistrictCompanies(search: string) {
+    // let { search } = req.query;
+    // const reqex = new ReqExp(search, 'gi')
+    if (search) {
+      // return await companyModel.find().populate({
+      //   path: 'contactID', 
+      //   // match: { "address.district": { $regex: search, $options: "i" } } });
+      //   match: { "address.district": /пинск/i } 
+      //   }).exec().then((companies) => {
+      //     return companies.filter(company => company.contactID != null);
+
+      //   }) 
+
+
+      // return await companyModel.find({email: { $regex: search, $options: "i" }}).limit(5);
+      // return await companyModel.find().populate({
+      //   path: 'contactID', 
+      //   populate: {
+      //     path: 'address', 
+      //     match: { district: { $regex: search, $options: "i" } } }});
+      return await companyModel.find()
+        .populate(
+            [
+              {
+                path: 'contactID', 
+                match: { "address.district": { $regex: search, $options: "i" } }
+                // match: { "address.district": /пинск/i } 
+              },
+              {
+                path: "usersID", 
+                // select: "lastname firstname"
+              },
+              {
+                path: "commentsID", 
+                populate: { path: 'userID' }
+              },
+              {
+                path: "dealsID", 
+                // populate: { path: 'dealTitleID' }
+              },
+
+            ]
+          )
+        .exec().then((companies) => {
+          return companies.filter(company => company.contactID != null);
+
+        }) 
+        
+    }
+    return null;
   };
 
 };

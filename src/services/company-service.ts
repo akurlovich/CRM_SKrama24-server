@@ -24,7 +24,7 @@ class CompanyService {
 
   async getAllCompaniesPopulateQuery(query: ICompaniesQuery) {
     // console.log(query)
-    const count = await companyModel.countDocuments(query.find)
+    const count = await companyModel.countDocuments(query.find);
     const companies = await companyModel.find(query.find).populate(query.query).sort(query.sort).skip((query.page * query.limit) - query.limit).limit(query.limit);
     
     // return await companyModel.find(query.find).populate(query.query).sort(query.sort).skip((query.page * query.limit) - query.limit).limit(query.limit);
