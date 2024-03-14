@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import ApiError from "../exceptions/api-error";
 import productService from "../services/product-service";
 
 class ProductController {
@@ -7,6 +8,8 @@ class ProductController {
       const newProduct = await productService.addProduct(req.body);
       return res.json(newProduct);
     } catch (error) {
+      // console.log('error', error)
+      // next(ApiError.BadRequest('Test !!!!!!', error));
       next(error);
     }
   };

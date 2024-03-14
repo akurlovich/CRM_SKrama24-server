@@ -93,7 +93,7 @@ var SearchService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if (!search) return [3 /*break*/, 2];
-                        return [4 /*yield*/, phone_model_1.default.find({ number: { $regex: search, $options: "i" } }).limit(5)];
+                        return [4 /*yield*/, phone_model_1.default.find({ number: { $regex: search, $options: "i" } }).limit(10)];
                     case 1: return [2 /*return*/, _a.sent()];
                     case 2: return [2 /*return*/, null];
                 }
@@ -125,7 +125,9 @@ var SearchService = /** @class */ (function () {
                                 select: "lastname firstname"
                             },
                         ]).limit(5)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1: 
+                    // console.log('service', id);
+                    return [2 /*return*/, _a.sent()];
                 }
             });
         });

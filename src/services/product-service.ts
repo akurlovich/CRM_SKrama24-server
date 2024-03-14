@@ -1,8 +1,13 @@
 import productModel from "../models/product-model";
 import { IProduct } from "../types/IProduct";
+import ApiError from '../exceptions/api-error';
 
 class ProductService {
   async addProduct(product: IProduct) {
+    const newProduct = await productModel.find({title: { $regex: product.title, $options: "i" }});
+    if (newProduct) {
+      throw ApiError.BadRequest(`Товар ${product.title} существует!`)
+    }
     return await productModel.create(product);
   };
 

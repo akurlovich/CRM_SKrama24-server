@@ -73,7 +73,7 @@ var UserService = /** @class */ (function () {
                     case 1:
                         applicant = _a.sent();
                         if (applicant) {
-                            throw api_error_1.default.BadRequest("\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C \u0441 \u043F\u043E\u0447\u0442\u043E\u0439 ".concat(email, " \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442!"), ['']);
+                            throw api_error_1.default.BadRequest("\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C \u0441 \u043F\u043E\u0447\u0442\u043E\u0439 ".concat(email, " \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442!"));
                         }
                         return [4 /*yield*/, bcrypt_1.default.hash(password, config_1.default.SALT)];
                     case 2:
@@ -103,14 +103,14 @@ var UserService = /** @class */ (function () {
                         // console.log('email', email, 'user', user)
                         if (user === null) {
                             // console.log('user null')
-                            throw api_error_1.default.BadRequest("\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C \u0441 \u043F\u043E\u0447\u0442\u043E\u0439 ".concat(email, " \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D!"), ['']);
+                            throw api_error_1.default.BadRequest("\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C \u0441 \u043F\u043E\u0447\u0442\u043E\u0439 ".concat(email, " \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D!"));
                         }
                         return [4 /*yield*/, bcrypt_1.default.compare(password, user.password)];
                     case 2:
                         isPassword = _a.sent();
                         // console.log('pas', isPassword)
                         if (!isPassword) {
-                            throw api_error_1.default.BadRequest("\u041D\u0435\u0432\u0435\u0440\u043D\u044B\u0439 \u043F\u0430\u0440\u043E\u043B\u044C!", ['']);
+                            throw api_error_1.default.BadRequest("\u041D\u0435\u0432\u0435\u0440\u043D\u044B\u0439 \u043F\u0430\u0440\u043E\u043B\u044C!");
                         }
                         userDto = new user_dto_1.default(user);
                         tokens = token_service_1.default.generateToken(__assign({}, userDto));
@@ -155,7 +155,7 @@ var UserService = /** @class */ (function () {
                     case 2:
                         user = _a.sent();
                         if (!user) {
-                            throw api_error_1.default.BadRequest('User not found!', ['']);
+                            throw api_error_1.default.BadRequest('User not found!');
                         }
                         userDto = new user_dto_1.default(user);
                         tokens = token_service_1.default.generateToken(__assign({}, userDto));
@@ -188,7 +188,7 @@ var UserService = /** @class */ (function () {
                     case 1:
                         user = _a.sent();
                         if (!user) {
-                            throw api_error_1.default.BadRequest('User not found!', ['']);
+                            throw api_error_1.default.BadRequest('User not found!');
                         }
                         return [2 /*return*/, new user_dto_1.default(user)];
                 }
@@ -216,7 +216,7 @@ var UserService = /** @class */ (function () {
                     case 1:
                         user = _a.sent();
                         if (!user) {
-                            throw api_error_1.default.BadRequest('User not found!', ['']);
+                            throw api_error_1.default.BadRequest('User not found!');
                         }
                         return [2 /*return*/, new user_dto_1.default(user)];
                 }

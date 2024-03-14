@@ -75,7 +75,7 @@ class SearchService {
     // let { search } = req.query;
     // const reqex = new ReqExp(search, 'gi')
     if (search) {
-      return await phoneModel.find({number: { $regex: search, $options: "i" }}).limit(5);
+      return await phoneModel.find({number: { $regex: search, $options: "i" }}).limit(10);
       // return await productModel.find().where({title: search})
     }
     return null;
@@ -92,6 +92,7 @@ class SearchService {
   };
 
   async getCompanyByIDForSearch(id: string) {
+    // console.log('service', id);
     return await companyModel.findById(id).populate([
       {
         path: "usersID", 

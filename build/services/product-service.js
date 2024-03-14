@@ -40,15 +40,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var product_model_1 = __importDefault(require("../models/product-model"));
+var api_error_1 = __importDefault(require("../exceptions/api-error"));
 var ProductService = /** @class */ (function () {
     function ProductService() {
     }
     ProductService.prototype.addProduct = function (product) {
         return __awaiter(this, void 0, void 0, function () {
+            var newProduct;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, product_model_1.default.create(product)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 0: return [4 /*yield*/, product_model_1.default.find({ title: { $regex: product.title, $options: "i" } })];
+                    case 1:
+                        newProduct = _a.sent();
+                        if (newProduct) {
+                            throw api_error_1.default.BadRequest("\u0422\u043E\u0432\u0430\u0440 ".concat(product.title, " \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442!"));
+                        }
+                        return [4 /*yield*/, product_model_1.default.create(product)];
+                    case 2: return [2 /*return*/, _a.sent()];
                 }
             });
         });

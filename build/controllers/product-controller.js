@@ -56,6 +56,8 @@ var ProductController = /** @class */ (function () {
                         return [2 /*return*/, res.json(newProduct)];
                     case 2:
                         error_1 = _a.sent();
+                        // console.log('error', error)
+                        // next(ApiError.BadRequest('Test !!!!!!', error));
                         next(error_1);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];

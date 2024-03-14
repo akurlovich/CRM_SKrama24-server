@@ -80,20 +80,25 @@ var SearchController = /** @class */ (function () {
                     case 4:
                         if (!(_a < resultPhones_1.length)) return [3 /*break*/, 7];
                         item = resultPhones_1[_a];
-                        return [4 /*yield*/, search_service_1.default.getCompanyByIDForSearch(item.companyID.toString())];
+                        return [4 /*yield*/, search_service_1.default.getCompanyByIDForSearch(item.companyID.toString())
+                            // console.log(company)
+                        ];
                     case 5:
                         company = _c.sent();
-                        sendItem = {
-                            companyID: item._id,
-                            companyTitle: company.title,
-                            userFirstName: company.usersID[0] ? company.usersID[0].firstname : '',
-                            userLastName: company.usersID[0] ? company.usersID[0].lastname : '',
-                            phoneNumber: item.number,
-                            phoneDescription: item.description ? item.description : '',
-                            emailEmail: '',
-                            emailDescription: '',
-                        };
-                        result.push(sendItem);
+                        // console.log(company)
+                        if (company) {
+                            sendItem = {
+                                companyID: company._id,
+                                companyTitle: company.title,
+                                userFirstName: company.usersID[0] ? company.usersID[0].firstname : '',
+                                userLastName: company.usersID[0] ? company.usersID[0].lastname : '',
+                                phoneNumber: item.number,
+                                phoneDescription: item.description ? item.description : '',
+                                emailEmail: '',
+                                emailDescription: '',
+                            };
+                            result.push(sendItem);
+                        }
                         _c.label = 6;
                     case 6:
                         _a++;
@@ -112,7 +117,7 @@ var SearchController = /** @class */ (function () {
                     case 11:
                         company = _c.sent();
                         sendItem = {
-                            companyID: item._id,
+                            companyID: company._id,
                             companyTitle: company.title,
                             userFirstName: company.usersID[0] ? company.usersID[0].firstname : '',
                             userLastName: company.usersID[0] ? company.usersID[0].lastname : '',

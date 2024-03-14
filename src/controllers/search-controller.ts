@@ -36,20 +36,25 @@ class SearchController {
       } else {
         const resultPhones = await searchService.getSearchCompanyPhones(search.toString());
         if (resultPhones.length) {
+          // console.log(resultPhones)
           for (let item of resultPhones) {
+            // console.log(item.companyID.toString());
             //@ts-ignore
             const company: ICompanyPopulate = await searchService.getCompanyByIDForSearch(item.companyID.toString())
-            const sendItem: ISearchResult = {
-              companyID: item._id,
-              companyTitle: company.title,
-              userFirstName: company.usersID[0] ? company.usersID[0].firstname : '',
-              userLastName: company.usersID[0] ? company.usersID[0].lastname : '',
-              phoneNumber: item.number,
-              phoneDescription: item.description ? item.description : '',
-              emailEmail: '',
-              emailDescription: '',
+            // console.log(company)
+            if (company) {
+              const sendItem: ISearchResult = {
+                companyID: company._id,
+                companyTitle: company.title,
+                userFirstName: company.usersID[0] ? company.usersID[0].firstname : '',
+                userLastName: company.usersID[0] ? company.usersID[0].lastname : '',
+                phoneNumber: item.number,
+                phoneDescription: item.description ? item.description : '',
+                emailEmail: '',
+                emailDescription: '',
+              }
+              result.push(sendItem)
             }
-            result.push(sendItem)
           }
           return res.json(result);
         } else {
@@ -59,7 +64,7 @@ class SearchController {
               //@ts-ignore
               const company: ICompanyPopulate = await searchService.getCompanyByIDForSearch(item.companyID.toString())
               const sendItem: ISearchResult = {
-                companyID: item._id,
+                companyID: company._id,
                 companyTitle: company.title,
                 userFirstName: company.usersID[0] ? company.usersID[0].firstname : '',
                 userLastName: company.usersID[0] ? company.usersID[0].lastname : '',
@@ -86,6 +91,7 @@ class SearchController {
     try {
       // console.log(req.query)
       const { search } = req.query;
+      // console.log("search1", search)
       const companies = await searchService.getSearchResultUserCompanies(search.toString());
       return res.json(companies);
     } catch (error) {
@@ -97,6 +103,7 @@ class SearchController {
     try {
       // console.log(req.query)
       const { search } = req.query;
+      // console.log("search2", search)
       const companiesData = await searchService.getSearchResultDistrictCompanies(search.toString());
       return res.json(companiesData);
     } catch (error) {

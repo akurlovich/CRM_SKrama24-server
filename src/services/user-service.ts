@@ -14,7 +14,7 @@ class UserService {
   async registration(email: string, password: string, firstname: string, lastname: string, position: string, isAdmin: boolean) {
     const applicant = await UserModel.findOne({email});
     if (applicant) {
-      throw ApiError.BadRequest(`Пользователь с почтой ${email} уже существует!`, [''])
+      throw ApiError.BadRequest(`Пользователь с почтой ${email} уже существует!`)
     }
     const hashPassword = await bcrypt.hash(password, config.SALT);
     // const position = await roleModel.findOne({value: DEFAULT_USER_ROLE});
@@ -34,12 +34,12 @@ class UserService {
     // console.log('email', email, 'user', user)
     if (user === null) {
       // console.log('user null')
-      throw ApiError.BadRequest(`Пользователь с почтой ${email} не найден!`, [''])
+      throw ApiError.BadRequest(`Пользователь с почтой ${email} не найден!`)
     }
     const isPassword = await bcrypt.compare(password, user.password);
     // console.log('pas', isPassword)
     if (!isPassword) {
-      throw ApiError.BadRequest(`Неверный пароль!`, [''])
+      throw ApiError.BadRequest(`Неверный пароль!`)
     }
     const userDto = new UserDto(user);
     const tokens = tokenService.generateToken({...userDto});
@@ -69,7 +69,7 @@ class UserService {
     const user = await UserModel.findById(userData.id)
 
     if (!user) {
-      throw ApiError.BadRequest('User not found!', [''])
+      throw ApiError.BadRequest('User not found!')
     }
     const userDto = new UserDto(user);
     const tokens = tokenService.generateToken({...userDto});
@@ -87,7 +87,7 @@ class UserService {
   async getUserByID(id: string) {
     const user = await UserModel.findById(id);
     if (!user) {
-      throw ApiError.BadRequest('User not found!', [''])
+      throw ApiError.BadRequest('User not found!')
     }
     return new UserDto(user);
   };
@@ -99,7 +99,7 @@ class UserService {
   async updateIsAdmin(id: string, isAdmin: any) {
     const user = await UserModel.findByIdAndUpdate({_id: id}, isAdmin);
     if (!user) {
-      throw ApiError.BadRequest('User not found!', [''])
+      throw ApiError.BadRequest('User not found!')
     }
     return new UserDto(user);
   };
