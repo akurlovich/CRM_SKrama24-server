@@ -4,10 +4,13 @@ import ApiError from '../exceptions/api-error';
 
 class ProductService {
   async addProduct(product: IProduct) {
-    const newProduct = await productModel.find({title: { $regex: product.title, $options: "i" }});
+    // console.log('title', product.title)
+    const newProduct = await productModel.findOne({title: { $regex: product.title, $options: "i" }});
+    // console.log("newProduct", newProduct)
     if (newProduct) {
       throw ApiError.BadRequest(`Товар ${product.title} существует!`)
     }
+    console.log('kdsfjslkfsk')
     return await productModel.create(product);
   };
 

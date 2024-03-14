@@ -49,12 +49,14 @@ var ProductService = /** @class */ (function () {
             var newProduct;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, product_model_1.default.find({ title: { $regex: product.title, $options: "i" } })];
+                    case 0: return [4 /*yield*/, product_model_1.default.findOne({ title: { $regex: product.title, $options: "i" } })];
                     case 1:
                         newProduct = _a.sent();
+                        // console.log("newProduct", newProduct)
                         if (newProduct) {
                             throw api_error_1.default.BadRequest("\u0422\u043E\u0432\u0430\u0440 ".concat(product.title, " \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442!"));
                         }
+                        console.log('kdsfjslkfsk');
                         return [4 /*yield*/, product_model_1.default.create(product)];
                     case 2: return [2 /*return*/, _a.sent()];
                 }
