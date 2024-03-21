@@ -47,38 +47,42 @@ var SearchService = /** @class */ (function () {
     }
     SearchService.prototype.getSearchCompanies = function (search) {
         return __awaiter(this, void 0, void 0, function () {
+            var str, reqex;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, company_model_1.default.find({ title: { $regex: search, $options: "i" } }).populate([
-                            {
-                                path: "usersID",
-                                select: "lastname firstname"
-                            },
-                            {
-                                path: "contactID",
-                                // select: "address.district"
-                            },
-                            {
-                                path: "contactID",
-                                populate: { path: 'phonesID' }
-                            },
-                            {
-                                path: "contactID",
-                                populate: { path: 'emailsID' }
-                            },
-                            // {
-                            //   path: "dealsID", 
-                            //   populate: { path: 'dealTitleID' }
-                            // },
-                            // {
-                            //   path: "dealsID", 
-                            //   populate: { path: 'userID' }
-                            // },
-                        ]).limit(5)];
+                    case 0:
+                        console.log("search service", search);
+                        str = "".concat(search);
+                        reqex = new RegExp(str, 'gi');
+                        return [4 /*yield*/, company_model_1.default.find({ title: { $regex: reqex } })
+                                // return await companyModel.find({title: { $regex: /(?:`${search}`)([\s]+)/, $options: "i" }})
+                                .populate([
+                                {
+                                    path: "usersID",
+                                    select: "lastname firstname"
+                                },
+                                {
+                                    path: "contactID",
+                                    // select: "address.district"
+                                },
+                                {
+                                    path: "contactID",
+                                    populate: { path: 'phonesID' }
+                                },
+                                {
+                                    path: "contactID",
+                                    populate: { path: 'emailsID' }
+                                },
+                                // {
+                                //   path: "dealsID", 
+                                //   populate: { path: 'dealTitleID' }
+                                // },
+                                // {
+                                //   path: "dealsID", 
+                                //   populate: { path: 'userID' }
+                                // },
+                            ]).limit(50)];
                     case 1: 
-                    // console.log("search service", search)
-                    // let { search } = req.query;
-                    // const reqex = new ReqExp(search, 'gi')
                     // if (search) {
                     // return await companyModel.find({title: { $regex: search, $options: "i" }}).limit(5);
                     return [2 /*return*/, _a.sent()];

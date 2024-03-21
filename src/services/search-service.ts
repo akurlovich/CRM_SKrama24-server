@@ -5,12 +5,16 @@ import phoneModel from "../models/phone-model";
 class SearchService {
   
   async getSearchCompanies(search: string) {
-    // console.log("search service", search)
+    console.log("search service", search)
     // let { search } = req.query;
-    // const reqex = new ReqExp(search, 'gi')
+    // const str = `?:${search})([\s]+`
+    const str = `${search}`
+    const reqex = new RegExp(str, 'gi')
     // if (search) {
       // return await companyModel.find({title: { $regex: search, $options: "i" }}).limit(5);
-      return await companyModel.find({title: { $regex: search, $options: "i" }}).populate([
+      return await companyModel.find({title: { $regex: reqex }})
+      // return await companyModel.find({title: { $regex: /(?:`${search}`)([\s]+)/, $options: "i" }})
+      .populate([
         {
           path: "usersID", 
           select: "lastname firstname"
@@ -35,7 +39,7 @@ class SearchService {
         //   path: "dealsID", 
         //   populate: { path: 'userID' }
         // },
-      ]).limit(5);
+      ]).limit(50);
       // return await companyModel.find().populate([
       //   {
       //     path: "usersID", 
