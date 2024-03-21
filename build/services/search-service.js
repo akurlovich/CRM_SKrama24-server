@@ -47,14 +47,13 @@ var SearchService = /** @class */ (function () {
     }
     SearchService.prototype.getSearchCompanies = function (search) {
         return __awaiter(this, void 0, void 0, function () {
-            var str, reqex;
+            var rgx, reqex;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log("search service", search);
-                        str = "".concat(search);
-                        reqex = new RegExp(str, 'gi');
-                        return [4 /*yield*/, company_model_1.default.find({ title: { $regex: reqex } })
+                        rgx = function (pattern) { return new RegExp("(^|A|s|\"|')".concat(pattern)); };
+                        reqex = rgx(search);
+                        return [4 /*yield*/, company_model_1.default.find({ title: { $regex: reqex, $options: "i" } })
                                 // return await companyModel.find({title: { $regex: /(?:`${search}`)([\s]+)/, $options: "i" }})
                                 .populate([
                                 {
@@ -83,6 +82,7 @@ var SearchService = /** @class */ (function () {
                                 // },
                             ]).limit(50)];
                     case 1: 
+                    // console.log("search reqex", reqex)
                     // if (search) {
                     // return await companyModel.find({title: { $regex: search, $options: "i" }}).limit(5);
                     return [2 /*return*/, _a.sent()];

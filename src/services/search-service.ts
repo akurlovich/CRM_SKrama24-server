@@ -5,14 +5,21 @@ import phoneModel from "../models/phone-model";
 class SearchService {
   
   async getSearchCompanies(search: string) {
-    console.log("search service", search)
+    // console.log("search service", search)
     // let { search } = req.query;
     // const str = `?:${search})([\s]+`
-    const str = `${search}`
-    const reqex = new RegExp(str, 'gi')
+    // const str = `${search}`
+    // const reqex = new RegExp(str, 'gi')
+    // `^.*(world)(.*(\1)){2}.*$`gm
+    
+    // const rgx = (pattern: any) => new RegExp(`.*${pattern}.*`);
+    // const rgx = (pattern: any) => new RegExp(`(?:${pattern})([\s]+)`, 'gi');
+    const rgx = (pattern: any) => new RegExp(`(^|\A|\s|\"|\')${pattern}`);
+    const reqex = rgx(search);
+    // console.log("search reqex", reqex)
     // if (search) {
       // return await companyModel.find({title: { $regex: search, $options: "i" }}).limit(5);
-      return await companyModel.find({title: { $regex: reqex }})
+      return await companyModel.find({title: { $regex: reqex, $options: "i" }})
       // return await companyModel.find({title: { $regex: /(?:`${search}`)([\s]+)/, $options: "i" }})
       .populate([
         {
