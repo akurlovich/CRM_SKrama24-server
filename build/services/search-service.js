@@ -52,10 +52,11 @@ var SearchService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         console.log("search service", search);
-                        rgx = function (pattern) { return new RegExp("(s|\"|S|^)".concat(pattern)); };
+                        rgx = function (pattern) { return new RegExp("(^|\\s|\")".concat(pattern), 'i'); };
                         reqex = rgx(search);
-                        console.log("search reqex", reqex);
-                        return [4 /*yield*/, company_model_1.default.find({ title: { $regex: search, $options: "i" } })
+                        return [4 /*yield*/, company_model_1.default.where('title', reqex)
+                                // .limit(10).exec().then((companies) => 
+                                //   console.log(companies));
                                 // return await companyModel.find({title: { $regex: /(?:`${search}`)([\s]+)/, $options: "i" }})
                                 .populate([
                                 {
@@ -84,9 +85,13 @@ var SearchService = /** @class */ (function () {
                                 // },
                             ]).limit(50)];
                     case 1: 
+                    // console.log("search reqex", reqex)
+                    // const re = /(?<=\s|^|")за/gi;
+                    // console.log('re', 'ОАО "Забудова'.match(re))
                     // if (search) {
                     // return await companyModel.find({title: { $regex: search, $options: "i" }}).limit(5);
                     // return await companyModel.find({title: { $regex: search, $options: "i" }})
+                    // return await companyModel.find({title: { $regex: reqex, $options: "i" }})
                     return [2 /*return*/, _a.sent()];
                 }
             });

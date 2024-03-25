@@ -16,14 +16,19 @@ class SearchService {
     // const rgx = (pattern: any) => new RegExp(`(?:${pattern})([\s]+)`, 'gi');
     // const reqex = new RegExp(search, 'gi')
     // const rgx = (pattern: any) => new RegExp(`(^|\A|\s|\"|\')${pattern}`);
-    const rgx = (pattern: any) => new RegExp(`(\s|\"|\S|\^)${pattern}`);
+    const rgx = (pattern: any) => new RegExp(`(^|\\s|\")${pattern}`, 'i');
     // const reqex = new RegExp(`${str}`);
     const reqex = rgx(search);
-    console.log("search reqex", reqex)
+    // console.log("search reqex", reqex)
+    // const re = /(?<=\s|^|")за/gi;
+    // console.log('re', 'ОАО "Забудова'.match(re))
     // if (search) {
       // return await companyModel.find({title: { $regex: search, $options: "i" }}).limit(5);
       // return await companyModel.find({title: { $regex: search, $options: "i" }})
-      return await companyModel.find({title: { $regex: search, $options: "i" }})
+      // return await companyModel.find({title: { $regex: reqex, $options: "i" }})
+      return await companyModel.where('title', reqex)
+      // .limit(10).exec().then((companies) => 
+      //   console.log(companies));
       // return await companyModel.find({title: { $regex: /(?:`${search}`)([\s]+)/, $options: "i" }})
       .populate([
         {
