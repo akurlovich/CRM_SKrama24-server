@@ -5,7 +5,7 @@ import phoneModel from "../models/phone-model";
 class SearchService {
   
   async getSearchCompanies(search: string) {
-    console.log("search service", search)
+    // console.log("search service", search)
     // let { search } = req.query;
     // const str = `?:${search})([\s]+`
     // const str = ` ${search}`
@@ -16,7 +16,7 @@ class SearchService {
     // const rgx = (pattern: any) => new RegExp(`(?:${pattern})([\s]+)`, 'gi');
     // const reqex = new RegExp(search, 'gi')
     // const rgx = (pattern: any) => new RegExp(`(^|\A|\s|\"|\')${pattern}`);
-    const rgx = (pattern: any) => new RegExp(`(^|\\s|\")${pattern}`, 'i');
+    const rgx = (pattern: any) => new RegExp(`(^|\\s|\"|\«)${pattern}`, 'i');
     // const reqex = new RegExp(`${str}`);
     const reqex = rgx(search);
     // console.log("search reqex", reqex)

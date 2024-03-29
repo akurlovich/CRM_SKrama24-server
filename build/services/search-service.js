@@ -51,8 +51,7 @@ var SearchService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log("search service", search);
-                        rgx = function (pattern) { return new RegExp("(^|\\s|\")".concat(pattern), 'i'); };
+                        rgx = function (pattern) { return new RegExp("(^|\\s|\"|\u00AB)".concat(pattern), 'i'); };
                         reqex = rgx(search);
                         return [4 /*yield*/, company_model_1.default.where('title', reqex)
                                 // .limit(10).exec().then((companies) => 
