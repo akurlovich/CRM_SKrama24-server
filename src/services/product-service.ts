@@ -10,7 +10,7 @@ class ProductService {
     if (newProduct) {
       throw ApiError.BadRequest(`Товар ${product.title} существует!`)
     }
-    console.log('kdsfjslkfsk')
+    // console.log('kdsfjslkfsk')
     return await productModel.create(product);
   };
 
@@ -22,7 +22,7 @@ class ProductService {
     let { search } = req.query;
     // const reqex = new ReqExp(search, 'gi')
     if (search) {
-      return await productModel.find({title: { $regex: search, $options: "i" }}).limit(10);
+      return await productModel.find({title: { $regex: search, $options: "i" }}).limit(30);
       // return await productModel.find().where({title: search})
     }
     return await productModel.find();

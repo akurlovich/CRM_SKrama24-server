@@ -56,9 +56,10 @@ var ProductService = /** @class */ (function () {
                         if (newProduct) {
                             throw api_error_1.default.BadRequest("\u0422\u043E\u0432\u0430\u0440 ".concat(product.title, " \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442!"));
                         }
-                        console.log('kdsfjslkfsk');
                         return [4 /*yield*/, product_model_1.default.create(product)];
-                    case 2: return [2 /*return*/, _a.sent()];
+                    case 2: 
+                    // console.log('kdsfjslkfsk')
+                    return [2 /*return*/, _a.sent()];
                 }
             });
         });
@@ -83,7 +84,7 @@ var ProductService = /** @class */ (function () {
                     case 0:
                         search = req.query.search;
                         if (!search) return [3 /*break*/, 2];
-                        return [4 /*yield*/, product_model_1.default.find({ title: { $regex: search, $options: "i" } }).limit(10)];
+                        return [4 /*yield*/, product_model_1.default.find({ title: { $regex: search, $options: "i" } }).limit(30)];
                     case 1: return [2 /*return*/, _a.sent()];
                     case 2: return [4 /*yield*/, product_model_1.default.find()];
                     case 3: return [2 /*return*/, _a.sent()];
