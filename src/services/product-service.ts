@@ -14,6 +14,7 @@ class ProductService {
     return await productModel.create(product);
   };
 
+  
   async getProductByID(id: string) {
     return await productModel.findById(id);
   };
@@ -25,7 +26,14 @@ class ProductService {
       return await productModel.find({title: { $regex: search, $options: "i" }}).limit(30);
       // return await productModel.find().where({title: search})
     }
-    return await productModel.find();
+    return await productModel.find().sort({title: 'asc'});
+  };
+  
+  async updateProduct(product: IProduct) {
+    // console.log('update')
+    const item = await productModel.findByIdAndUpdate({_id: product._id}, { title: product.title, dimension: product.dimension});
+    // console.log(item)
+    return await productModel.findByIdAndUpdate({_id: product._id}, { title: product.title, dimension: product.dimension});
   };
 
   async deleteProductByID(id: string) {

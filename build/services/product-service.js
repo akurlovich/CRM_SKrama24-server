@@ -86,8 +86,25 @@ var ProductService = /** @class */ (function () {
                         if (!search) return [3 /*break*/, 2];
                         return [4 /*yield*/, product_model_1.default.find({ title: { $regex: search, $options: "i" } }).limit(30)];
                     case 1: return [2 /*return*/, _a.sent()];
-                    case 2: return [4 /*yield*/, product_model_1.default.find()];
+                    case 2: return [4 /*yield*/, product_model_1.default.find().sort({ title: 'asc' })];
                     case 3: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ;
+    ProductService.prototype.updateProduct = function (product) {
+        return __awaiter(this, void 0, void 0, function () {
+            var item;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, product_model_1.default.findByIdAndUpdate({ _id: product._id }, { title: product.title, dimension: product.dimension })];
+                    case 1:
+                        item = _a.sent();
+                        return [4 /*yield*/, product_model_1.default.findByIdAndUpdate({ _id: product._id }, { title: product.title, dimension: product.dimension })];
+                    case 2: 
+                    // console.log(item)
+                    return [2 /*return*/, _a.sent()];
                 }
             });
         });

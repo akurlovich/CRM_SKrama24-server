@@ -66,19 +66,21 @@ var ProductController = /** @class */ (function () {
         });
     };
     ;
-    ProductController.prototype.getProductByID = function (req, res, next) {
+    ProductController.prototype.updateProduct = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var product, error_2;
+            var newProduct, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, product_service_1.default.getProductByID(req.params.id)];
+                        return [4 /*yield*/, product_service_1.default.updateProduct(req.body)];
                     case 1:
-                        product = _a.sent();
-                        return [2 /*return*/, res.json(product)];
+                        newProduct = _a.sent();
+                        return [2 /*return*/, res.json(newProduct)];
                     case 2:
                         error_2 = _a.sent();
+                        // console.log('error', error)
+                        // next(ApiError.BadRequest('Test !!!!!!', error));
                         next(error_2);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
@@ -87,17 +89,17 @@ var ProductController = /** @class */ (function () {
         });
     };
     ;
-    ProductController.prototype.getAllProducts = function (req, res, next) {
+    ProductController.prototype.getProductByID = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var products, error_3;
+            var product, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, product_service_1.default.getAllProducts(req)];
+                        return [4 /*yield*/, product_service_1.default.getProductByID(req.params.id)];
                     case 1:
-                        products = _a.sent();
-                        return [2 /*return*/, res.json(products)];
+                        product = _a.sent();
+                        return [2 /*return*/, res.json(product)];
                     case 2:
                         error_3 = _a.sent();
                         next(error_3);
@@ -108,9 +110,30 @@ var ProductController = /** @class */ (function () {
         });
     };
     ;
+    ProductController.prototype.getAllProducts = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var products, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, product_service_1.default.getAllProducts(req)];
+                    case 1:
+                        products = _a.sent();
+                        return [2 /*return*/, res.json(products)];
+                    case 2:
+                        error_4 = _a.sent();
+                        next(error_4);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ;
     ProductController.prototype.deleteProductByID = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var product, error_4;
+            var product, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -120,8 +143,8 @@ var ProductController = /** @class */ (function () {
                         product = _a.sent();
                         return [2 /*return*/, res.json(product)];
                     case 2:
-                        error_4 = _a.sent();
-                        next(error_4);
+                        error_5 = _a.sent();
+                        next(error_5);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }

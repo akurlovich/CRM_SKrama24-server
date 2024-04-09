@@ -14,6 +14,17 @@ class ProductController {
     }
   };
 
+  async updateProduct(req: Request, res: Response, next: NextFunction) {
+    try {
+      const newProduct = await productService.updateProduct(req.body);
+      return res.json(newProduct);
+    } catch (error) {
+      // console.log('error', error)
+      // next(ApiError.BadRequest('Test !!!!!!', error));
+      next(error);
+    }
+  };
+
   async getProductByID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
       const product = await productService.getProductByID(req.params.id);
