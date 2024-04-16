@@ -76,6 +76,16 @@ class OrderService {
     return await orderModel.findOneAndUpdate({_id: order.orderID}, { totalSum: order.totalSum }, { returnOriginal: false });
   };
 
+  async updateOrderStatus(id: string, status: any) {
+    console.log(status)
+    const order = await orderModel.findByIdAndUpdate({_id: id}, {status: status.status}, { returnOriginal: false });
+    // const order = await orderModel.findOneAndUpdate({_id: id}, { $push: { status: status.status }}, { returnOriginal: false });
+    console.log(order)
+    
+    return 'order';
+    // return await orderModel.deleteMany({});
+  };
+
   async deleteOrderByID(id: string) {
     const order = await orderModel.findById(id);
     if (order) {

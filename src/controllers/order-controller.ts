@@ -99,10 +99,19 @@ class OrderController {
     }
   };
 
+  async updateOrderStatus(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+    try {
+      const order = await orderService.updateOrderStatus(req.params.id, req.body);
+      return res.json(order);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   async deleteOrderByID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
-      const email = await orderService.deleteOrderByID(req.params.id);
-      return res.json(email);
+      const order = await orderService.deleteOrderByID(req.params.id);
+      return res.json(order);
     } catch (error) {
       next(error);
     }

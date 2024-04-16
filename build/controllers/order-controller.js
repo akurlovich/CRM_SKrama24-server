@@ -196,20 +196,41 @@ var OrderController = /** @class */ (function () {
         });
     };
     ;
+    OrderController.prototype.updateOrderStatus = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var order, error_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, order_service_1.default.updateOrderStatus(req.params.id, req.body)];
+                    case 1:
+                        order = _a.sent();
+                        return [2 /*return*/, res.json(order)];
+                    case 2:
+                        error_5 = _a.sent();
+                        next(error_5);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ;
     OrderController.prototype.deleteOrderByID = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var email, error_5;
+            var order, error_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, order_service_1.default.deleteOrderByID(req.params.id)];
                     case 1:
-                        email = _a.sent();
-                        return [2 /*return*/, res.json(email)];
+                        order = _a.sent();
+                        return [2 /*return*/, res.json(order)];
                     case 2:
-                        error_5 = _a.sent();
-                        next(error_5);
+                        error_6 = _a.sent();
+                        next(error_6);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }

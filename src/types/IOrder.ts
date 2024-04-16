@@ -8,7 +8,7 @@ export interface IOrder extends Document {
   totalSum: number,
   description: string,
   fileName: string[],
-  status: StatusType,
+  status: string,
 }
 
 type StatusType = 'processing' | 'done' | 'cansel';
