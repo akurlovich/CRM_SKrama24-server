@@ -41,6 +41,33 @@ class DealService {
 
   async getAllDealsByUserQuery(query: IDealsQuery) {
     // console.log('userquery', query)
+
+    if (query.overdue) {
+
+      const newQuery = {
+        monthEnd: query.find['monthEnd'],
+        yearEnd: query.find['yearEnd'],
+        // monthEnd: { '$lte': '04' },
+        // dayEnd: { '$lt': '18' },
+        // yearEnd: { '$lte': '2024' }
+
+        
+      }
+      // console.log("newQuery", newQuery)
+
+      const data = await dealModel.find(newQuery).populate(query.query).limit(query.limit).sort(query.sort).exec().then((deals) => {
+        const readyDeals: IDeal[] = [];
+        const readyMonth: IDeal[] = deals.filter(item => item.monthEnd < '04');
+        const readyDay: IDeal[] = deals.filter(item => item.monthEnd == '04').filter(item => item.dayEnd < '18')
+        readyDeals.push(...readyMonth)
+        readyDeals.push(...readyDay)
+        return readyDeals;
+  
+      }) 
+      // console.log("data", data)
+      return data;
+    }
+
     return await dealModel.find(query.find).populate(query.query).limit(query.limit).sort(query.sort);
   };
 

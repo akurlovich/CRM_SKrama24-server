@@ -47,7 +47,8 @@ export interface IDealsQuery {
     [key: string]: {
       [key: string]: string,
     } | string
-  }
+  },
+  overdue?: boolean,
 }
 
   // "companyID": "65a628f3aa381e0a7e61c8c6",

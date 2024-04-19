@@ -90,12 +90,34 @@ var DealService = /** @class */ (function () {
     ;
     DealService.prototype.getAllDealsByUserQuery = function (query) {
         return __awaiter(this, void 0, void 0, function () {
+            var newQuery, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, deal_model_1.default.find(query.find).populate(query.query).limit(query.limit).sort(query.sort)];
-                    case 1: 
-                    // console.log('userquery', query)
-                    return [2 /*return*/, _a.sent()];
+                    case 0:
+                        if (!query.overdue) return [3 /*break*/, 2];
+                        newQuery = {
+                            monthEnd: query.find['monthEnd'],
+                            yearEnd: query.find['yearEnd'],
+                            // monthEnd: { '$lte': '04' },
+                            // dayEnd: { '$lt': '18' },
+                            // yearEnd: { '$lte': '2024' }
+                        };
+                        return [4 /*yield*/, deal_model_1.default.find(newQuery).populate(query.query).limit(query.limit).sort(query.sort).exec().then(function (deals) {
+                                var readyDeals = [];
+                                var readyMonth = deals.filter(function (item) { return item.monthEnd < '04'; });
+                                var readyDay = deals.filter(function (item) { return item.monthEnd == '04'; }).filter(function (item) { return item.dayEnd < '18'; });
+                                readyDeals.push.apply(readyDeals, readyMonth);
+                                readyDeals.push.apply(readyDeals, readyDay);
+                                return readyDeals;
+                            })
+                            // console.log("data", data)
+                        ];
+                    case 1:
+                        data = _a.sent();
+                        // console.log("data", data)
+                        return [2 /*return*/, data];
+                    case 2: return [4 /*yield*/, deal_model_1.default.find(query.find).populate(query.query).limit(query.limit).sort(query.sort)];
+                    case 3: return [2 /*return*/, _a.sent()];
                 }
             });
         });
