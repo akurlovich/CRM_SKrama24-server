@@ -55,12 +55,19 @@ class DealService {
           // yearEnd: { '$lte': '2024' }
       
         }
+        // console.log("monthEnd", query.find['monthEnd'])
+        // console.log("dayEnd", query.find['dayEnd'])
         // console.log("newQuery", newQuery)
+
+        //@ts-ignore
+        const mounth: string = query.find.monthEnd.$lte;
+        //@ts-ignore
+        const day: string = query.find.dayEnd.$lt;
   
         const data = await dealModel.find(newQuery).populate(query.query).limit(query.limit).sort(query.sort).exec().then((deals) => {
           const readyDeals: IDeal[] = [];
-          const readyMonth: IDeal[] = deals.filter(item => item.monthEnd < '04');
-          const readyDay: IDeal[] = deals.filter(item => item.monthEnd == '04').filter(item => item.dayEnd < '18')
+          const readyMonth: IDeal[] = deals.filter(item => item.monthEnd < mounth);
+          const readyDay: IDeal[] = deals.filter(item => item.monthEnd == mounth).filter(item => item.dayEnd < day)
           readyDeals.push(...readyMonth)
           readyDeals.push(...readyDay)
           return readyDeals;
@@ -79,12 +86,21 @@ class DealService {
           // yearEnd: { '$lte': '2024' }
       
         }
+        //@ts-ignore
+        const mounth: string = query.find.monthEnd.$lte;
+        //@ts-ignore
+        const day: string = query.find.dayEnd.$lt;
+        // const mmm = query.find['monthEnd']
+        //@ts-ignore
+        // console.log("monthEnd", query.find.monthEnd.$lte)
+        // console.log("monthEnd", query.find['monthEnd'])
+        // console.log("dayEnd", query.find['dayEnd'])
         // console.log("newQuery", newQuery)
   
         const data = await dealModel.find(newQuery).populate(query.query).limit(query.limit).sort(query.sort).exec().then((deals) => {
           const readyDeals: IDeal[] = [];
-          const readyMonth: IDeal[] = deals.filter(item => item.monthEnd < '04');
-          const readyDay: IDeal[] = deals.filter(item => item.monthEnd == '04').filter(item => item.dayEnd < '18')
+          const readyMonth: IDeal[] = deals.filter(item => item.monthEnd < mounth);
+          const readyDay: IDeal[] = deals.filter(item => item.monthEnd == mounth).filter(item => item.dayEnd < day)
           readyDeals.push(...readyMonth)
           readyDeals.push(...readyDay)
           return readyDeals;
