@@ -122,7 +122,7 @@ var OrderController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, order_service_1.default.getAllOrders(req)];
+                        return [4 /*yield*/, order_service_1.default.getAllOrders(req.query, req.body)];
                     case 1:
                         orders = _a.sent();
                         return [2 /*return*/, res.json(orders)];

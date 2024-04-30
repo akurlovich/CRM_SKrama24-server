@@ -8,7 +8,7 @@ var order_controller_1 = __importDefault(require("../controllers/order-controlle
 var router = (0, express_1.Router)();
 router.post('/', order_controller_1.default.addOrder);
 router.get('/:id', order_controller_1.default.getOrderByID);
-router.get('/', order_controller_1.default.getAllOrders);
+router.post('/query', order_controller_1.default.getAllOrders);
 router.put('/:id/items', order_controller_1.default.updateOrderItemsByOrderID);
 router.put('/:id/status', order_controller_1.default.updateOrderStatus);
 router.delete('/:id', order_controller_1.default.deleteOrderByID);

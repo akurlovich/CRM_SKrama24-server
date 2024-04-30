@@ -100,37 +100,15 @@ var OrderService = /** @class */ (function () {
         });
     };
     ;
-    OrderService.prototype.getAllOrders = function (req) {
+    OrderService.prototype.getAllOrders = function (userID, query) {
         return __awaiter(this, void 0, void 0, function () {
-            var userid;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        userid = req.query.userid;
-                        if (!userid) return [3 /*break*/, 2];
-                        return [4 /*yield*/, order_model_1.default.find({ usersID: userid }).populate([
-                                {
-                                    path: "companyID",
-                                },
-                                {
-                                    path: "orderItemID",
-                                },
-                                {
-                                    path: "usersID",
-                                }
-                            ]).sort({ createdAt: -1 })];
+                        if (!userID.userid) return [3 /*break*/, 2];
+                        return [4 /*yield*/, order_model_1.default.find({ usersID: userID.userid }).populate(query.query).sort(query.sort).limit(query.limit)];
                     case 1: return [2 /*return*/, _a.sent()];
-                    case 2: return [4 /*yield*/, order_model_1.default.find().populate([
-                            {
-                                path: "companyID",
-                            },
-                            {
-                                path: "orderItemID",
-                            },
-                            {
-                                path: "usersID",
-                            }
-                        ]).sort({ createdAt: -1 })];
+                    case 2: return [4 /*yield*/, order_model_1.default.find().populate(query.query).sort(query.sort).limit(query.limit)];
                     case 3: return [2 /*return*/, _a.sent()];
                 }
             });

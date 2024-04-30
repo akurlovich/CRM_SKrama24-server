@@ -1,4 +1,5 @@
 import orderModel from "../models/order-model";
+import { IDealsQuery } from "../types/IDeal";
 import { IOrder, IOrderNew, IOrderNewWithCount, IOrderUpdateOrderItems } from "../types/IOrder";
 import { IOrderItem } from "../types/IOrderItem";
 import orderItemService from "./orderItem-service";
@@ -36,32 +37,15 @@ class OrderService {
     return await orderModel.findById(id);
   };
 
-  async getAllOrders(req: any) {
-    let { userid } = req.query;
-    if (userid) {
-      return await orderModel.find({ usersID: userid}).populate([
-        {
-          path: "companyID", 
-        },
-        {
-          path: "orderItemID", 
-        },
-        {
-          path: "usersID", 
-        }
-      ]).sort({createdAt: -1});
+  async getAllOrders(userID: any, query: IDealsQuery) {
+    // console.log('userID', userID)
+    // console.log("query", query.query)
+    // let { userid } = req.query;
+    
+    if (userID.userid) {
+      return await orderModel.find({ usersID: userID.userid }).populate(query.query).sort(query.sort).limit(query.limit);
     }
-    return await orderModel.find().populate([
-      {
-        path: "companyID", 
-      },
-      {
-        path: "orderItemID", 
-      },
-      {
-        path: "usersID", 
-      }
-    ]).sort({createdAt: -1});
+    return await orderModel.find().populate(query.query).sort(query.sort).limit(query.limit);
   };
 
   async updateAddOrderItemsByOrderID(orderID: string, items: IOrderItem[], fileNameNew: string) {

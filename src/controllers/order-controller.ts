@@ -55,7 +55,7 @@ class OrderController {
 
   async getAllOrders(req: Request, res: Response, next: NextFunction) {
     try {
-      const orders = await orderService.getAllOrders(req);
+      const orders = await orderService.getAllOrders(req.query, req.body);
       return res.json(orders);
     } catch (error) {
       next(error);
