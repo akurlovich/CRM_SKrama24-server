@@ -30,3 +30,26 @@ export interface IOrderUpdateOrderItems {
   orderID: string,
   totalSum: number,
 }
+
+interface IQuery {
+  path: string,
+  select?: string,
+  populate?: {
+    path: string,
+  }
+}
+
+export interface IOrdersQuery {
+  query?: IQuery[],
+  sort?: {
+    [key: string]: 'asc' | 'desc',
+  },
+  find?: {
+    // [key: string]: string,
+    [key: string]: {
+      [key: string]: string,
+    } | string
+  },
+  limit?: number,
+  page?: number,
+}

@@ -109,7 +109,9 @@ var OrderService = /** @class */ (function () {
                         return [4 /*yield*/, order_model_1.default.find({ usersID: userID.userid }).populate(query.query).sort(query.sort).limit(query.limit)];
                     case 1: return [2 /*return*/, _a.sent()];
                     case 2: return [4 /*yield*/, order_model_1.default.find().populate(query.query).sort(query.sort).limit(query.limit)];
-                    case 3: return [2 /*return*/, _a.sent()];
+                    case 3: 
+                    // return await orderModel.find().populate(query.query).sort(query.sort).skip((query.page * query.limit) - query.limit).limit(query.limit);
+                    return [2 /*return*/, _a.sent()];
                 }
             });
         });
@@ -154,13 +156,11 @@ var OrderService = /** @class */ (function () {
             var order;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        console.log(status);
-                        return [4 /*yield*/, order_model_1.default.findByIdAndUpdate({ _id: id }, { status: status.status }, { returnOriginal: false })];
+                    case 0: return [4 /*yield*/, order_model_1.default.findByIdAndUpdate({ _id: id }, { status: status.status }, { returnOriginal: false })];
                     case 1:
                         order = _a.sent();
                         // const order = await orderModel.findOneAndUpdate({_id: id}, { $push: { status: status.status }}, { returnOriginal: false });
-                        console.log(order);
+                        // console.log(order)
                         return [2 /*return*/, 'order'];
                 }
             });

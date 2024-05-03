@@ -1,6 +1,6 @@
 import orderModel from "../models/order-model";
 import { IDealsQuery } from "../types/IDeal";
-import { IOrder, IOrderNew, IOrderNewWithCount, IOrderUpdateOrderItems } from "../types/IOrder";
+import { IOrder, IOrderNew, IOrderNewWithCount, IOrdersQuery, IOrderUpdateOrderItems } from "../types/IOrder";
 import { IOrderItem } from "../types/IOrderItem";
 import orderItemService from "./orderItem-service";
 
@@ -37,7 +37,7 @@ class OrderService {
     return await orderModel.findById(id);
   };
 
-  async getAllOrders(userID: any, query: IDealsQuery) {
+  async getAllOrders(userID: any, query: IOrdersQuery) {
     // console.log('userID', userID)
     // console.log("query", query.query)
     // let { userid } = req.query;
@@ -45,6 +45,7 @@ class OrderService {
     if (userID.userid) {
       return await orderModel.find({ usersID: userID.userid }).populate(query.query).sort(query.sort).limit(query.limit);
     }
+    // return await orderModel.find().populate(query.query).sort(query.sort).skip((query.page * query.limit) - query.limit).limit(query.limit);
     return await orderModel.find().populate(query.query).sort(query.sort).limit(query.limit);
   };
 
@@ -61,10 +62,10 @@ class OrderService {
   };
 
   async updateOrderStatus(id: string, status: any) {
-    console.log(status)
+    // console.log(status)
     const order = await orderModel.findByIdAndUpdate({_id: id}, {status: status.status}, { returnOriginal: false });
     // const order = await orderModel.findOneAndUpdate({_id: id}, { $push: { status: status.status }}, { returnOriginal: false });
-    console.log(order)
+    // console.log(order)
     
     return 'order';
     // return await orderModel.deleteMany({});
