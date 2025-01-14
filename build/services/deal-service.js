@@ -99,7 +99,7 @@ var DealService = /** @class */ (function () {
                         newQuery = {
                             userID: query.find['userID'],
                             monthEnd: query.find['monthEnd'],
-                            yearEnd: query.find['yearEnd'],
+                            // yearEnd: query.find['yearEnd'],
                             // monthEnd: { '$lte': '04' },
                             // dayEnd: { '$lt': '18' },
                             // yearEnd: { '$lte': '2024' }
@@ -129,7 +129,7 @@ var DealService = /** @class */ (function () {
                         newQuery = {
                             // userID: query.find['userID'],
                             monthEnd: query.find['monthEnd'],
-                            yearEnd: query.find['yearEnd'],
+                            // yearEnd: query.find['yearEnd'],
                             // monthEnd: { '$lte': '04' },
                             // dayEnd: { '$lt': '18' },
                             // yearEnd: { '$lte': '2024' }
