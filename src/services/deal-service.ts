@@ -58,7 +58,8 @@ class DealService {
         // console.log("monthEnd", query.find['monthEnd'])
         // console.log("dayEnd", query.find['dayEnd'])
         // console.log("newQuery", newQuery)
-
+        //@ts-ignore
+        const year: string = query.find.yearEnd.$lte;
         //@ts-ignore
         const mounth: string = query.find.monthEnd.$lte;
         //@ts-ignore
@@ -66,8 +67,10 @@ class DealService {
   
         const data = await dealModel.find(newQuery).populate(query.query).limit(query.limit).sort(query.sort).exec().then((deals) => {
           const readyDeals: IDeal[] = [];
+          const readyYear: IDeal[] = deals.filter(item => item.yearEnd < year);
           const readyMonth: IDeal[] = deals.filter(item => item.monthEnd < mounth);
           const readyDay: IDeal[] = deals.filter(item => item.monthEnd == mounth).filter(item => item.dayEnd < day)
+          readyDeals.push(...readyYear)
           readyDeals.push(...readyMonth)
           readyDeals.push(...readyDay)
           return readyDeals;
@@ -87,6 +90,8 @@ class DealService {
       
         }
         //@ts-ignore
+        const year: string = query.find.yearEnd.$lte;
+        //@ts-ignore
         const mounth: string = query.find.monthEnd.$lte;
         //@ts-ignore
         const day: string = query.find.dayEnd.$lt;
@@ -99,8 +104,10 @@ class DealService {
   
         const data = await dealModel.find(newQuery).populate(query.query).limit(query.limit).sort(query.sort).exec().then((deals) => {
           const readyDeals: IDeal[] = [];
+          const readyYear: IDeal[] = deals.filter(item => item.yearEnd < year);
           const readyMonth: IDeal[] = deals.filter(item => item.monthEnd < mounth);
           const readyDay: IDeal[] = deals.filter(item => item.monthEnd == mounth).filter(item => item.dayEnd < day)
+          readyDeals.push(...readyYear)
           readyDeals.push(...readyMonth)
           readyDeals.push(...readyDay)
           return readyDeals;
