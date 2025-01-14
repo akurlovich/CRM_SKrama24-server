@@ -105,13 +105,12 @@ var DealService = /** @class */ (function () {
                             // yearEnd: { '$lte': '2024' }
                         };
                         year_1 = query.find.yearEnd.$lte;
-                        console.log('year', query.find['yearEnd']);
                         mounth_1 = query.find.monthEnd.$lte;
                         day_1 = query.find.dayEnd.$lt;
                         return [4 /*yield*/, deal_model_1.default.find(newQuery).populate(query.query).limit(query.limit).sort(query.sort).exec().then(function (deals) {
                                 var readyDeals = [];
                                 var readyYear = deals.filter(function (item) { return item.yearEnd < year_1; });
-                                console.log('readyYear', readyYear);
+                                // console.log('readyYear', readyYear)
                                 var readyMonth = deals.filter(function (item) { return item.monthEnd < mounth_1; });
                                 var readyDay = deals.filter(function (item) { return item.monthEnd == mounth_1; }).filter(function (item) { return item.dayEnd < day_1; });
                                 readyDeals.push.apply(readyDeals, readyYear);
@@ -135,13 +134,12 @@ var DealService = /** @class */ (function () {
                         // yearEnd: { '$lte': '2024' }
                         };
                         year_2 = query.find.yearEnd.$lte;
-                        console.log('year', query.find['yearEnd']);
                         mounth_2 = query.find.monthEnd.$lte;
                         day_2 = query.find.dayEnd.$lt;
                         return [4 /*yield*/, deal_model_1.default.find(newQuery).populate(query.query).limit(query.limit).sort(query.sort).exec().then(function (deals) {
                                 var readyDeals = [];
                                 var readyYear = deals.filter(function (item) { return item.yearEnd < year_2; });
-                                console.log('readyYear', readyYear);
+                                // console.log('readyYear', readyYear)
                                 var readyMonth = deals.filter(function (item) { return item.monthEnd < mounth_2; });
                                 var readyDay = deals.filter(function (item) { return item.monthEnd == mounth_2; }).filter(function (item) { return item.dayEnd < day_2; });
                                 readyDeals.push.apply(readyDeals, readyYear);
