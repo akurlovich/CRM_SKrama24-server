@@ -98,7 +98,7 @@ var DealService = /** @class */ (function () {
                         if (!query.find['userID']) return [3 /*break*/, 2];
                         newQuery = {
                             userID: query.find['userID'],
-                            monthEnd: query.find['monthEnd'],
+                            // monthEnd: query.find['monthEnd'],
                             // yearEnd: query.find['yearEnd'],
                             // monthEnd: { '$lte': '04' },
                             // dayEnd: { '$lt': '18' },
@@ -127,12 +127,12 @@ var DealService = /** @class */ (function () {
                         return [2 /*return*/, data];
                     case 2:
                         newQuery = {
-                            // userID: query.find['userID'],
-                            monthEnd: query.find['monthEnd'],
-                            // yearEnd: query.find['yearEnd'],
-                            // monthEnd: { '$lte': '04' },
-                            // dayEnd: { '$lt': '18' },
-                            // yearEnd: { '$lte': '2024' }
+                        // userID: query.find['userID'],
+                        // monthEnd: query.find['monthEnd'],
+                        // yearEnd: query.find['yearEnd'],
+                        // monthEnd: { '$lte': '04' },
+                        // dayEnd: { '$lt': '18' },
+                        // yearEnd: { '$lte': '2024' }
                         };
                         year_2 = query.find.yearEnd.$lte;
                         console.log('year', query.find['yearEnd']);

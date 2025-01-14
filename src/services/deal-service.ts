@@ -48,7 +48,7 @@ class DealService {
         // newQuery['userID']: query.find['userID']
         const newQuery = {
           userID: query.find['userID'],
-          monthEnd: query.find['monthEnd'],
+          // monthEnd: query.find['monthEnd'],
           // yearEnd: query.find['yearEnd'],
           // monthEnd: { '$lte': '04' },
           // dayEnd: { '$lt': '18' },
@@ -84,7 +84,7 @@ class DealService {
       } else {
         const newQuery = {
           // userID: query.find['userID'],
-          monthEnd: query.find['monthEnd'],
+          // monthEnd: query.find['monthEnd'],
           // yearEnd: query.find['yearEnd'],
           // monthEnd: { '$lte': '04' },
           // dayEnd: { '$lt': '18' },
