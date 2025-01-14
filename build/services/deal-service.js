@@ -90,7 +90,7 @@ var DealService = /** @class */ (function () {
     ;
     DealService.prototype.getAllDealsByUserQuery = function (query) {
         return __awaiter(this, void 0, void 0, function () {
-            var newQuery, mounth_1, day_1, data, newQuery, mounth_2, day_2, data;
+            var newQuery, year_1, mounth_1, day_1, data, newQuery, year_2, mounth_2, day_2, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -104,12 +104,15 @@ var DealService = /** @class */ (function () {
                             // dayEnd: { '$lt': '18' },
                             // yearEnd: { '$lte': '2024' }
                         };
+                        year_1 = query.find.yearEnd.$lte;
                         mounth_1 = query.find.monthEnd.$lte;
                         day_1 = query.find.dayEnd.$lt;
                         return [4 /*yield*/, deal_model_1.default.find(newQuery).populate(query.query).limit(query.limit).sort(query.sort).exec().then(function (deals) {
                                 var readyDeals = [];
+                                var readyYear = deals.filter(function (item) { return item.yearEnd < year_1; });
                                 var readyMonth = deals.filter(function (item) { return item.monthEnd < mounth_1; });
                                 var readyDay = deals.filter(function (item) { return item.monthEnd == mounth_1; }).filter(function (item) { return item.dayEnd < day_1; });
+                                readyDeals.push.apply(readyDeals, readyYear);
                                 readyDeals.push.apply(readyDeals, readyMonth);
                                 readyDeals.push.apply(readyDeals, readyDay);
                                 return readyDeals;
@@ -129,12 +132,15 @@ var DealService = /** @class */ (function () {
                             // dayEnd: { '$lt': '18' },
                             // yearEnd: { '$lte': '2024' }
                         };
+                        year_2 = query.find.yearEnd.$lte;
                         mounth_2 = query.find.monthEnd.$lte;
                         day_2 = query.find.dayEnd.$lt;
                         return [4 /*yield*/, deal_model_1.default.find(newQuery).populate(query.query).limit(query.limit).sort(query.sort).exec().then(function (deals) {
                                 var readyDeals = [];
+                                var readyYear = deals.filter(function (item) { return item.yearEnd < year_2; });
                                 var readyMonth = deals.filter(function (item) { return item.monthEnd < mounth_2; });
                                 var readyDay = deals.filter(function (item) { return item.monthEnd == mounth_2; }).filter(function (item) { return item.dayEnd < day_2; });
+                                readyDeals.push.apply(readyDeals, readyYear);
                                 readyDeals.push.apply(readyDeals, readyMonth);
                                 readyDeals.push.apply(readyDeals, readyDay);
                                 return readyDeals;
