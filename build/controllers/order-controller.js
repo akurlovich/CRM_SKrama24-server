@@ -48,16 +48,16 @@ var OrderController = /** @class */ (function () {
     }
     OrderController.prototype.addOrder = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, order, orderItems, companyTitle, newOrder, newOrderItemsArr, _i, orderItems_1, item, data, newOrderItems, orderWithOrderItems, error_1;
+            var _a, order, orderItems, isRetail, companyTitle, newOrder, newOrderItemsArr, _i, orderItems_1, item, data, newOrderItems, orderWithOrderItems, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 6, , 7]);
-                        _a = req.body, order = _a.order, orderItems = _a.orderItems;
+                        _a = req.body, order = _a.order, orderItems = _a.orderItems, isRetail = _a.isRetail;
                         return [4 /*yield*/, company_service_1.default.getCompanyByID(order.companyID)];
                     case 1:
                         companyTitle = _b.sent();
-                        return [4 /*yield*/, order_service_1.default.addOrder(order)];
+                        return [4 /*yield*/, order_service_1.default.addOrder(order, isRetail)];
                     case 2:
                         newOrder = _b.sent();
                         newOrderItemsArr = [];
@@ -82,7 +82,7 @@ var OrderController = /** @class */ (function () {
                         return [4 /*yield*/, company_service_1.default.updateCompanyAddOrder(newOrder.order)];
                     case 5:
                         _b.sent();
-                        (0, billForOrder_1.billForOrder)(orderItems, newOrder.order._id, companyTitle.title, (newOrder.count + 1).toString(), newOrder.fileName);
+                        (0, billForOrder_1.billForOrder)(orderItems, newOrder.order._id, companyTitle.title, (newOrder.count + 1).toString(), newOrder.fileName, isRetail);
                         return [2 /*return*/, res.json(orderWithOrderItems)];
                     case 6:
                         error_1 = _b.sent();
@@ -138,12 +138,12 @@ var OrderController = /** @class */ (function () {
     ;
     OrderController.prototype.updateOrderItemsByOrderID = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, order, orderItems, foundOrder, _i, _b, item, newOrderItemsArr, _c, orderItems_2, item, data, newOrderItems, newFileName, orderUpdate, companyTitle, error_4;
+            var _a, order, orderItems, isRetail, foundOrder, _i, _b, item, newOrderItemsArr, _c, orderItems_2, item, data, newOrderItems, newFileName, orderUpdate, companyTitle, error_4;
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
                         _d.trys.push([0, 9, , 10]);
-                        _a = req.body, order = _a.order, orderItems = _a.orderItems;
+                        _a = req.body, order = _a.order, orderItems = _a.orderItems, isRetail = _a.isRetail;
                         return [4 /*yield*/, order_service_1.default.getOrderByID(req.params.id)];
                     case 1:
                         foundOrder = _d.sent();
@@ -177,14 +177,20 @@ var OrderController = /** @class */ (function () {
                         return [4 /*yield*/, orderItem_service_1.default.addOrderItem(newOrderItemsArr)];
                     case 6:
                         newOrderItems = _d.sent();
-                        newFileName = 'Счёт_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
+                        newFileName = '';
+                        if (isRetail) {
+                            newFileName = 'Счёт_Розница_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
+                        }
+                        else {
+                            newFileName = 'Счёт_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
+                        }
                         return [4 /*yield*/, order_service_1.default.updateOrderItemsByOrderID(order, newOrderItems, newFileName)];
                     case 7:
                         orderUpdate = _d.sent();
                         return [4 /*yield*/, company_service_1.default.getCompanyByID(foundOrder.companyID.toString())];
                     case 8:
                         companyTitle = _d.sent();
-                        (0, billForOrder_1.billForOrder)(orderItems, req.params.id, companyTitle.title, (foundOrder.orderNumber).toString(), newFileName);
+                        (0, billForOrder_1.billForOrder)(orderItems, req.params.id, companyTitle.title, (foundOrder.orderNumber).toString(), newFileName, isRetail);
                         return [2 /*return*/, res.json(orderUpdate)];
                     case 9:
                         error_4 = _d.sent();
