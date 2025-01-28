@@ -6,10 +6,11 @@ import orderItemService from "./orderItem-service";
 
 
 class OrderService {
-  async addOrder(order: IOrderNew) {
+  async addOrder(order: IOrderNew, isRetail: boolean) {
     const lastOrder = await orderModel.find().sort({ createdAt: -1 }).limit(1)
     // console.log(lastOrder[0].orderNumber)
     const count = lastOrder[0].orderNumber;
+    let newFileName = '';
     const newOrder: IOrderNewWithCount = {
       orderNumber: count + 1,
       companyID: order.companyID,
@@ -17,7 +18,12 @@ class OrderService {
       totalSum: order.totalSum
     };
     const orderNew = await orderModel.create(newOrder);
-    const newFileName: string = 'Счёт_СКРАМ-Материалы_' + (count + 1) + '.docx';
+    if (isRetail) {
+      newFileName = 'Счёт_Розница_СКРАМ-Материалы_' + (count + 1) + '.docx';
+      // console.log('newFileName', newFileName)
+    } else {
+      newFileName = 'Счёт_СКРАМ-Материалы_' + (count + 1) + '.docx';
+    }
     // await orderModel.updateOne({_id: orderNew._id}, { $push: { fileName: fileName}});
     // const orderWithFFileName = await orderModel.findOne({_id: orderNew._id});
     const orderWithFileName = await orderModel.findOneAndUpdate({_id: orderNew._id}, { $push: { fileName: newFileName }}, { returnOriginal: false });

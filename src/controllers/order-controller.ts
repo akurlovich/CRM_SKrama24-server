@@ -13,9 +13,9 @@ class OrderController {
   async addOrder(req: Request, res: Response, next: NextFunction) {
     try {
       // console.log("new", req.body)
-      const { order, orderItems }: {order: IOrderNew, orderItems: IOrderItemNew[]} = req.body;
+      const { order, orderItems, isRetail }: {order: IOrderNew, orderItems: IOrderItemNew[], isRetail: boolean} = req.body;
       const companyTitle = await companyService.getCompanyByID(order.companyID);
-      const newOrder = await orderService.addOrder(order);
+      const newOrder = await orderService.addOrder(order, isRetail);
       const newOrderItemsArr: IOrderItemNewAdd[] = [] as IOrderItemNewAdd[];
 
       for (let item of orderItems) {
@@ -36,7 +36,7 @@ class OrderController {
       const orderWithOrderItems = await orderService.updateAddOrderItemsByOrderID(newOrder.order._id, newOrderItems)
 
       await companyService.updateCompanyAddOrder(newOrder.order);
-      billForOrder(orderItems, newOrder.order._id, companyTitle.title, (newOrder.count + 1).toString(), newOrder.fileName);
+      billForOrder(orderItems, newOrder.order._id, companyTitle.title, (newOrder.count + 1).toString(), newOrder.fileName, isRetail);
 
       return res.json(orderWithOrderItems);
     } catch (error) {
@@ -65,7 +65,7 @@ class OrderController {
   async updateOrderItemsByOrderID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
       // console.log("update", req.body)
-      const { order, orderItems }: {order: IOrderUpdateOrderItems, orderItems: IOrderItemNew[]} = req.body;
+      const { order, orderItems, isRetail }: {order: IOrderUpdateOrderItems, orderItems: IOrderItemNew[], isRetail: boolean} = req.body;
       const foundOrder = await orderService.getOrderByID(req.params.id);
       for (let item of foundOrder.orderItemID) {
         await orderItemService.deleteOrderItemByID(item.toString());
@@ -85,14 +85,19 @@ class OrderController {
       }
       const newOrderItems = await orderItemService.addOrderItem(newOrderItemsArr);
       // console.log('newOrderItems', newOrderItems)
-      const newFileName: string = 'Счёт_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
+      let newFileName = '';
+      if (isRetail) {
+        newFileName = 'Счёт_Розница_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
+      } else {
+        newFileName = 'Счёт_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
+      }
       //@ts-ignore
       const orderUpdate = await orderService.updateOrderItemsByOrderID(order, newOrderItems, newFileName);
       //!  создать файл счета
       // console.log(newFileName)
       // console.log("orderUpdate", orderUpdate)
       const companyTitle = await companyService.getCompanyByID(foundOrder.companyID.toString());
-      billForOrder(orderItems, req.params.id, companyTitle.title, (foundOrder.orderNumber).toString(), newFileName)
+      billForOrder(orderItems, req.params.id, companyTitle.title, (foundOrder.orderNumber).toString(), newFileName, isRetail)
       return res.json(orderUpdate);
     } catch (error) {
       next(error);
