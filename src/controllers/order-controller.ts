@@ -3,19 +3,21 @@ import { Schema } from "mongoose";
 import companyService from "../services/company-service";
 import orderService from "../services/order-service";
 import orderItemService from "../services/orderItem-service";
-import { IOrderNew, IOrderUpdateOrderItems } from "../types/IOrder";
+import { IOrderBillType, IOrderNew, IOrderUpdateOrderItems } from "../types/IOrder";
 import { IOrderItem, IOrderItemNew, IOrderItemNewAdd } from "../types/IOrderItem";
 import { ICommonData, IWordOrderData } from "../types/IWordOrderData";
 import { billForOrder } from "../utils/billForOrder";
+import { fileNameUpdate } from "../utils/fileNameUpdate";
 import { wordOderCreate } from "../utils/wordOderCreate";
 
 class OrderController {
   async addOrder(req: Request, res: Response, next: NextFunction) {
     try {
       // console.log("new", req.body)
-      const { order, orderItems, isRetail }: {order: IOrderNew, orderItems: IOrderItemNew[], isRetail: boolean} = req.body;
+      const { order, orderItems, type }: {order: IOrderNew, orderItems: IOrderItemNew[], type: IOrderBillType } = req.body;
+      // console.log("type", type)
       const companyTitle = await companyService.getCompanyByID(order.companyID);
-      const newOrder = await orderService.addOrder(order, isRetail);
+      const newOrder = await orderService.addOrder(order, type);
       const newOrderItemsArr: IOrderItemNewAdd[] = [] as IOrderItemNewAdd[];
 
       for (let item of orderItems) {
@@ -36,7 +38,7 @@ class OrderController {
       const orderWithOrderItems = await orderService.updateAddOrderItemsByOrderID(newOrder.order._id, newOrderItems)
 
       await companyService.updateCompanyAddOrder(newOrder.order);
-      billForOrder(orderItems, newOrder.order._id, companyTitle.title, (newOrder.count + 1).toString(), newOrder.fileName, isRetail);
+      billForOrder(orderItems, newOrder.order._id, companyTitle.title, (newOrder.count + 1).toString(), newOrder.fileName, type);
 
       return res.json(orderWithOrderItems);
     } catch (error) {
@@ -65,7 +67,7 @@ class OrderController {
   async updateOrderItemsByOrderID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
       // console.log("update", req.body)
-      const { order, orderItems, isRetail }: {order: IOrderUpdateOrderItems, orderItems: IOrderItemNew[], isRetail: boolean} = req.body;
+      const { order, orderItems, type }: {order: IOrderUpdateOrderItems, orderItems: IOrderItemNew[], type: IOrderBillType} = req.body;
       const foundOrder = await orderService.getOrderByID(req.params.id);
       for (let item of foundOrder.orderItemID) {
         await orderItemService.deleteOrderItemByID(item.toString());
@@ -85,19 +87,33 @@ class OrderController {
       }
       const newOrderItems = await orderItemService.addOrderItem(newOrderItemsArr);
       // console.log('newOrderItems', newOrderItems)
-      let newFileName = '';
-      if (isRetail) {
-        newFileName = 'Счёт_Розница_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
-      } else {
-        newFileName = 'Счёт_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
-      }
+      const newFileName = fileNameUpdate(type, foundOrder.orderNumber, foundOrder.fileName.length);
+      // switch (type) {
+      //   case 'invoice':
+      //     newFileName = 'Счёт_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
+      //     break;
+      //   case 'retail':
+      //     newFileName = 'Счёт_Розница_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
+      //     break;
+      //   case 'check':
+      //     newFileName = 'Товарный_чек_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
+      //     break;
+      
+      //   default:
+      //     break;
+      // }
+      // if (isRetail) {
+      //   newFileName = 'Счёт_Розница_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
+      // } else {
+      //   newFileName = 'Счёт_СКРАМ-Материалы_' + foundOrder.orderNumber + '_v' + (foundOrder.fileName.length + 1) + '.docx';
+      // }
       //@ts-ignore
       const orderUpdate = await orderService.updateOrderItemsByOrderID(order, newOrderItems, newFileName);
       //!  создать файл счета
       // console.log(newFileName)
       // console.log("orderUpdate", orderUpdate)
       const companyTitle = await companyService.getCompanyByID(foundOrder.companyID.toString());
-      billForOrder(orderItems, req.params.id, companyTitle.title, (foundOrder.orderNumber).toString(), newFileName, isRetail)
+      billForOrder(orderItems, req.params.id, companyTitle.title, (foundOrder.orderNumber).toString(), newFileName, type)
       return res.json(orderUpdate);
     } catch (error) {
       next(error);

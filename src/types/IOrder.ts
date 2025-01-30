@@ -12,6 +12,8 @@ export interface IOrder extends Document {
 }
 
 type StatusType = 'processing' | 'done' | 'cansel';
+
+export type IOrderBillType = 'invoice' | 'retail' | 'check';
   
 export interface IOrderNew {
   companyID: string,

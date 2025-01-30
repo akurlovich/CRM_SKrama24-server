@@ -1,16 +1,17 @@
 import orderModel from "../models/order-model";
 import { IDealsQuery } from "../types/IDeal";
-import { IOrder, IOrderNew, IOrderNewWithCount, IOrdersQuery, IOrderUpdateOrderItems } from "../types/IOrder";
+import { IOrder, IOrderBillType, IOrderNew, IOrderNewWithCount, IOrdersQuery, IOrderUpdateOrderItems } from "../types/IOrder";
 import { IOrderItem } from "../types/IOrderItem";
+import { fileNameCreate } from "../utils/fileNameCreate";
 import orderItemService from "./orderItem-service";
 
 
 class OrderService {
-  async addOrder(order: IOrderNew, isRetail: boolean) {
+  async addOrder(order: IOrderNew, type: IOrderBillType) {
     const lastOrder = await orderModel.find().sort({ createdAt: -1 }).limit(1)
     // console.log(lastOrder[0].orderNumber)
     const count = lastOrder[0].orderNumber;
-    let newFileName = '';
+    const newFileName = fileNameCreate(type, count);
     const newOrder: IOrderNewWithCount = {
       orderNumber: count + 1,
       companyID: order.companyID,
@@ -18,12 +19,26 @@ class OrderService {
       totalSum: order.totalSum
     };
     const orderNew = await orderModel.create(newOrder);
-    if (isRetail) {
-      newFileName = 'Счёт_Розница_СКРАМ-Материалы_' + (count + 1) + '.docx';
-      // console.log('newFileName', newFileName)
-    } else {
-      newFileName = 'Счёт_СКРАМ-Материалы_' + (count + 1) + '.docx';
-    }
+    // if (isRetail) {
+    //   newFileName = 'Счёт_Розница_СКРАМ-Материалы_' + (count + 1) + '.docx';
+    //   // console.log('newFileName', newFileName)
+    // } else {
+    //   newFileName = 'Счёт_СКРАМ-Материалы_' + (count + 1) + '.docx';
+    // }
+    // switch (type) {
+    //   case 'invoice':
+    //     newFileName = 'Счёт_СКРАМ-Материалы_' + (count + 1) + '.docx';
+    //     break;
+    //   case 'retail':
+    //     newFileName = 'Счёт_Розница_СКРАМ-Материалы_' + (count + 1) + '.docx';
+    //     break;
+    //   case 'check':
+    //     newFileName = 'Товарный_чек_СКРАМ-Материалы_' + (count + 1) + '.docx';
+    //     break;
+    
+    //   default:
+    //     break;
+    // }
     // await orderModel.updateOne({_id: orderNew._id}, { $push: { fileName: fileName}});
     // const orderWithFFileName = await orderModel.findOne({_id: orderNew._id});
     const orderWithFileName = await orderModel.findOneAndUpdate({_id: orderNew._id}, { $push: { fileName: newFileName }}, { returnOriginal: false });

@@ -1,10 +1,12 @@
+import { IOrderBillType } from "../types/IOrder";
 import { IOrderItemNew } from "../types/IOrderItem";
 import { ICommonData, IWordOrderData } from "../types/IWordOrderData";
 import { num2str } from "./num2str";
 import { wordOderCreate } from "./wordOderCreate";
+import { wordOderCheckCreate } from "./wordOrderCheckCreate";
 import { wordOderRetailCreate } from "./wordOrderRetailCreate";
 
-export const billForOrder = (orderItems: IOrderItemNew[], orderID: string, companyTitle: string, orderNumber: string, filename: string, isRetail: boolean) => {
+export const billForOrder = (orderItems: IOrderItemNew[], orderID: string, companyTitle: string, orderNumber: string, filename: string, type: IOrderBillType) => {
   const checkArray: IWordOrderData[] = [] as IWordOrderData[];
     for (let i = 0; i < orderItems.length; i++) {
       const newCheck: IWordOrderData = {
@@ -14,7 +16,7 @@ export const billForOrder = (orderItems: IOrderItemNew[], orderID: string, compa
         title: orderItems[i].productTitle,
         dimension: orderItems[i].productDimension,
         count: orderItems[i].count.toString().replace('.', ','),
-        price: isRetail ? (orderItems[i].price * 1.2).toFixed(2).replace('.', ',') : orderItems[i].price.toFixed(2).replace('.', ','),
+        price: (type === 'check') ? (orderItems[i].price * 1.2).toFixed(2).replace('.', ',') : orderItems[i].price.toFixed(2).replace('.', ','),
         sum: orderItems[i].sum.toFixed(2).replace('.', ','),
         vatRate: 20,
         vatSum: orderItems[i].vatSum.toFixed(2).replace('.', ','),
@@ -46,9 +48,25 @@ export const billForOrder = (orderItems: IOrderItemNew[], orderID: string, compa
     vatSumWords: vatSumWords.replace('.', ','),
     totalSumWords: totalSumWords.replace('.', ','),
   }
-  if (isRetail) {
-    wordOderRetailCreate(checkArray, baseData, filename)
-  } else {
-    wordOderCreate(checkArray, baseData, filename)
-  } 
+
+  switch (type) {
+    case 'invoice':
+      wordOderCreate(checkArray, baseData, filename)
+      break;
+    case 'retail':
+      wordOderRetailCreate(checkArray, baseData, filename)
+      break;
+      case 'check':
+      wordOderCheckCreate(checkArray, baseData, filename)
+      break;
+  
+    default:
+      break;
+  }
+
+  // if (isRetail) {
+  //   wordOderRetailCreate(checkArray, baseData, filename)
+  // } else {
+  //   wordOderCreate(checkArray, baseData, filename)
+  // } 
 }

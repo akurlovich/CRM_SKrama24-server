@@ -3,8 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.billForOrder = void 0;
 var num2str_1 = require("./num2str");
 var wordOderCreate_1 = require("./wordOderCreate");
+var wordOrderCheckCreate_1 = require("./wordOrderCheckCreate");
 var wordOrderRetailCreate_1 = require("./wordOrderRetailCreate");
-var billForOrder = function (orderItems, orderID, companyTitle, orderNumber, filename, isRetail) {
+var billForOrder = function (orderItems, orderID, companyTitle, orderNumber, filename, type) {
     var checkArray = [];
     for (var i = 0; i < orderItems.length; i++) {
         var newCheck = {
@@ -14,7 +15,7 @@ var billForOrder = function (orderItems, orderID, companyTitle, orderNumber, fil
             title: orderItems[i].productTitle,
             dimension: orderItems[i].productDimension,
             count: orderItems[i].count.toString().replace('.', ','),
-            price: isRetail ? (orderItems[i].price * 1.2).toFixed(2).replace('.', ',') : orderItems[i].price.toFixed(2).replace('.', ','),
+            price: (type === 'check') ? (orderItems[i].price * 1.2).toFixed(2).replace('.', ',') : orderItems[i].price.toFixed(2).replace('.', ','),
             sum: orderItems[i].sum.toFixed(2).replace('.', ','),
             vatRate: 20,
             vatSum: orderItems[i].vatSum.toFixed(2).replace('.', ','),
@@ -43,11 +44,23 @@ var billForOrder = function (orderItems, orderID, companyTitle, orderNumber, fil
         vatSumWords: vatSumWords.replace('.', ','),
         totalSumWords: totalSumWords.replace('.', ','),
     };
-    if (isRetail) {
-        (0, wordOrderRetailCreate_1.wordOderRetailCreate)(checkArray, baseData, filename);
+    switch (type) {
+        case 'invoice':
+            (0, wordOderCreate_1.wordOderCreate)(checkArray, baseData, filename);
+            break;
+        case 'retail':
+            (0, wordOrderRetailCreate_1.wordOderRetailCreate)(checkArray, baseData, filename);
+            break;
+        case 'check':
+            (0, wordOrderCheckCreate_1.wordOderCheckCreate)(checkArray, baseData, filename);
+            break;
+        default:
+            break;
     }
-    else {
-        (0, wordOderCreate_1.wordOderCreate)(checkArray, baseData, filename);
-    }
+    // if (isRetail) {
+    //   wordOderRetailCreate(checkArray, baseData, filename)
+    // } else {
+    //   wordOderCreate(checkArray, baseData, filename)
+    // } 
 };
 exports.billForOrder = billForOrder;

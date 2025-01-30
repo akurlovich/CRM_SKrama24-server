@@ -17,7 +17,8 @@ import {
 } from "docx";
 import { ICommonData, IWordOrderData } from "../types/IWordOrderData";
 
-export const wordOderRetailCreate = (data: IWordOrderData[], common: ICommonData, filename: string,) => {
+export const wordOderCheckCreate = (data: IWordOrderData[], common: ICommonData, filename: string,) => {
+	// console.log("filename ", filename)
   const font = "Times New Roman";
   const generateRows = (prices: IWordOrderData[]): TableRow[] =>
     prices.map(({ item, title, dimension, count, price, sum, vatRate, vatSum, totalSum}) =>
@@ -92,6 +93,7 @@ export const wordOderRetailCreate = (data: IWordOrderData[], common: ICommonData
               children: [
                 new TextRun({
                     text: price.toString(),
+										// text: (Number(price) * 1.2).toFixed(2),
                     size: 20,
                     font,
                 }),
@@ -102,54 +104,54 @@ export const wordOderRetailCreate = (data: IWordOrderData[], common: ICommonData
           verticalAlign: VerticalAlign.CENTER,
           textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
         }),
-        new TableCell({
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                    text: sum.toString(),
-                    size: 20,
-                    font,
-                }),
-              ],
-              alignment: AlignmentType.CENTER
-            })
-          ],
-          verticalAlign: VerticalAlign.CENTER,
-          textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
-        }),
-        new TableCell({
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                    text: vatRate.toString(),
-                    size: 20,
-                    font,
-                }),
-              ],
-              alignment: AlignmentType.CENTER
-            })
-          ],
-          verticalAlign: VerticalAlign.CENTER,
-          textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
-        }),
-        new TableCell({
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                    text: vatSum.toString(),
-                    size: 20,
-                    font,
-                }),
-              ],
-              alignment: AlignmentType.CENTER
-            })
-          ],
-          verticalAlign: VerticalAlign.CENTER,
-          textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
-        }),
+        // new TableCell({
+        //   children: [
+        //     new Paragraph({
+        //       children: [
+        //         new TextRun({
+        //             text: sum.toString(),
+        //             size: 20,
+        //             font,
+        //         }),
+        //       ],
+        //       alignment: AlignmentType.CENTER
+        //     })
+        //   ],
+        //   verticalAlign: VerticalAlign.CENTER,
+        //   textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
+        // }),
+        // new TableCell({
+        //   children: [
+        //     new Paragraph({
+        //       children: [
+        //         new TextRun({
+        //             text: vatRate.toString(),
+        //             size: 20,
+        //             font,
+        //         }),
+        //       ],
+        //       alignment: AlignmentType.CENTER
+        //     })
+        //   ],
+        //   verticalAlign: VerticalAlign.CENTER,
+        //   textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
+        // }),
+        // new TableCell({
+        //   children: [
+        //     new Paragraph({
+        //       children: [
+        //         new TextRun({
+        //             text: vatSum.toString(),
+        //             size: 20,
+        //             font,
+        //         }),
+        //       ],
+        //       alignment: AlignmentType.CENTER
+        //     })
+        //   ],
+        //   verticalAlign: VerticalAlign.CENTER,
+        //   textDirection: TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM,
+        // }),
         new TableCell({
           children: [
             new Paragraph({
@@ -171,7 +173,7 @@ export const wordOderRetailCreate = (data: IWordOrderData[], common: ICommonData
     );
 
   // patchDocument(fs.readFileSync(__dirname + path.sep + '../..' `assets` + path.sep + `template.docx`), {
-  patchDocument(fs.readFileSync(__dirname + path.sep + `template_retail.docx`), {
+  patchDocument(fs.readFileSync(__dirname + path.sep + `template_check.docx`), {
     patches: {
       orderID: {
         type: PatchType.PARAGRAPH,
@@ -206,17 +208,17 @@ export const wordOderRetailCreate = (data: IWordOrderData[], common: ICommonData
           })
         ],
       },
-      varSum: {
-        type: PatchType.PARAGRAPH,
-        children: [
-          new TextRun({
-            text: common.vatSum,
-            bold: true,
-            size: 24,
-            font: font,
-          })
-        ],
-      },
+      // varSum: {
+      //   type: PatchType.PARAGRAPH,
+      //   children: [
+      //     new TextRun({
+      //       text: common.vatSum,
+      //       bold: true,
+      //       size: 24,
+      //       font: font,
+      //     })
+      //   ],
+      // },
       totalSum: {
         type: PatchType.PARAGRAPH,
         children: [
@@ -228,17 +230,17 @@ export const wordOderRetailCreate = (data: IWordOrderData[], common: ICommonData
           })
         ],
       },
-      varSumWords: {
-        type: PatchType.PARAGRAPH,
-        children: [
-          new TextRun({
-            text: common.vatSumWords,
-            bold: true,
-            size: 24,
-            font: font,
-          })
-        ],
-      },
+      // varSumWords: {
+      //   type: PatchType.PARAGRAPH,
+      //   children: [
+      //     new TextRun({
+      //       text: common.vatSumWords,
+      //       bold: true,
+      //       size: 24,
+      //       font: font,
+      //     })
+      //   ],
+      // },
       totalSumWords: {
         type: PatchType.PARAGRAPH,
         children: [
@@ -250,57 +252,14 @@ export const wordOderRetailCreate = (data: IWordOrderData[], common: ICommonData
           })
         ],
       },
-      // paragraph_replace: {
-      //     type: PatchType.DOCUMENT,
-      //     children: [
-      //         new Paragraph("Lorem ipsum paragraph"),
-      //         new Paragraph("Another paragraph"),
-      //         new Paragraph({
-      //             children: [
-      //                 new TextRun("This is a "),
-      //                 new ExternalHyperlink({
-      //                     children: [
-      //                         new TextRun({
-      //                             text: "Google Link",
-      //                         }),
-      //                     ],
-      //                     link: "https://www.google.co.uk",
-      //                 }),
-      //                 new ImageRun({ data: fs.readFileSync(__dirname + `\\assets\\image1.jpeg`), transformation: { width: 100, height: 100 } }),
-      //             ],
-      //         }),
-      //     ],
-      // },
-      // header_adjective: {
-      //     type: PatchType.PARAGRAPH,
-      //     children: [new TextRun("Delightful Header")],
-      // },
-      // footer_text: {
-      //     type: PatchType.PARAGRAPH,
-      //     children: [
-      //         new TextRun("replaced just as"),
-      //         new TextRun(" well"),
-      //         new ExternalHyperlink({
-      //             children: [
-      //                 new TextRun({
-      //                     text: "BBC News Link",
-      //                 }),
-      //             ],
-      //             link: "https://www.bbc.co.uk/news",
-      //         }),
-      //     ],
-      // },
-      // image_test: {
-      //     type: PatchType.PARAGRAPH,
-      //     children: [new ImageRun({ data: fs.readFileSync(__dirname + `\\assets\\image1.jpeg`), transformation: { width: 100, height: 100 } })],
-      // },
+  
       table: {
         type: PatchType.DOCUMENT,
         children: [
           new Table({
             width: {
-                size: 9070,
-                type: WidthType.AUTO,
+                size: 100,
+                type: WidthType.PERCENTAGE,
             },
             rows: [
               new TableRow({
@@ -401,67 +360,67 @@ export const wordOderRetailCreate = (data: IWordOrderData[], common: ICommonData
                       verticalAlign: VerticalAlign.CENTER,
                       // textDirection: TextDirection.TOP_TO_BOTTOM_RIGHT_TO_LEFT,
                   }),
+                  // new TableCell({
+                  //     children: [
+                  //         new Paragraph({
+                  //             heading: HeadingLevel.HEADING_2,
+                  //             children: [
+                  //                 new TextRun({
+                  //                     text: "Сумма, руб",
+                  //                     bold: true,
+                  //                     size: 20,
+                  //                     font,
+                  //                 }),
+                  //             ],
+                  //             alignment: AlignmentType.CENTER,
+                  //         }),
+                  //     ],
+                  //     verticalAlign: VerticalAlign.CENTER,
+                  //     // textDirection: TextDirection.TOP_TO_BOTTOM_RIGHT_TO_LEFT,
+                  // }),
+                  // new TableCell({
+                  //     children: [
+                  //         new Paragraph({
+                  //             heading: HeadingLevel.HEADING_2,
+                  //             children: [
+                  //                 new TextRun({
+                  //                     text: "Ставка НДС, %",
+                  //                     bold: true,
+                  //                     size: 20,
+                  //                     font,
+                  //                 }),
+                  //             ],
+                  //             alignment: AlignmentType.CENTER,
+                  //         }),
+                  //     ],
+                  //     verticalAlign: VerticalAlign.CENTER,
+                  //     // textDirection: TextDirection.TOP_TO_BOTTOM_RIGHT_TO_LEFT,
+                  // }),
+                  // new TableCell({
+                  //     children: [
+                  //         new Paragraph({
+                  //             heading: HeadingLevel.HEADING_2,
+                  //             children: [
+                  //                 new TextRun({
+                  //                     text: "Сумма НДС, руб",
+                  //                     bold: true,
+                  //                     size: 20,
+                  //                     font,
+                  //                 }),
+                  //             ],
+                  //             alignment: AlignmentType.CENTER,
+                  //         }),
+                  //     ],
+                  //     verticalAlign: VerticalAlign.CENTER,
+                  //     // textDirection: TextDirection.TOP_TO_BOTTOM_RIGHT_TO_LEFT,
+                  // }),
                   new TableCell({
                       children: [
                           new Paragraph({
                               heading: HeadingLevel.HEADING_2,
                               children: [
                                   new TextRun({
-                                      text: "Сумма, руб",
-                                      bold: true,
-                                      size: 20,
-                                      font,
-                                  }),
-                              ],
-                              alignment: AlignmentType.CENTER,
-                          }),
-                      ],
-                      verticalAlign: VerticalAlign.CENTER,
-                      // textDirection: TextDirection.TOP_TO_BOTTOM_RIGHT_TO_LEFT,
-                  }),
-                  new TableCell({
-                      children: [
-                          new Paragraph({
-                              heading: HeadingLevel.HEADING_2,
-                              children: [
-                                  new TextRun({
-                                      text: "Ставка НДС, %",
-                                      bold: true,
-                                      size: 20,
-                                      font,
-                                  }),
-                              ],
-                              alignment: AlignmentType.CENTER,
-                          }),
-                      ],
-                      verticalAlign: VerticalAlign.CENTER,
-                      // textDirection: TextDirection.TOP_TO_BOTTOM_RIGHT_TO_LEFT,
-                  }),
-                  new TableCell({
-                      children: [
-                          new Paragraph({
-                              heading: HeadingLevel.HEADING_2,
-                              children: [
-                                  new TextRun({
-                                      text: "Сумма НДС, руб",
-                                      bold: true,
-                                      size: 20,
-                                      font,
-                                  }),
-                              ],
-                              alignment: AlignmentType.CENTER,
-                          }),
-                      ],
-                      verticalAlign: VerticalAlign.CENTER,
-                      // textDirection: TextDirection.TOP_TO_BOTTOM_RIGHT_TO_LEFT,
-                  }),
-                  new TableCell({
-                      children: [
-                          new Paragraph({
-                              heading: HeadingLevel.HEADING_2,
-                              children: [
-                                  new TextRun({
-                                      text: "Всего с НДС, руб",
+                                      text: "Всего, руб",
                                       bold: true,
                                       size: 20,
                                       font,
@@ -560,45 +519,45 @@ export const wordOderRetailCreate = (data: IWordOrderData[], common: ICommonData
                     verticalAlign: VerticalAlign.CENTER,
                     // textDirection: TextDirection.TOP_TO_BOTTOM_RIGHT_TO_LEFT,
                   }),
-                  new TableCell({
-                    children: [
-                      new Paragraph({
-                        heading: HeadingLevel.HEADING_2,
-                        children: [
-                          new TextRun({
-                              text: common.sum,
-                              bold: true,
-                              size: 24,
-                              font,
-                          }),
-                        ],
-                          alignment: AlignmentType.CENTER,
-                      }),
-                    ],
-                    verticalAlign: VerticalAlign.CENTER,
-                    // textDirection: TextDirection.TOP_TO_BOTTOM_RIGHT_TO_LEFT,
-                  }),
-                  new TableCell({
-                    children: [new Paragraph('')],
-                  }),
-                  new TableCell({
-                      children: [
-                          new Paragraph({
-                              heading: HeadingLevel.HEADING_2,
-                              children: [
-                                  new TextRun({
-                                      text: common.vatSum,
-                                      bold: true,
-                                      size: 24,
-                                      font,
-                                  }),
-                              ],
-                              alignment: AlignmentType.CENTER,
-                          }),
-                      ],
-                      verticalAlign: VerticalAlign.CENTER,
-                      // textDirection: TextDirection.TOP_TO_BOTTOM_RIGHT_TO_LEFT,
-                  }),
+                  // new TableCell({
+                  //   children: [
+                  //     new Paragraph({
+                  //       heading: HeadingLevel.HEADING_2,
+                  //       children: [
+                  //         new TextRun({
+                  //             text: common.sum,
+                  //             bold: true,
+                  //             size: 24,
+                  //             font,
+                  //         }),
+                  //       ],
+                  //         alignment: AlignmentType.CENTER,
+                  //     }),
+                  //   ],
+                  //   verticalAlign: VerticalAlign.CENTER,
+                  //   // textDirection: TextDirection.TOP_TO_BOTTOM_RIGHT_TO_LEFT,
+                  // }),
+                  // new TableCell({
+                  //   children: [new Paragraph('')],
+                  // }),
+                  // new TableCell({
+                  //     children: [
+                  //         new Paragraph({
+                  //             heading: HeadingLevel.HEADING_2,
+                  //             children: [
+                  //                 new TextRun({
+                  //                     text: common.vatSum,
+                  //                     bold: true,
+                  //                     size: 24,
+                  //                     font,
+                  //                 }),
+                  //             ],
+                  //             alignment: AlignmentType.CENTER,
+                  //         }),
+                  //     ],
+                  //     verticalAlign: VerticalAlign.CENTER,
+                  //     // textDirection: TextDirection.TOP_TO_BOTTOM_RIGHT_TO_LEFT,
+                  // }),
                   new TableCell({
                       children: [
                           new Paragraph({

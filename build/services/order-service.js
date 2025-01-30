@@ -40,11 +40,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var order_model_1 = __importDefault(require("../models/order-model"));
+var fileNameCreate_1 = require("../utils/fileNameCreate");
 var orderItem_service_1 = __importDefault(require("./orderItem-service"));
 var OrderService = /** @class */ (function () {
     function OrderService() {
     }
-    OrderService.prototype.addOrder = function (order, isRetail) {
+    OrderService.prototype.addOrder = function (order, type) {
         return __awaiter(this, void 0, void 0, function () {
             var lastOrder, count, newFileName, newOrder, orderNew, orderWithFileName;
             return __generator(this, function (_a) {
@@ -55,7 +56,7 @@ var OrderService = /** @class */ (function () {
                     case 1:
                         lastOrder = _a.sent();
                         count = lastOrder[0].orderNumber;
-                        newFileName = '';
+                        newFileName = (0, fileNameCreate_1.fileNameCreate)(type, count);
                         newOrder = {
                             orderNumber: count + 1,
                             companyID: order.companyID,
@@ -65,13 +66,6 @@ var OrderService = /** @class */ (function () {
                         return [4 /*yield*/, order_model_1.default.create(newOrder)];
                     case 2:
                         orderNew = _a.sent();
-                        if (isRetail) {
-                            newFileName = 'Счёт_Розница_СКРАМ-Материалы_' + (count + 1) + '.docx';
-                            // console.log('newFileName', newFileName)
-                        }
-                        else {
-                            newFileName = 'Счёт_СКРАМ-Материалы_' + (count + 1) + '.docx';
-                        }
                         return [4 /*yield*/, order_model_1.default.findOneAndUpdate({ _id: orderNew._id }, { $push: { fileName: newFileName } }, { returnOriginal: false })];
                     case 3:
                         orderWithFileName = _a.sent();
