@@ -194,7 +194,7 @@ var wordOderRetailCreate = function (data, common, filename) {
         });
     };
     // patchDocument(fs.readFileSync(__dirname + path.sep + '../..' `assets` + path.sep + `template.docx`), {
-    (0, docx_1.patchDocument)(fs.readFileSync(__dirname + path_1.default.sep + "template_retail.docx"), {
+    (0, docx_1.patchDocument)(fs.readFileSync(__dirname + path_1.default.sep + "template_retail_v2.docx"), {
         patches: {
             orderID: {
                 type: docx_1.PatchType.PARAGRAPH,

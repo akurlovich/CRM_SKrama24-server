@@ -171,7 +171,7 @@ export const wordOderRetailCreate = (data: IWordOrderData[], common: ICommonData
     );
 
   // patchDocument(fs.readFileSync(__dirname + path.sep + '../..' `assets` + path.sep + `template.docx`), {
-  patchDocument(fs.readFileSync(__dirname + path.sep + `template_retail.docx`), {
+  patchDocument(fs.readFileSync(__dirname + path.sep + `template_retail_v2.docx`), {
     patches: {
       orderID: {
         type: PatchType.PARAGRAPH,
