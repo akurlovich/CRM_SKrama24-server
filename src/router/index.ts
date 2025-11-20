@@ -15,6 +15,7 @@ import positionRouter from './positionRouter';
 import productRouter from './productRouter';
 import searchRouter from './searchRouter';
 import userRouter from './userRouter';
+import carrierRouter from './carrierRouter';
 
 const router = Router();
 router.use('/users', userRouter);
@@ -31,6 +32,7 @@ router.use('/orders', orderRouter);
 router.use('/orderitems', orderItemRouter);
 router.use('/products', productRouter);
 router.use('/search', searchRouter);
+router.use('/carierrs', carrierRouter);
 
 // router.post('/registration',
 //   body('email').isEmail(),
