@@ -18,6 +18,7 @@ var positionRouter_1 = __importDefault(require("./positionRouter"));
 var productRouter_1 = __importDefault(require("./productRouter"));
 var searchRouter_1 = __importDefault(require("./searchRouter"));
 var userRouter_1 = __importDefault(require("./userRouter"));
+var carrierRouter_1 = __importDefault(require("./carrierRouter"));
 var router = (0, express_1.Router)();
 router.use('/users', userRouter_1.default);
 router.use('/', positionRouter_1.default);
@@ -33,6 +34,7 @@ router.use('/orders', orderRouter_1.default);
 router.use('/orderitems', orderItemRouter_1.default);
 router.use('/products', productRouter_1.default);
 router.use('/search', searchRouter_1.default);
+router.use('/carierrs', carrierRouter_1.default);
 // router.post('/registration',
 //   body('email').isEmail(),
 //   body('password').isLength({min: 6, max: 32}),  
