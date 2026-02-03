@@ -41,28 +41,56 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var company_service_1 = __importDefault(require("../services/company-service"));
 var deal_service_1 = __importDefault(require("../services/deal-service"));
+var carrier_service_1 = __importDefault(require("../services/carrier-service"));
 var DealController = /** @class */ (function () {
     function DealController() {
     }
     DealController.prototype.addDeal = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var newDeal, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, deal, entity, newDeal, _b, error_1;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, deal_service_1.default.addDeal(req.body)];
+                        _a = req.body, deal = _a.deal, entity = _a.entity;
+                        _c.label = 1;
                     case 1:
-                        newDeal = _a.sent();
-                        return [4 /*yield*/, company_service_1.default.updateCompanyAddDeal(newDeal)];
+                        _c.trys.push([1, 9, , 10]);
+                        return [4 /*yield*/, deal_service_1.default.addDeal(deal)];
                     case 2:
-                        _a.sent();
+                        newDeal = _c.sent();
+                        _b = entity;
+                        switch (_b) {
+                            case 'carrier': return [3 /*break*/, 3];
+                            case 'company': return [3 /*break*/, 5];
+                        }
+                        return [3 /*break*/, 7];
+                    case 3: 
+                    // console.log('carrier')
+                    return [4 /*yield*/, carrier_service_1.default.updateCarrierAddDeal(newDeal)];
+                    case 4:
+                        // console.log('carrier')
+                        _c.sent();
+                        return [3 /*break*/, 8];
+                    case 5: 
+                    // console.log('company')
+                    return [4 /*yield*/, company_service_1.default.updateCompanyAddDeal(newDeal)];
+                    case 6:
+                        // console.log('company')
+                        _c.sent();
+                        return [3 /*break*/, 8];
+                    case 7: return [3 /*break*/, 8];
+                    case 8:
+                        ;
+                        // const newDeal = await dealService.addDeal(req.body);
+                        // await companyService.updateCompanyAddDeal(newDeal)
+                        // console.log('new deal', newDeal)
                         return [2 /*return*/, res.json(newDeal)];
-                    case 3:
-                        error_1 = _a.sent();
+                    case 9:
+                        error_1 = _c.sent();
+                        // console.log('error deal', error)
                         next(error_1);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 10];
+                    case 10: return [2 /*return*/];
                 }
             });
         });
@@ -175,23 +203,33 @@ var DealController = /** @class */ (function () {
     ;
     DealController.prototype.deleteDealFromCompanyByDealID = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var deal, error_7;
+            var carrier, deal_1, deal, error_7;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, company_service_1.default.deleteDealFromCompanyByDealID(req.params.id)];
+                        _a.trys.push([0, 6, , 7]);
+                        return [4 /*yield*/, carrier_service_1.default.deleteDealFromCarrierByDealID(req.params.id)];
                     case 1:
-                        _a.sent();
+                        carrier = _a.sent();
+                        if (!carrier) return [3 /*break*/, 3];
                         return [4 /*yield*/, deal_service_1.default.deleteDealByID(req.params.id)];
                     case 2:
+                        deal_1 = _a.sent();
+                        // console.log('delete deal', deal)
+                        return [2 /*return*/, res.json(deal_1)];
+                    case 3: return [4 /*yield*/, company_service_1.default.deleteDealFromCompanyByDealID(req.params.id)];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, deal_service_1.default.deleteDealByID(req.params.id)];
+                    case 5:
                         deal = _a.sent();
+                        // console.log('delete deal', deal)
                         return [2 /*return*/, res.json(deal)];
-                    case 3:
+                    case 6:
                         error_7 = _a.sent();
                         next(error_7);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
                 }
             });
         });

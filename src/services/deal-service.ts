@@ -6,6 +6,7 @@ import { IDeal, IDealsQuery, IDealUpdate } from "../types/IDeal";
 
 class DealService {
   async addDeal(deal: IDeal) {
+    console.log('deal in Service', deal);
     return await dealModel.create(deal);
   };
 

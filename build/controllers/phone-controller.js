@@ -46,24 +46,50 @@ var PhoneController = /** @class */ (function () {
     }
     PhoneController.prototype.addPhone = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, contactID, phone, newPhone, error_1;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, phone, entity, newPhone, _b, error_1;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        _b.trys.push([0, 3, , 4]);
-                        _a = req.body, contactID = _a.contactID, phone = _a.phone;
-                        return [4 /*yield*/, phone_service_1.default.addPhone(phone)];
+                        _c.trys.push([0, 8, , 9]);
+                        _a = req.body, phone = _a.phone, entity = _a.entity;
+                        return [4 /*yield*/, phone_service_1.default.addPhone(phone.phone)];
                     case 1:
-                        newPhone = _b.sent();
-                        return [4 /*yield*/, contact_service_1.default.updateContactAddPhone(contactID, newPhone)];
-                    case 2:
-                        _b.sent();
-                        return [2 /*return*/, res.json(newPhone)];
+                        newPhone = _c.sent();
+                        _b = entity;
+                        switch (_b) {
+                            case 'carrier': return [3 /*break*/, 2];
+                            case 'company': return [3 /*break*/, 4];
+                        }
+                        return [3 /*break*/, 6];
+                    case 2: 
+                    // console.log('carrier')
+                    // await carrierService.updateCarrierAddComment(newComment);
+                    return [4 /*yield*/, contact_service_1.default.updateContactAddPhone(phone.contactID, newPhone)];
                     case 3:
-                        error_1 = _b.sent();
+                        // console.log('carrier')
+                        // await carrierService.updateCarrierAddComment(newComment);
+                        _c.sent();
+                        return [3 /*break*/, 7];
+                    case 4: 
+                    // console.log('company')
+                    // await companyService.updateCompanyAddComment(newComment);
+                    return [4 /*yield*/, contact_service_1.default.updateContactAddPhone(phone.contactID, newPhone)];
+                    case 5:
+                        // console.log('company')
+                        // await companyService.updateCompanyAddComment(newComment);
+                        _c.sent();
+                        return [3 /*break*/, 7];
+                    case 6: return [3 /*break*/, 7];
+                    case 7:
+                        ;
+                        // console.log('newPhone added', newPhone)
+                        // await contactService.updateContactAddPhone(contactID, newPhone);
+                        return [2 /*return*/, res.json(newPhone)];
+                    case 8:
+                        error_1 = _c.sent();
                         next(error_1);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 9];
+                    case 9: return [2 /*return*/];
                 }
             });
         });
@@ -113,17 +139,18 @@ var PhoneController = /** @class */ (function () {
     ;
     PhoneController.prototype.updatePhoneByID = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var phone, error_4;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, phone, entity, phoneUpdated, error_4;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, phone_service_1.default.updatePhoneByID(req.params.id, req.body)];
+                        _b.trys.push([0, 2, , 3]);
+                        _a = req.body, phone = _a.phone, entity = _a.entity;
+                        return [4 /*yield*/, phone_service_1.default.updatePhoneByID(req.params.id, phone)];
                     case 1:
-                        phone = _a.sent();
-                        return [2 /*return*/, res.json(phone)];
+                        phoneUpdated = _b.sent();
+                        return [2 /*return*/, res.json(phoneUpdated)];
                     case 2:
-                        error_4 = _a.sent();
+                        error_4 = _b.sent();
                         next(error_4);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];

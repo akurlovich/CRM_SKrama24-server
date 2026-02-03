@@ -41,28 +41,54 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var comment_service_1 = __importDefault(require("../services/comment-service"));
 var company_service_1 = __importDefault(require("../services/company-service"));
+var carrier_service_1 = __importDefault(require("../services/carrier-service"));
 var CommentController = /** @class */ (function () {
     function CommentController() {
     }
     CommentController.prototype.addComment = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var newComment, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, comment, entity, newComment, _b, error_1;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, comment_service_1.default.addComment(req.body)];
+                        _a = req.body, comment = _a.comment, entity = _a.entity;
+                        _c.label = 1;
                     case 1:
-                        newComment = _a.sent();
-                        return [4 /*yield*/, company_service_1.default.updateCompanyAddComment(newComment)];
+                        _c.trys.push([1, 9, , 10]);
+                        return [4 /*yield*/, comment_service_1.default.addComment(comment)];
                     case 2:
-                        _a.sent();
+                        newComment = _c.sent();
+                        _b = entity;
+                        switch (_b) {
+                            case 'carrier': return [3 /*break*/, 3];
+                            case 'company': return [3 /*break*/, 5];
+                        }
+                        return [3 /*break*/, 7];
+                    case 3: 
+                    // console.log('carrier')
+                    return [4 /*yield*/, carrier_service_1.default.updateCarrierAddComment(newComment)];
+                    case 4:
+                        // console.log('carrier')
+                        _c.sent();
+                        return [3 /*break*/, 8];
+                    case 5: 
+                    // console.log('company')
+                    return [4 /*yield*/, company_service_1.default.updateCompanyAddComment(newComment)];
+                    case 6:
+                        // console.log('company')
+                        _c.sent();
+                        return [3 /*break*/, 8];
+                    case 7: return [3 /*break*/, 8];
+                    case 8:
+                        ;
+                        // console.log('comment in req.body', comment)
+                        // console.log('comment from req.body', { companyID, userID, description, dealType, date, time });
                         return [2 /*return*/, res.json(newComment)];
-                    case 3:
-                        error_1 = _a.sent();
+                    case 9:
+                        error_1 = _c.sent();
                         next(error_1);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 10];
+                    case 10: return [2 /*return*/];
                 }
             });
         });

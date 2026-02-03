@@ -32,7 +32,7 @@ router.use('/orders', orderRouter);
 router.use('/orderitems', orderItemRouter);
 router.use('/products', productRouter);
 router.use('/search', searchRouter);
-router.use('/carierrs', carrierRouter);
+router.use('/carriers', carrierRouter);
 
 // router.post('/registration',
 //   body('email').isEmail(),

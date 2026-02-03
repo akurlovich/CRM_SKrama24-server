@@ -34,7 +34,7 @@ router.use('/orders', orderRouter_1.default);
 router.use('/orderitems', orderItemRouter_1.default);
 router.use('/products', productRouter_1.default);
 router.use('/search', searchRouter_1.default);
-router.use('/carierrs', carrierRouter_1.default);
+router.use('/carriers', carrierRouter_1.default);
 // router.post('/registration',
 //   body('email').isEmail(),
 //   body('password').isLength({min: 6, max: 32}),  

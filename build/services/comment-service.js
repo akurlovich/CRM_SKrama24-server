@@ -45,10 +45,14 @@ var CommentService = /** @class */ (function () {
     }
     CommentService.prototype.addComment = function (comment) {
         return __awaiter(this, void 0, void 0, function () {
+            var newComment;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, comment_model_1.default.create(comment)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1:
+                        newComment = _a.sent();
+                        // console.log('new comment', newComment)
+                        return [2 /*return*/, newComment];
                 }
             });
         });

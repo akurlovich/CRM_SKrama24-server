@@ -5,7 +5,10 @@ import { IComment } from "../types/IComment";
 
 class CommentService {
   async addComment(comment: IComment) {
-    return await commentModel.create(comment);
+    // console.log('comment in', comment)
+    const newComment = await commentModel.create(comment);
+    // console.log('new comment', newComment)
+    return newComment;
   };
 
   async getCommentByID(id: string) {

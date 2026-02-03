@@ -45,12 +45,16 @@ var CarrierService = /** @class */ (function () {
     }
     CarrierService.prototype.addCarrier = function (carrier) {
         return __awaiter(this, void 0, void 0, function () {
+            var newCarrier;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         if (!carrier) return [3 /*break*/, 2];
                         return [4 /*yield*/, carrier_model_1.default.create(carrier)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1:
+                        newCarrier = _a.sent();
+                        // console.log('newCarrier', newCarrier)
+                        return [2 /*return*/, newCarrier];
                     case 2:
                         console.log('add carrier - empty carrier data');
                         return [2 /*return*/];
@@ -65,6 +69,153 @@ var CarrierService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, carrier_model_1.default.find()];
                     case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ;
+    CarrierService.prototype.getCarrierByID = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, carrier_model_1.default.findById(id)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ;
+    CarrierService.prototype.getAllCarriersPopulateQuery = function (query) {
+        return __awaiter(this, void 0, void 0, function () {
+            var count, carriers;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, carrier_model_1.default.countDocuments(query.find)];
+                    case 1:
+                        count = _a.sent();
+                        return [4 /*yield*/, carrier_model_1.default.find(query.find).populate(query.query).sort(query.sort).skip((query.page * query.limit) - query.limit).limit(query.limit)];
+                    case 2:
+                        carriers = _a.sent();
+                        // console.log(carriers)
+                        return [2 /*return*/, {
+                                count: count,
+                                carriers: carriers,
+                            }];
+                }
+            });
+        });
+    };
+    ;
+    CarrierService.prototype.getCarrierByIDQuery = function (query) {
+        return __awaiter(this, void 0, void 0, function () {
+            var carrier;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, carrier_model_1.default.findOne(query.find).populate(query.query)];
+                    case 1:
+                        carrier = _a.sent();
+                        // console.log('carrier', carrier)
+                        // const carriers = await carrierModel.find();
+                        // console.log('carriers', carriers)
+                        return [2 /*return*/, carrier];
+                }
+            });
+        });
+    };
+    ;
+    CarrierService.prototype.updateCarrierTitle = function (carrierID, _a) {
+        var title = _a.title;
+        return __awaiter(this, void 0, void 0, function () {
+            var carrier;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, carrier_model_1.default.findByIdAndUpdate({ _id: carrierID }, { title: title })];
+                    case 1:
+                        carrier = _b.sent();
+                        // console.log('first', contact)
+                        // contact.emailsID.push(email._id);
+                        // await contact.save;
+                        return [2 /*return*/, carrier];
+                }
+            });
+        });
+    };
+    ;
+    CarrierService.prototype.updateCarrierDescription = function (carrierID, _a) {
+        var description = _a.description;
+        return __awaiter(this, void 0, void 0, function () {
+            var carrier;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, carrier_model_1.default.findByIdAndUpdate({ _id: carrierID }, { description: description })];
+                    case 1:
+                        carrier = _b.sent();
+                        // console.log('first', contact)
+                        // contact.emailsID.push(email._id);
+                        // await contact.save;
+                        return [2 /*return*/, carrier];
+                }
+            });
+        });
+    };
+    ;
+    CarrierService.prototype.updateCarrierAddComment = function (comment) {
+        return __awaiter(this, void 0, void 0, function () {
+            var carrier;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, carrier_model_1.default.updateOne({ _id: comment.companyID }, { $push: { commentsID: comment } })];
+                    case 1:
+                        carrier = _a.sent();
+                        // console.log('first', contact)
+                        // contact.emailsID.push(email._id);
+                        // await contact.save;
+                        return [2 /*return*/, carrier];
+                }
+            });
+        });
+    };
+    ;
+    CarrierService.prototype.updateCarrierAddDeal = function (deal) {
+        return __awaiter(this, void 0, void 0, function () {
+            var carrier;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, carrier_model_1.default.updateOne({ _id: deal.companyID }, { $push: { dealsID: deal } })];
+                    case 1:
+                        carrier = _a.sent();
+                        // console.log('first', contact)
+                        // contact.emailsID.push(email._id);
+                        // await contact.save;
+                        return [2 /*return*/, carrier];
+                }
+            });
+        });
+    };
+    ;
+    CarrierService.prototype.deleteCarrierByID = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, carrier_model_1.default.findByIdAndDelete(id)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ;
+    CarrierService.prototype.deleteDealFromCarrierByDealID = function (dealID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var carrier, index;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, carrier_model_1.default.findOne({ dealsID: { _id: dealID } })];
+                    case 1:
+                        carrier = _a.sent();
+                        index = carrier.dealsID.findIndex(function (item) { return item.toString() == dealID; });
+                        carrier.dealsID.splice(index, 1);
+                        carrier.save();
+                        return [2 /*return*/, carrier];
                 }
             });
         });
