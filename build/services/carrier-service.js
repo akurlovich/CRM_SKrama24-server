@@ -212,10 +212,13 @@ var CarrierService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, carrier_model_1.default.findOne({ dealsID: { _id: dealID } })];
                     case 1:
                         carrier = _a.sent();
-                        index = carrier.dealsID.findIndex(function (item) { return item.toString() == dealID; });
-                        carrier.dealsID.splice(index, 1);
-                        carrier.save();
-                        return [2 /*return*/, carrier];
+                        if (carrier) {
+                            index = carrier.dealsID.findIndex(function (item) { return item.toString() == dealID; });
+                            carrier.dealsID.splice(index, 1);
+                            carrier.save();
+                            return [2 /*return*/, carrier];
+                        }
+                        return [2 /*return*/, null];
                 }
             });
         });

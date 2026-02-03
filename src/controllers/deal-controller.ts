@@ -85,6 +85,7 @@ class DealController {
 
   async deleteDealFromCompanyByDealID(req: Request<{ id: string }>, res: Response, next: NextFunction) {
     try {
+      // console.log('deal params delete error', req.params.id)
       const carrier = await carrierService.deleteDealFromCarrierByDealID(req.params.id);
       if (carrier) {
         const deal = await dealService.deleteDealByID(req.params.id);
@@ -97,6 +98,7 @@ class DealController {
       return res.json(deal);
 
     } catch (error) {
+      // console.log('deal delete error', error)
       next(error);
     }
   };

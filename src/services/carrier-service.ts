@@ -86,13 +86,16 @@ class CarrierService {
 	};
 
 	async deleteDealFromCarrierByDealID(dealID: string) {
+		// console.log('deailID in carrier service', dealID)
 		const carrier = await carrierModel.findOne({dealsID: { _id: dealID}});
 
-		const index = carrier.dealsID.findIndex(item => item.toString() == dealID)
-		carrier.dealsID.splice(index, 1);
-		carrier.save();
-
-		return carrier;
+		if (carrier) {
+			const index = carrier.dealsID.findIndex(item => item.toString() == dealID)
+			carrier.dealsID.splice(index, 1);
+			carrier.save();
+			return carrier;
+		}
+		return null;
 	};
 };
 

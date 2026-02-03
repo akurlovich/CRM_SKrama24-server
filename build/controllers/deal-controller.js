@@ -227,6 +227,7 @@ var DealController = /** @class */ (function () {
                         return [2 /*return*/, res.json(deal)];
                     case 6:
                         error_7 = _a.sent();
+                        // console.log('deal delete error', error)
                         next(error_7);
                         return [3 /*break*/, 7];
                     case 7: return [2 /*return*/];
